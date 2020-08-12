@@ -100,3 +100,4 @@ C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Core\Invictus.Pub\obj\x86
 C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Core\Invictus.Pub\obj\x86\Release\Invictus.Core.csproj.CopyComplete
 C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Core\Invictus.Pub\obj\x86\Release\Invictus.Core.dll
 C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Core\Invictus.Pub\obj\x86\Release\Invictus.Core.pdb
+C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Core\Invictus.Pub\obj\x86\Release\Invictus.Core.csprojAssemblyReference.cache

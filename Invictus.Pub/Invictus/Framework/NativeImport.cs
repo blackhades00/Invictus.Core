@@ -8,6 +8,8 @@ namespace Invictus.Pub.Modules
     using System.Runtime.InteropServices;
     using System.Text;
     using global::Invictus.Pub.Invictus.Drawings;
+    using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.NTSTATUS;
+    using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.WinStructs;
 
     internal class NativeImport
     {
@@ -47,5 +49,22 @@ namespace Invictus.Pub.Modules
 
         [DllImport("user32.dll")]
         internal static extern ushort GetAsyncKeyState(int vKey);
+
+        // DEBUG IMPORTS
+
+        [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
+        internal static extern NtStatus NtQueryInformationProcess([In] IntPtr ProcessHandle, [In] PROCESSINFOCLASS ProcessInformationClass, out IntPtr ProcessInformation, [In] int ProcessInformationLength, [Optional] out int ReturnLength);
+
+        [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
+        internal static extern NtStatus NtClose([In] IntPtr Handle);
+
+        [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
+        internal static extern NtStatus NtRemoveProcessDebug(IntPtr ProcessHandle, IntPtr DebugObjectHandle);
+
+        [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
+        internal static extern NtStatus NtSetInformationDebugObject([In] IntPtr DebugObjectHandle, [In] DebugObjectInformationClass DebugObjectInformationClass, [In] IntPtr DebugObjectInformation, [In] int DebugObjectInformationLength, [Out] [Optional] out int ReturnLength);
+
+        [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
+        internal static extern NtStatus NtQuerySystemInformation([In] SYSTEM_INFORMATION_CLASS SystemInformationClass, IntPtr SystemInformation, [In] int SystemInformationLength, [Out] [Optional] out int ReturnLength);
     }
 }

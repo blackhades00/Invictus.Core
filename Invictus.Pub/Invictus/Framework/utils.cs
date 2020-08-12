@@ -17,7 +17,7 @@ namespace Invictus.Pub.Invictus
     using global::Invictus.Pub.Modules;
     using SharpDX;
 
-    internal static class Utils
+    public static class Utils
     {
         public static string GetUniqueIdentifier()
         {
