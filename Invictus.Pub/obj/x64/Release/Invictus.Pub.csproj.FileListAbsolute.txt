@@ -1,0 +1,6 @@
+C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Pub\obj\x64\Release\Invictus.Pub.Invictus.Framework.Menu.CoreSettingView.resources
+C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Pub\obj\x64\Release\Invictus.Pub.Invictus.Framework.Menu.MenuBox.resources
+C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Pub\obj\x64\Release\Invictus.Pub.Invictus.Framework.Menu.OrbwalkerView.resources
+C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Pub\obj\x64\Release\Invictus.Pub.Invictus.Framework.Menu.TargetSelectorView.resources
+C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Pub\obj\x64\Release\Paradox.Core.Drawing.Overlay.resources
+C:\Users\Shadow\Desktop\Projects\Invictus.Pub\Invictus.Pub\obj\x64\Release\Invictus.Pub.csproj.GenerateResource.cache
