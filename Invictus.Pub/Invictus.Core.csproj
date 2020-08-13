@@ -106,9 +106,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cryptolens.Licensing, Version=4.0.24.1, Culture=neutral, PublicKeyToken=30182975912ff1ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Cryptolens.Licensing.4.0.24\lib\net46\Cryptolens.Licensing.dll</HintPath>
-    </Reference>
     <Reference Include="DeviceId, Version=5.1.1.0, Culture=neutral, PublicKeyToken=f755c371b5c59c52, processorArchitecture=MSIL">
       <HintPath>..\packages\DeviceId.5.1.1\lib\net40\DeviceId.dll</HintPath>
     </Reference>

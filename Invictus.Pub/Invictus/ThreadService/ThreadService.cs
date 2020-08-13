@@ -5,7 +5,6 @@
 namespace Invictus.Pub.Invictus.ThreadService
 {
     using System.Threading;
-    using global::Invictus.Pub.Invictus.Framework.Security;
     using global::Invictus.Pub.Invictus.Hacks;
 
     internal class ThreadService
@@ -16,7 +15,7 @@ namespace Invictus.Pub.Invictus.ThreadService
         internal static void LoadMainThread()
         {
            
-            thread = new Thread(new ThreadStart(MainThread.LoadThread));
+            thread = new Thread(new ThreadStart(MainThread.MainLoop));
             thread.IsBackground = true;
             thread.Start();
         }

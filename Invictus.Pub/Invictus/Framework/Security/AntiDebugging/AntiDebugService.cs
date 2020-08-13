@@ -11,10 +11,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
     using System.Runtime.InteropServices;
     using System.Threading;
     using System.Windows.Forms;
-    using global::Invictus.Core.Invictus.Framework.Security.AntiDebugging;
     using global::Invictus.Pub.Modules;
-    using SKM.V3.Methods;
-    using SKM.V3.Models;
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.NTSTATUS;
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.WinStructs;
 
@@ -194,14 +191,12 @@ namespace Invictus.Pub.Invictus.Framework.Security
             return false;
         }
 
-        internal static void HideOSThreads()
+        public static void HideOSThreads()
         {
             ProcessThreadCollection currentThreads = Process.GetCurrentProcess().Threads;
 
             foreach (ProcessThread thread in currentThreads)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("[GetOSThreads]: thread.Id {0:X}", thread.Id);
 
                 IntPtr pOpenThread = OpenThread(ThreadAccess.SET_INFORMATION, false, (uint)thread.Id);
 

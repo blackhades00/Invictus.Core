@@ -5,9 +5,6 @@
 namespace Invictus.Pub.Invictus.Hacks.TargetSelector
 {
     using global::Invictus.Pub.Invictus.Framework.Menu;
-    using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
-    using global::Invictus.Pub.Invictus.LogService;
-    using global::Invictus.Pub.Invictus.Structures.GameObject;
 
     internal class HeroManager
     {

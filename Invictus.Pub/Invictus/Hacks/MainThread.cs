@@ -6,10 +6,12 @@ namespace Invictus.Pub.Invictus.Hacks
 {
     internal class MainThread
     {
-        internal static void LoadThread()
+        internal static void MainLoop()
         {
             while (true)
             {
+                Utils.Unload();
+
                 Orbwalker.Orbwalker.Orbwalk();
             }
             

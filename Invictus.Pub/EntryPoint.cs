@@ -32,11 +32,8 @@ namespace Invictus.Pub
 
         internal static async void InitialiseCore()
         {
-            await Task.Run(() => DebugConsole.AllocConsole());
 
             await Task.Run(() => Console.ForegroundColor = ConsoleColor.Cyan);
-            await Task.Run(() => DebugConsole.PrintDbgMessage("Invictus Loaded"));
-
             await Task.Run(() => ThreadService.LoadMainThread());
             await Task.Run(() => overlay.Show());
         }

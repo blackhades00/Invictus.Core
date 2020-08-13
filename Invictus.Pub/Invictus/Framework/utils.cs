@@ -17,31 +17,25 @@ namespace Invictus.Pub.Invictus
     using Gee.External.Capstone.X86;
     using global::Invictus.Pub.Modules;
     using SharpDX;
-    using SKM.V3;
-    using SKM.V3.Methods;
-    using SKM.V3.Models;
 
     public static class Utils
     {
-        public static void BanLicense(string license)
+        internal static void Unload()
         {
-            if (EntryPoint.riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6") == false)
+            if(Utils.IsKeyPressed(Keys.F12))
             {
-                Environment.Exit(1);
-            }
+                var result = MessageBox.Show("Do you want to exit?", "Exit",
+                                 MessageBoxButtons.YesNo,
+                                 MessageBoxIcon.Information);
 
-            var RSAPubKey = "<RSAKeyValue><Modulus>mE/KbQPz7GQA8IwuA4TkkH+qXIgo7Fcy/GgpWErUQUUcNKr9u56tJ7Omfrg7dyZEiW/8zb5SILs3ZmsqXNc0zbxV0FrSqapZIb7H6+XNI35MA8BS0AP7HnK+D+QQBxRJWIIo+ggeC/Z36jeNVtpocshAUnUpHkMZe+oyN6MccMapWgyNv3eEl4uDiiwVEx4ZmXVE6Mqnp2RuWSYXKEiavFKwQ0w0yHHa9dk0Zw+ctpqctc2WoPbf2CFPAH8wET95glx/i3Y8geYWwEZUXGkGFF9w5cB/nNgYK2Z++Dll+YBZS4c5g0O+ZpcZ1SFOsnadpORU1SOlgjbFpHnXEkwLaQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-            var auth = "WyIyMzI1MyIsIjFQSnNIVHJUNUZuLy9iRndsYk1xaGhvYkdITUZ4dHI2cFVLS1IyTWMiXQ==";
-
-            var ban = Key.BlockKey(token: auth, parameters: new KeyLockModel()
-            {
-                Key = license,
-                ProductId = 6703,
-            });
-
-            if (ban.Result == ResultType.Success)
-            {
-                MessageBox.Show("You've been blocked.");
+                if(result == DialogResult.Yes)
+                {
+                    Environment.Exit(1);
+                }
+                else
+                {
+                    // do nothing
+                }
             }
         }
 
