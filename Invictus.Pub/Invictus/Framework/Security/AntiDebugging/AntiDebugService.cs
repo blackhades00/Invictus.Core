@@ -12,6 +12,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
     using System.Threading;
     using System.Windows.Forms;
     using global::Invictus.Pub.Modules;
+
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.NTSTATUS;
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.WinStructs;
 
@@ -63,18 +64,51 @@ namespace Invictus.Pub.Invictus.Framework.Security
             return false;
         }
 
+        private static bool IsVM()
+        {
+            using (var searcher = new System.Management.ManagementObjectSearcher("Select * from Win32_ComputerSystem"))
+            {
+                using (var items = searcher.Get())
+                {
+                    foreach (var item in items)
+                    {
+                        string manufacturer = item["Manufacturer"].ToString().ToLower();
+                        if ((manufacturer == "microsoft corporation" && item["Model"].ToString().ToUpperInvariant().Contains("VIRTUAL"))
+                            || manufacturer.Contains("vmware")
+                            || item["Model"].ToString() == "VirtualBox"
+                            || manufacturer.Contains("Hyper")
+                            || manufacturer.Contains("Xen")
+                            || manufacturer.Contains("VM")
+                            || manufacturer.Contains("Virtual")
+                            || manufacturer.Contains("QEMU")
+                            || manufacturer.Contains("Proxmox")
+                            || manufacturer.Contains("Boot Camp")
+                            || manufacturer.Contains("Parallels")
+                            || manufacturer.Contains("Gnome"))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static bool debuggerPresent = false;
         private static void CheckForDebugger()
         {
             IntPtr pROCESS_HANDLE = Process.GetCurrentProcess().Handle;
             bool isRemoteDebuggerPresent = false;
             NativeImport.CheckRemoteDebuggerPresent(pROCESS_HANDLE, ref isRemoteDebuggerPresent);
             if (NativeImport.IsDebuggerPresent() || isRemoteDebuggerPresent || CheckProcessNamesForDebugger() || IsDebuggerRunningHWND() || IsRiotSpy()
-                || CheckDebuggerManagedPresent() || CheckRemoteDebugger() || CheckDebuggerUnmanagedPresent() || CheckDebugPort() || CheckKernelDebugInformation())
+                || CheckDebuggerManagedPresent() || CheckRemoteDebugger() || CheckDebuggerUnmanagedPresent() || CheckDebugPort() || CheckKernelDebugInformation() || IsVM())
             {
+                debuggerPresent = true;
                 DetachFromDebuggerProcess();
                 Environment.Exit(1); // If Debugger found, close Invictus.
                 AntiDebugServiceThread.Abort();
             }
+            
         }
 
         public static void StartAntiDbgService()

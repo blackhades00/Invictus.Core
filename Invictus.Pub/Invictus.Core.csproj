@@ -210,7 +210,7 @@
     <Compile Include="Invictus\Hacks\Drawings\Renderer.cs" />
     <Compile Include="Invictus\Hacks\MainThread.cs" />
     <Compile Include="Invictus\Hacks\Orbwalker\Orbwalker.cs" />
-    <Compile Include="Invictus\Hacks\TargetSelector\HeroManager.cs" />
+    <Compile Include="Invictus\Hacks\TargetSelector\ObjectManager.cs" />
     <Compile Include="Invictus\LogService\DebugConsole.cs" />
     <Compile Include="Invictus\Framework\UpdateService\Offsets.cs" />
     <Compile Include="Invictus\Structures\GameObjects\CGameObject.cs" />
