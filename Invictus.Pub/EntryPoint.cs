@@ -25,6 +25,7 @@ namespace Invictus.Pub
                 return;
             }
 
+            DebugConsole.AllocConsole();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             InitialiseCore(); // Init the core, start of main functions. Call this in Loader.

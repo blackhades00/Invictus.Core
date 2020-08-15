@@ -7,6 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invictus.Core", "Invictus.P
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Customer Build|Any CPU = Customer Build|Any CPU
+		Customer Build|x64 = Customer Build|x64
+		Customer Build|x86 = Customer Build|x86
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
@@ -15,6 +18,12 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Customer Build|Any CPU.ActiveCfg = Customer Build|Any CPU
+		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Customer Build|Any CPU.Build.0 = Customer Build|Any CPU
+		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Customer Build|x64.ActiveCfg = Customer Build|x64
+		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Customer Build|x64.Build.0 = Customer Build|x64
+		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Customer Build|x86.ActiveCfg = Customer Build|x86
+		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Customer Build|x86.Build.0 = Customer Build|x86
 		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6985A821-749B-4AFE-A24D-F8FCE5C411DA}.Debug|x64.ActiveCfg = Debug|x64

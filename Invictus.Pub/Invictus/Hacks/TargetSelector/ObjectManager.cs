@@ -6,10 +6,11 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
 {
     using global::Invictus.Pub.Invictus.Framework.Menu;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
+    using global::Invictus.Pub.Invictus.LogService;
 
     internal class ObjectManager
     {
-        private static readonly int HeroList = Utils.ReadInt(Offsets.BASE + 0x0);
+        private static readonly int HeroList = Utils.ReadInt(Offsets.BASE + Offsets.oHeroList);
 
         internal static int GetTarget()
         {
@@ -35,19 +36,25 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
              * 0x4 from each other
              */
             int lowestHPTarget = 0;
-            for (int i = 0x0; i <= 0x40; i += 0x4)
+            for (int i = 0x0; i < 0x40; i += 0x4)
             {
                 int obj = Utils.ReadInt(HeroList + i);
-
-                if (lowestHPTarget == 0) // if lowestHPTarget is empty
+                if (obj != 0)
                 {
-                    lowestHPTarget = obj;
+                    if (CGameObject.IsInRange(obj))
+                    {
+                        if (lowestHPTarget == 0)
+                        {
+                            lowestHPTarget = obj;
+                        }
+                        else if (CGameObject.GetHealth(obj) < CGameObject.GetHealth(lowestHPTarget))
+                        {
+                            lowestHPTarget = obj;
+                        }
+                    }
+
                 }
 
-                if (CGameObject.GetHealth(obj) < CGameObject.GetHealth(lowestHPTarget))
-                {
-                    lowestHPTarget = obj;
-                }
             }
             return lowestHPTarget;
         }

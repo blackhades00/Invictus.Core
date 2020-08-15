@@ -2,6 +2,8 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
+using Invictus.Pub.Invictus.GameEngine.GameObjects;
+
 namespace Invictus.Pub.Invictus.Hacks
 {
     internal class MainThread
@@ -11,8 +13,11 @@ namespace Invictus.Pub.Invictus.Hacks
             while (true)
             {
                 Utils.Unload();
-
-                Orbwalker.Orbwalker.Orbwalk();
+                if(Utils.IsGameInForeground() && CGameObject.GetLocalPLayer() != 0)
+                {
+                    Orbwalker.Orbwalker.Orbwalk();
+                }
+               
             }
             
         }

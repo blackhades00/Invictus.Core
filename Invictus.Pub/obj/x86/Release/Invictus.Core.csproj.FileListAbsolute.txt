@@ -197,3 +197,5 @@ C:\Users\m.kozik\Desktop\Lernen\Invictus.Core-master\Invictus.Pub\obj\x86\Releas
 C:\Users\m.kozik\Desktop\Lernen\Invictus.Core-master\Invictus.Pub\obj\x86\Release\Invictus.Core.csproj.CopyComplete
 C:\Users\m.kozik\Desktop\Lernen\Invictus.Core-master\Invictus.Pub\obj\x86\Release\Invictus.Core.dll
 C:\Users\m.kozik\Desktop\Lernen\Invictus.Core-master\Invictus.Pub\obj\x86\Release\Invictus.Core.pdb
+C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\Release\Invictus.Core.dll
+C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\Release\Invictus.Core.pdb
