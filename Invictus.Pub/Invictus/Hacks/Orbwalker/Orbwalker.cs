@@ -25,23 +25,21 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
             DebugConsole.PrintDbgMessage("ping: " + Engine.GetPing());
             if (Utils.IsKeyPressed(Keys.Space))
             {
+                var Position = GameObject.GetObj2DPos(TargetSelector.TargetSelector.GetTarget());
 
-                Point enemyPosition = GameObject.GetObj2DPos(TargetSelector.TargetSelector.GetTarget());
-
-                if (Engine.CanAttack() && enemyPosition != Point.Empty)
+                if(Position != Point.Empty && Engine.CanAttack())
                 {
-                    Point cursorPos = Cursor.Position;
-                    IssueOrder(OrderType.AttackUnit, enemyPosition);
-                    Engine.LastAATick = Environment.TickCount + Engine.GetPing() / 2;
-                    IssueOrder(OrderType.MoveTo, cursorPos);
+                    Point C = Cursor.Position;
+                    IssueOrder(OrderType.AttackUnit, Position);
+                    Engine.LastAATick = Environment.TickCount;
+                    Thread.Sleep(20);
+                    Cursor.Position = C;
                 }
                 else
                     DebugConsole.PrintDbgMessage("CanAttack() returns FALSE!");
 
-                if (Engine.CanMove(90f))
-                {
+                if (Engine.CanMove(45))
                     Mouse.MouseClickRight();
-                }
                 else
                     DebugConsole.PrintDbgMessage("CanMove() returns FALSE!");
 
