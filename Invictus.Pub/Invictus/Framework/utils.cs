@@ -13,8 +13,6 @@ namespace Invictus.Pub.Invictus
     using DeviceId;
     using DeviceId.Encoders;
     using DeviceId.Formatters;
-    using Gee.External.Capstone;
-    using Gee.External.Capstone.X86;
     using global::Invictus.Pub.Modules;
     using SharpDX;
 
@@ -75,17 +73,6 @@ namespace Invictus.Pub.Invictus
                 uval = uval >> 8;
             }
             return res;
-        }
-
-        internal static string Disassemble(CapstoneDisassembler<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> disassembler, byte[] code)
-        {
-            var sb = new StringBuilder();
-            var instructions = disassembler.DisassembleAll(code);
-            foreach (var instruction in instructions)
-            {
-                sb.AppendFormat("{0} {1}{2}", instruction.Mnemonic, instruction.Operand, Environment.NewLine);
-            }
-            return sb.ToString().Trim();
         }
 
         private static string GetActiveWindowTitle()

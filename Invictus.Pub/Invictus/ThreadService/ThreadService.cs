@@ -10,16 +10,16 @@ namespace Invictus.Pub.Invictus.ThreadService
     internal class ThreadService
     {
         private static Thread thread;
-       
+
 
         internal static void LoadMainThread()
         {
-           
+
             thread = new Thread(new ThreadStart(MainThread.MainLoop));
             thread.IsBackground = true;
             thread.Start();
         }
 
-      
+
     }
 }

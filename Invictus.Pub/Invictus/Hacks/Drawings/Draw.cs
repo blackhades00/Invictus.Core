@@ -46,7 +46,7 @@ namespace Invictus.Pub.Invictus.Hacks.Drawings
         /// <param name="rGB"></param>
         internal static void DrawAttackRange(int gameObject, Color rGB)
         {
-            DrawFactory.DrawCircleRange(CGameObject.GetObj3DPos(gameObject), CGameObject.GetBoundingRadius(gameObject) + CGameObject.GetAttackRange(gameObject), rGB, 1.5f);
+            DrawFactory.DrawCircleRange(GameObject.GetObj3DPos(gameObject), GameObject.GetBoundingRadius(gameObject) + GameObject.GetAttackRange(gameObject), rGB, 1.5f);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Invictus.Pub.Invictus.Drawings
         private const int Width = 0x0014;
         private const int Height = Width + 0x4;
 
-        // B9 ? ? ? ? E8 ? ? ? ? B9 ? ? ? ? E9 ? ? ? ? 
+        // B9 ? ? ? ? E8 ? ? ? ? B9 ? ? ? ? E9 ? ? ? ?
         // ZoomClass + 0 = ViewMatrix
         private static readonly int ViewMatrix = Offsets.BASE + Offsets.OViewMatrix;
         private static readonly int ProjectionMatrix = ViewMatrix + 0x40;

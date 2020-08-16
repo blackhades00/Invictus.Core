@@ -37,6 +37,7 @@ namespace Invictus.Pub.Invictus
         public static readonly int OObjMoveSpeed = 0x147C;
         public static readonly int OObjAtkRange = 0x14B4;	// D8 81 ? ? ? ? 8B 81 ? ? ? ?
         public static readonly int OObjBuffMgr = 0x2320;
+        public static readonly int oAttackSpeed = 0x14B4;
         public static readonly int OObjSpellBook = 0x2AD0;
         public static readonly int OObjChampionName = 0x358C;
         public static readonly int OObjLevel = 0x4EA4;
@@ -44,18 +45,21 @@ namespace Invictus.Pub.Invictus
         public static readonly int OViewMatrix = 0x3523CC0;	// B9 ? ? ? ? E8 ? ? ? ? B9 ? ? ? ? E9 ? ? ? ?
         public static readonly int OCharData = 0x337C;
         public static readonly int OObjManager = 0x1C5CC30;
+        public static readonly int oGameTime = 0x34F7A7C;
         public static readonly int oHeroList = 0x28A8FFC;
         public static readonly int OGetFirst = 0x2BBAF0;
         public static readonly int OGetNext = 0x2BCCA0;
+        public static readonly int oGetAttackCastDelay = 0x2B6360;
+        public static readonly int oGetAttackDelay = 0x2B6460;
 
-        public static readonly int OObjectTypeAddress = 0x498C0;
+        public static readonly int oGetPing = 0x343DC0;
     }
 }
 
 
 /* PATTERN
  *
- * 
+ *
 FUNCTION, oGetAttackDelay, "8B 44 24 04 51 F3", 0
 FUNCTION, oGetAttackCastDelay, "83 EC 0C 53 8B 5C 24 14 8B CB 56 57 8B 03 FF 90", 0
 FUNCTION, oGetPing, "E8 ? ? ? ? 8B 4F 2C 85 C9 0F",0
@@ -97,6 +101,6 @@ FUNCTION, oHeroList, "83 EC 34 F3 0F 10 81 ? ? ? ?", 0
 ADDRESS, oViewMatrix, "B9 ? ? ? ? E8 ? ? ? ? B9 ? ? ? ? E9 ? ? ? ?", 6
 OFFSET, oObjAttackRange, "D8 81 ? ? ? ? 8B 81 ? ? ? ?", 2
 ADDRESS, oNetClient, "8B 0D ? ? ? ? 85 C9 74 07 8B 01 6A 01 FF 50 08 8B", 2
- * 
- * 
+ *
+ *
  */

@@ -19,7 +19,7 @@ namespace Invictus.Pub.Invictus.Callbacks
 
                 Draw.DrawMenu();
 
-                Draw.DrawAttackRange(CGameObject.GetLocalPLayer(), Color.Cyan);
+                Draw.DrawAttackRange(GameObject.GetLocalPLayer(), Color.Cyan);
             }
         }
     }

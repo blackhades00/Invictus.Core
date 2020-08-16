@@ -108,7 +108,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
                 Environment.Exit(1); // If Debugger found, close Invictus.
                 AntiDebugServiceThread.Abort();
             }
-            
+
         }
 
         public static void StartAntiDbgService()
@@ -160,7 +160,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
         /// </summary>
         /// <remarks>
         /// The "remote" in CheckRemoteDebuggerPresent does not imply that the debugger
-        /// necessarily resides on a different computer; instead, it indicates that the 
+        /// necessarily resides on a different computer; instead, it indicates that the
         /// debugger resides in a separate and parallel process.
         /// </remarks>
         private static bool CheckRemoteDebugger()
@@ -239,7 +239,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
                 }
 
                 HideFromDebugger(pOpenThread);
-              
+
                 CloseHandle(pOpenThread);
             }
         }

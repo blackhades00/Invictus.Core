@@ -8,6 +8,7 @@ namespace Invictus.Pub.Modules
     using System.Runtime.InteropServices;
     using System.Text;
     using global::Invictus.Pub.Invictus.Drawings;
+    using static global::Invictus.Core.Invictus.Framework.Input.Keyboard;
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.NTSTATUS;
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.WinStructs;
 
@@ -66,5 +67,14 @@ namespace Invictus.Pub.Modules
 
         [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
         internal static extern NtStatus NtQuerySystemInformation([In] SYSTEM_INFORMATION_CLASS SystemInformationClass, IntPtr SystemInformation, [In] int SystemInformationLength, [Out] [Optional] out int ReturnLength);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
+
+        [DllImport("User32.Dll")]
+        public static extern long SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")]
+        public static extern UInt32 SendInput(UInt32 nInputs, [MarshalAs(UnmanagedType.LPArray, SizeConst = 1)] INPUT[] pInputs, Int32 cbSize);
     }
 }
