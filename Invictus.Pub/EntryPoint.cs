@@ -19,11 +19,7 @@ namespace Invictus.Pub
 
         public static void LoadCore()
         {
-            if (riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6") == false)
-            {
-                Environment.Exit(1);
-                return;
-            }
+            
 
             DebugConsole.AllocConsole();
             Application.EnableVisualStyles();
