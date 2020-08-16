@@ -193,6 +193,12 @@
   <ItemGroup>
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Invictus\Callbacks\OnDraw.cs" />
+    <Compile Include="Invictus\Framework\API\ActivePlayerData.cs" />
+    <Compile Include="Invictus\Framework\API\AllPlayerData.cs" />
+    <Compile Include="Invictus\Framework\API\GameStats.cs" />
+    <Compile Include="Invictus\Framework\API\Models\Item.cs" />
+    <Compile Include="Invictus\Framework\API\Models\PlayerData.cs" />
+    <Compile Include="Invictus\Framework\API\Service.cs" />
     <Compile Include="Invictus\Framework\Input\Keyboard.cs" />
     <Compile Include="Invictus\Framework\Input\Mouse.cs" />
     <Compile Include="Invictus\Framework\Menu\CoreSettingView.cs">
