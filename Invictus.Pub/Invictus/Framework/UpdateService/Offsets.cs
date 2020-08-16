@@ -47,11 +47,11 @@ namespace Invictus.Pub.Invictus
         public static readonly int OObjManager = 0x1C5CC30;
         public static readonly int oGameTime = 0x34F7A7C;
         public static readonly int oHeroList = 0x28A8FFC;
+        public static readonly int oMinionList = 0x28A915C;
         public static readonly int OGetFirst = 0x2BBAF0;
         public static readonly int OGetNext = 0x2BCCA0;
         public static readonly int oGetAttackCastDelay = 0x2B6360;
         public static readonly int oGetAttackDelay = 0x2B6460;
-
         public static readonly int oGetPing = 0x343DC0;
     }
 }

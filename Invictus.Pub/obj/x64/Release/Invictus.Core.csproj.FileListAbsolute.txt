@@ -21,6 +21,10 @@ C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\bin\x6
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\bin\x64\Release\SharpDX.Mathematics.pdb
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\bin\x64\Release\SharpDX.Mathematics.xml
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\bin\x64\Release\WindowsInput.xml
+C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\Release\Invictus.Core.dll
+C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\Release\Invictus.Core.pdb
+C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\x64\Release\Invictus.Core.dll
+C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\x64\Release\Invictus.Core.pdb
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\obj\x64\Release\Invictus.Pub.Invictus.Framework.Menu.CoreSettingView.resources
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\obj\x64\Release\Invictus.Pub.Invictus.Framework.Menu.MenuBox.resources
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\obj\x64\Release\Invictus.Pub.Invictus.Framework.Menu.OrbwalkerView.resources
@@ -31,7 +35,3 @@ C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\obj\x6
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\obj\x64\Release\Invictus.Core.csproj.CopyComplete
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\obj\x64\Release\Invictus.Core.dll
 C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Core\Invictus.Pub\obj\x64\Release\Invictus.Core.pdb
-C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\Release\Invictus.Core.dll
-C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\Release\Invictus.Core.pdb
-C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\x64\Release\Invictus.Core.dll
-C:\Users\Shadow\Desktop\Projects\InvictusSharp\Invictus.Loader\Invictus.Loader\bin\x64\Release\Invictus.Core.pdb

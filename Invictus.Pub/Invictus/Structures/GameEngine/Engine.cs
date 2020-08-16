@@ -17,7 +17,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
             return Utils.ReadFloat(Offsets.BASE + Offsets.oGameTime);
         }
 
-  
+
         internal static int GetPing()
         {
             return 30;
@@ -25,7 +25,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
         internal static bool CanAttack()
         {
-            return Environment.TickCount + GetPing() / 2 + 25 >= LastAATick + GameObject.GetAttackDelay(GameObject.GetLocalPLayer()) * 1000;
+            return Environment.TickCount + GetPing() / 2 + 25 >= LastAATick + GameObject.GetAttackDelay(GameObject.GetLocalPLayer());
         }
 
         internal static bool CanMove(float extraWindup)

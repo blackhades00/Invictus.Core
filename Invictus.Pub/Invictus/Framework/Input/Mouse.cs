@@ -30,7 +30,6 @@ namespace Invictus.Core.Invictus.Framework.Input
 
         private static void MouseEvent(uint mouseEvent, uint x, uint y)
         {
-            Thread.Sleep(20);
             NativeImport.mouse_event(mouseEvent, x, y, 0, 0);
         }
 
@@ -87,6 +86,7 @@ namespace Invictus.Core.Invictus.Framework.Input
         internal static void MouseClickRight()
         {
             MouseRightDown();
+            Thread.Sleep(10);
             MouseRightUp();
         }
     }

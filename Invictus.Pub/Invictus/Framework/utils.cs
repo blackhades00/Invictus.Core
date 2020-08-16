@@ -85,7 +85,7 @@ namespace Invictus.Pub.Invictus
             {
                 return buff.ToString();
             }
-            return null;
+            return String.Empty;
         }
 
         internal static bool IsKeyPressed(System.Windows.Forms.Keys keys)
@@ -103,7 +103,7 @@ namespace Invictus.Pub.Invictus
             return (NativeImport.GetAsyncKeyState((int)0x10) & 0x8000) != 0;
         }
 
-        internal static bool IsGameInForeground()
+        public static bool IsGameInForeground()
         {
             return GetActiveWindowTitle() == "League of Legends (TM) Client";
         }
@@ -117,6 +117,20 @@ namespace Invictus.Pub.Invictus
             return BitConverter.ToInt32(buffer, 0);
         }
 
+        internal static string ReadString(int address, Encoding Encoding)
+        {
+            byte[] dataBuffer = new byte[512];
+            IntPtr bytesRead = IntPtr.Zero;
+
+            Offsets.ReadProcessMemory(System.Diagnostics.Process.GetProcessesByName("League of Legends").FirstOrDefault().Handle, (IntPtr)address, dataBuffer, dataBuffer.Length, out bytesRead);
+
+            if (bytesRead == IntPtr.Zero)
+            {
+                return string.Empty;
+            }
+
+            return Encoding.GetString(dataBuffer).Split('\0')[0];
+        }
         internal static float ReadFloat(int addr)
         {
             var buffer = new byte[4];

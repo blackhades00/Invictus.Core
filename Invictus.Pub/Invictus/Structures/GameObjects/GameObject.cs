@@ -6,8 +6,8 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 {
     using System;
     using System.Runtime.InteropServices;
+    using ExSharpBase.API;
     using global::Invictus.Pub.Invictus.Drawings;
-    using global::Invictus.Pub.Invictus.LogService;
     using SharpDX;
 
     internal class GameObject
@@ -47,7 +47,8 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static float GetAttackSpeed(int obj)
         {
-            return Utils.ReadFloat(obj + Offsets.oAttackSpeed);
+           return ActivePlayerData.ChampionStats.GetAttackSpeed();
+           // return Utils.ReadFloat(obj + Offsets.oAttackSpeed);
         }
 
         internal static float GetAttackRange(int gameObject)
@@ -87,12 +88,16 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             return GetAttackCastDelay(Offsets.PROCESS_HANDLE, Offsets.BASE + Offsets.oGetAttackCastDelay, obj);
         }
 
+        internal static string GetChampionName(int obj)
+        {
+            return Utils.ReadString(obj + Offsets.OObjChampionName,System.Text.Encoding.ASCII);
+        }
+
         [DllImport("Invictus.ACD.dll")]
         private static extern int GetAttackDelay(IntPtr LolHandle, int AttackDelayAddr, int Object);
         internal static int GetAttackDelay(int obj)
         {
-          
-            return (int)(1000.0f / GameObject.GetAttackSpeed(GameObject.GetLocalPLayer()));
+             return (int)(1000.0f / GameObject.GetAttackSpeed(GameObject.GetLocalPLayer()));
         }
 
         internal static bool IsInRange(int obj)
@@ -110,9 +115,13 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             return GetTeam(obj) != GetTeam(GetLocalPLayer());
         }
 
+        internal static bool IsVisible(int obj)
+        {
+            return Utils.Read<bool>((IntPtr)(obj + Offsets.OObjVisibility));
+        }
         internal static bool IsValidTarget(int obj)
         {
-            return IsInRange(obj) && IsAlive(obj) && IsEnemy(obj) && obj != 0;
+            return IsInRange(obj) && IsAlive(obj) && IsEnemy(obj) && obj != 0 && IsVisible(obj);
         }
     }
 }

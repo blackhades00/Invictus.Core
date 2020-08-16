@@ -3,7 +3,7 @@
 // </copyright>
 
 using Invictus.Pub.Invictus.GameEngine.GameObjects;
-using Invictus.Pub.Invictus.LogService;
+using System;
 
 namespace Invictus.Pub.Invictus.Hacks
 {
@@ -11,15 +11,16 @@ namespace Invictus.Pub.Invictus.Hacks
     {
         internal static void MainLoop()
         {
-            DebugConsole.AllocConsole();
             while (true)
             {
                 Utils.Unload();
-                if(Utils.IsGameInForeground() && GameObject.GetLocalPLayer() != 0)
+                if (Utils.IsGameInForeground())
                 {
                     Orbwalker.Orbwalker.Orbwalk();
                 }
 
+                if (GameObject.GetLocalPLayer() == 0)
+                    Environment.Exit(1);
             }
 
         }

@@ -251,6 +251,7 @@
     <Compile Include="Invictus\Structures\GameObjects\GameObject.cs" />
     <Compile Include="Invictus\Framework\Utils.cs" />
     <Compile Include="Invictus\Structures\GameObjects\ObjectManager.cs" />
+    <Compile Include="Invictus\Structures\GameObjects\ObjectTypeFlag.cs" />
     <Compile Include="Invictus\ThreadService\ThreadService.cs" />
     <Compile Include="Invictus\Framework\NativeImport.cs" />
     <Compile Include="Invictus\Framework\ProcessManager.cs" />

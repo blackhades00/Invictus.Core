@@ -4,6 +4,7 @@
 
 namespace Invictus.Pub.Invictus.Callbacks
 {
+    using global::Invictus.Pub.Invictus.Framework.Menu;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
     using global::Invictus.Pub.Invictus.Hacks.Drawings;
     using SharpDX;
@@ -19,6 +20,7 @@ namespace Invictus.Pub.Invictus.Callbacks
 
                 Draw.DrawMenu();
 
+                if(Globals.DrawAttackRange)
                 Draw.DrawAttackRange(GameObject.GetLocalPLayer(), Color.Cyan);
             }
         }

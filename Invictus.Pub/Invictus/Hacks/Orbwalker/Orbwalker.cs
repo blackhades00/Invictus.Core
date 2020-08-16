@@ -12,7 +12,6 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
     using global::Invictus.Core.Invictus.Hacks.Orbwalker;
     using global::Invictus.Core.Invictus.Structures.GameEngine;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
-    using global::Invictus.Pub.Invictus.LogService;
 
     internal class Orbwalker
     {
@@ -22,26 +21,22 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
 
         internal static void Orbwalk()
         {
-            DebugConsole.PrintDbgMessage("ping: " + Engine.GetPing());
+            var Position = GameObject.GetObj2DPos(TargetSelector.TargetSelector.GetTarget());
             if (Utils.IsKeyPressed(Keys.Space))
             {
-                var Position = GameObject.GetObj2DPos(TargetSelector.TargetSelector.GetTarget());
 
-                if(Position != Point.Empty && Engine.CanAttack())
+                if (Position != Point.Empty && Engine.CanAttack() && TargetSelector.TargetSelector.GetTarget() != 0)
                 {
                     Point C = Cursor.Position;
                     IssueOrder(OrderType.AttackUnit, Position);
                     Engine.LastAATick = Environment.TickCount;
-                    Thread.Sleep(20);
+                    Thread.Sleep(10);
                     Cursor.Position = C;
                 }
-                else
-                    DebugConsole.PrintDbgMessage("CanAttack() returns FALSE!");
 
-                if (Engine.CanMove(45))
+                if (Engine.CanMove(45f))
+
                     Mouse.MouseClickRight();
-                else
-                    DebugConsole.PrintDbgMessage("CanMove() returns FALSE!");
 
             }
         }

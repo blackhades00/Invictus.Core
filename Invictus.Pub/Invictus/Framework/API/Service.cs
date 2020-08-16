@@ -25,14 +25,14 @@ namespace ExSharpBase.API
                     try { return JObject.Parse(reader.ReadToEnd()); }
                     catch (Exception Ex)
                     {
-                        
+
                         throw new Exception("PlayerDataParseFailedException");
                     }
                 }
             }
             else
             {
-               
+
                 throw new Exception("PlayerDataParseFailedException");
             }
         }
@@ -50,14 +50,14 @@ namespace ExSharpBase.API
                     try { return JArray.Parse(reader.ReadToEnd()); }
                     catch (Exception Ex)
                     {
-                       
+
                         throw new Exception("AllPlayerDataParseFailedException");
                     }
                 }
             }
             else
             {
-               
+
                 throw new Exception("AllPlayerDataParseFailedException");
             }
         }
@@ -110,7 +110,7 @@ namespace ExSharpBase.API
             }
             catch (Exception Ex)
             {
-                
+
                 Thread.Sleep(10000);
                 Environment.Exit(0);
             }
