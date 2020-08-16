@@ -32,7 +32,7 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
                     Point C = Cursor.Position;
                     IssueOrder(OrderType.AttackUnit, Position);
                     Engine.LastAATick = Environment.TickCount;
-                    Thread.Sleep(20);
+                    Thread.Sleep(20); //Ghetto fix for accidental mouse movements.
                     Cursor.Position = C;
                 }
                 else
