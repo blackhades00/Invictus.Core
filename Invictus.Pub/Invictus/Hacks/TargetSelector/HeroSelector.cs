@@ -9,33 +9,10 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
     using global::Invictus.Pub.Invictus.LogService;
 
-    internal class TargetSelector
+    internal class HeroSelector
     {
         private static readonly int HeroList = Utils.ReadInt(Offsets.BASE + Offsets.oHeroList);
-        private static readonly int MinionList = Utils.ReadInt(Offsets.BASE + Offsets.oMinionList);
-
-        internal static int GetTarget()
-        {
-            //pseudocode
-            /* if (x gedrückt) -> return lasthit target..same for waveclear
-            */
-
-            int target = 0;
-            switch (TargetSelectorSettings.TSMode)
-            {
-                case "LowestHPTarget":
-                    target = GetLowestHPTarget();
-                    break;
-
-                case "ClosestTarget":
-                    target = GetClosestTarget();
-                    break;
-            }
-
-            return target;
-        }
-
-        private static int GetLowestHPTarget()
+        internal static int GetLowestHPTarget()
         {
 
             /*
@@ -73,7 +50,7 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
             return lowestHPTarget;
         }
 
-        private static int GetClosestTarget()
+        internal static int GetClosestTarget()
         {
             int closestTarget = 0;
             var LocalPlayer = GameObject.GetLocalPLayer();

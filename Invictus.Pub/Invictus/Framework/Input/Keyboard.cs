@@ -1,10 +1,14 @@
-﻿using Invictus.Pub.Modules;
-using System;
-using System.Runtime.InteropServices;
-using System.Threading;
+﻿// <copyright file="Keyboard.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
 
 namespace Invictus.Core.Invictus.Framework.Input
 {
+    using global::Invictus.Pub.Modules;
+    using System;
+    using System.Runtime.InteropServices;
+    using System.Threading;
+
     class Keyboard
     {
         private const int INPUT_KEYBOARD = 1;

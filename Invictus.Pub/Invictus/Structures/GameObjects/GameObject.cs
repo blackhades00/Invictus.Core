@@ -68,7 +68,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static float GetBoundingRadius(int obj)
         {
-
+            /*
             float boundingRadius = Utils.ReadFloat(obj + Offsets.OCharData + 0x1c);
 
             if (boundingRadius >= 200.00f)
@@ -79,7 +79,8 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             {
                 return boundingRadius;
             }
-
+            */
+            return 62.0f;
 
         }
 
@@ -96,11 +97,43 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             return Utils.ReadString(obj + Offsets.OObjChampionName,System.Text.Encoding.ASCII);
         }
 
+        internal static float GetBaseAD(int obj)
+        {
+            return Utils.ReadFloat(obj + Offsets.OObjBaseAtk);
+        }
+
+        internal static float GetBonusAD(int obj)
+        {
+            return Utils.ReadFloat(obj + Offsets.OObjBonusAtk);
+        }
+
+        internal static float GetTotalAD(int obj)
+        {
+            return GetBaseAD(obj) + GetBonusAD(obj);
+        }
+
         [DllImport("Invictus.ACD.dll")]
         private static extern int GetAttackDelay(IntPtr LolHandle, int AttackDelayAddr, int Object);
         internal static int GetAttackDelay(int obj)
         {
              return (int)(1000.0f / GameObject.GetAttackSpeed(GameObject.GetLocalPLayer()));
+        }
+
+        internal static float GetTotalArmor(int obj)
+        {
+            return Utils.ReadFloat(obj + Offsets.oTotalArmor);
+        }
+
+        internal static float GetTotalDamage(int target)
+        {
+            return GetTotalAD(GetLocalPLayer()) * (100 / (100 + GetTotalArmor(target)));
+        }
+
+        internal static bool IsLasthitable(int obj)
+        {
+            float distance = GetDistance(obj, GetLocalPLayer()) / 15;
+
+            return GetHealth(obj) <= GetTotalDamage(GetLocalPLayer()) + distance;
         }
 
         internal static bool IsInRange(int obj)

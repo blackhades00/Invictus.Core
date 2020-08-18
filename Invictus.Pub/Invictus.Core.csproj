@@ -247,13 +247,14 @@
     <Compile Include="Invictus\Hacks\MainThread.cs" />
     <Compile Include="Invictus\Hacks\Orbwalker\GameObjectOrder.cs" />
     <Compile Include="Invictus\Hacks\Orbwalker\Orbwalker.cs" />
-    <Compile Include="Invictus\Hacks\TargetSelector\TargetSelector.cs" />
+    <Compile Include="Invictus\Hacks\TargetSelector\HeroSelector.cs" />
+    <Compile Include="Invictus\Hacks\TargetSelector\MinionSelector.cs" />
+    <Compile Include="Invictus\Hacks\TargetSelector\ObjectManager.cs" />
     <Compile Include="Invictus\LogService\DebugConsole.cs" />
     <Compile Include="Invictus\Framework\UpdateService\Offsets.cs" />
     <Compile Include="Invictus\Structures\GameEngine\Engine.cs" />
     <Compile Include="Invictus\Structures\GameObjects\GameObject.cs" />
     <Compile Include="Invictus\Framework\Utils.cs" />
-    <Compile Include="Invictus\Structures\GameObjects\ObjectManager.cs" />
     <Compile Include="Invictus\Structures\GameObjects\ObjectTypeFlag.cs" />
     <Compile Include="Invictus\ThreadService\ThreadService.cs" />
     <Compile Include="Invictus\Framework\NativeImport.cs" />

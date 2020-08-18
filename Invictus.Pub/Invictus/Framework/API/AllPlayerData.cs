@@ -1,9 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using ExSharpBase.API.Models;
+﻿// <copyright file="AllPlayerData.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
 
 namespace ExSharpBase.API
 {
+    using System;
+    using System.Collections.Generic;
+    using ExSharpBase.API.Models;
+
     public class AllPlayerData
     {
         public static IList<PlayerData> AllPlayers { get { return GetAllPlayers(); } }

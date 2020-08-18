@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="PlayerData.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
 
 namespace ExSharpBase.API.Models
 {
+    using System.Collections.Generic;
+
     public class PlayerData
     {
         public string ChampionName { get; set; }

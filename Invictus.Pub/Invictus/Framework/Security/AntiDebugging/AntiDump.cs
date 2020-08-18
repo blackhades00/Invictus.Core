@@ -1,7 +1,11 @@
-﻿using System;
+﻿// <copyright file="AntiDump.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
 
 namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
 {
+    using System;
+
     class AntiDump
     {
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]

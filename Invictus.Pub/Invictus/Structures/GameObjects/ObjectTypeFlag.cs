@@ -1,12 +1,16 @@
-﻿using Invictus.Pub.Invictus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="ObjectTypeFlag.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
 
 namespace Invictus.Core.Invictus.Structures.GameObjects
 {
+    using global::Invictus.Pub.Invictus;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     class ObjectTypeFlag
     {
         private enum ECObjectTypeFlags

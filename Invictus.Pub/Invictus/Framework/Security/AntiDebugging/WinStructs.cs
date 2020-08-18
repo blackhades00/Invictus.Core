@@ -1,7 +1,11 @@
-﻿using System;
+﻿// <copyright file="WinStructs.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
 
 namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
 {
+    using System;
+
     class WinStructs
     {
         internal enum PROCESSINFOCLASS : int

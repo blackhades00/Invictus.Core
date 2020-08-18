@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Invictus.Pub.Invictus.Framework.Menu;
+﻿// <copyright file="TargetSelectorView.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
 
 namespace Invictus.Core.Invictus.Framework.Menu
 {
+    using global::Invictus.Pub.Invictus.Framework.Menu;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+
     public partial class TargetSelectorView : UserControl
     {
         public TargetSelectorView()

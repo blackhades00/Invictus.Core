@@ -1,4 +1,8 @@
-﻿namespace ExSharpBase.API
+﻿// <copyright file="GameStats.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
+
+namespace ExSharpBase.API
 {
     class GameStats
     {

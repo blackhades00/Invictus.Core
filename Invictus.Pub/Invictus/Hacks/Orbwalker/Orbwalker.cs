@@ -10,6 +10,7 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
     using System.Windows.Forms;
     using global::Invictus.Core.Invictus.Framework.Input;
     using global::Invictus.Core.Invictus.Hacks.Orbwalker;
+    using global::Invictus.Core.Invictus.Hacks.TargetSelector;
     using global::Invictus.Core.Invictus.Structures.GameEngine;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
     using global::Invictus.Pub.Invictus.LogService;
@@ -22,11 +23,11 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
         internal static void Orbwalk()
         {
 
-            if (Utils.IsKeyPressed(Keys.Space))
+            if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X))
             {
 
-                if (TargetSelector.TargetSelector.GetTarget() != 0)
-                    Position = GameObject.GetObj2DPos(TargetSelector.TargetSelector.GetTarget());
+                if (ObjectManager.GetTarget() != 0)
+                    Position = GameObject.GetObj2DPos(ObjectManager.GetTarget());
                 else
                     Position = Point.Empty;
 

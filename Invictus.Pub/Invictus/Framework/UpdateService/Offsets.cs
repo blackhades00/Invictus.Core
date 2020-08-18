@@ -32,8 +32,9 @@ namespace Invictus.Pub.Invictus
         public static readonly int OObjHealth = 0xFA8;
         public static readonly int OObjMaxHealth = 0xFB8;
         public static readonly int OObjArmor = 0x1464;
-        public static readonly int OObjBaseAtk = 0x145C;
-        public static readonly int OObjBonusAtk = 0x13BC;
+        public static readonly int OObjBaseAtk = 0x146C;
+        public static readonly int OObjBonusAtk = 0x13EC;
+        public static readonly int oTotalArmor = 0x1494;
         public static readonly int OObjMoveSpeed = 0x147C;
         public static readonly int OObjAtkRange = 0x14B4;	// D8 81 ? ? ? ? 8B 81 ? ? ? ?
         public static readonly int OObjSpellBook = 0x2AD0;

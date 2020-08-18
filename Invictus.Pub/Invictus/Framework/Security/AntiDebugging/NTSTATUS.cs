@@ -1,4 +1,8 @@
-﻿namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
+﻿// <copyright file="NTSTATUS.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
+
+namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
 {
     class NTSTATUS
     {

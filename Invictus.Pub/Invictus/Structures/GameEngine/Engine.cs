@@ -4,9 +4,9 @@
 
 namespace Invictus.Core.Invictus.Structures.GameEngine
 {
+    using System;
     using global::Invictus.Pub.Invictus;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
-    using System;
 
     class Engine
     {

@@ -4,8 +4,8 @@
 
 namespace Invictus.Pub.Invictus.Framework.Menu
 {
-    using global::Invictus.Core.Invictus.Framework.Menu;
     using System.Windows.Forms;
+    using global::Invictus.Core.Invictus.Framework.Menu;
 
     internal class IngameMenu
     {

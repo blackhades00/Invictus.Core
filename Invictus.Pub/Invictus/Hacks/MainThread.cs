@@ -2,12 +2,11 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-using Invictus.Pub.Invictus.GameEngine.GameObjects;
-using Invictus.Pub.Invictus.LogService;
-using System;
-
 namespace Invictus.Pub.Invictus.Hacks
 {
+    using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
+    using System;
+
     internal class MainThread
     {
         internal static void MainLoop()

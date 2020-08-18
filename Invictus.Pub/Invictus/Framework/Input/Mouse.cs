@@ -1,9 +1,13 @@
-﻿using Invictus.Pub.Modules;
-using System.Threading;
-using System.Windows.Forms;
+﻿// <copyright file="Mouse.cs" company="Invictus">
+// Copyright (c) Invictus. All rights reserved.
+// </copyright>
 
 namespace Invictus.Core.Invictus.Framework.Input
 {
+    using global::Invictus.Pub.Modules;
+    using System.Threading;
+    using System.Windows.Forms;
+
     class Mouse
     {
         private const uint MOUSEEVENTF_LEFTDOWN = 0x02;
