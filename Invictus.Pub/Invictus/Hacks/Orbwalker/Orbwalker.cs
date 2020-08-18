@@ -12,30 +12,40 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
     using global::Invictus.Core.Invictus.Hacks.Orbwalker;
     using global::Invictus.Core.Invictus.Structures.GameEngine;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
+    using global::Invictus.Pub.Invictus.LogService;
 
     internal class Orbwalker
     {
         private static Point lastMovePoint;
-
+        private static Point Position = Point.Empty;
 
 
         internal static void Orbwalk()
         {
-            var Position = GameObject.GetObj2DPos(TargetSelector.TargetSelector.GetTarget());
+            
+
+
             if (Utils.IsKeyPressed(Keys.Space))
             {
 
-                if (Position != Point.Empty && Engine.CanAttack() && TargetSelector.TargetSelector.GetTarget() != 0)
+                if (TargetSelector.TargetSelector.GetTarget() != 0)
+                    Position = GameObject.GetObj2DPos(TargetSelector.TargetSelector.GetTarget());
+                else
+                    Position = Point.Empty;
+
+
+                  if (Position != Point.Empty && Engine.CanAttack())
                 {
+                    DebugConsole.PrintDbgMessage("Position");
                     Point C = Cursor.Position;
                     IssueOrder(OrderType.AttackUnit, Position);
-                    Engine.LastAATick = Environment.TickCount;
-                    Thread.Sleep(10);
+                    Engine.LastAATick = Environment.TickCount + 30;
+                    Thread.Sleep(20);
                     Cursor.Position = C;
                 }
 
                 if (Engine.CanMove(45f))
-
+                    
                     Mouse.MouseClickRight();
 
             }

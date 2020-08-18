@@ -5,6 +5,7 @@
 namespace Invictus.Pub.Invictus
 {
     using System;
+    using System.Diagnostics;
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Security.Cryptography;
@@ -108,6 +109,17 @@ namespace Invictus.Pub.Invictus
             return GetActiveWindowTitle() == "League of Legends (TM) Client";
         }
 
+        public static T Read<T>(int Address)
+        {
+            var Size = Marshal.SizeOf<T>();
+            var Buffer = new byte[Size];
+            bool Result = Offsets.ReadProcessMemory(Offsets.PROCESS_HANDLE, (IntPtr)Address, Buffer, Size, out var lpRead);
+            var Ptr = Marshal.AllocHGlobal(Size);
+            Marshal.Copy(Buffer, 0, Ptr, Size);
+            var Struct = Marshal.PtrToStructure<T>(Ptr);
+            Marshal.FreeHGlobal(Ptr);
+            return Struct;
+        }
         internal static int ReadInt(int addr)
         {
             var buffer = new byte[4];
@@ -187,16 +199,6 @@ namespace Invictus.Pub.Invictus
             return tmp;
         }
 
-        internal static T Read<T>(IntPtr address)
-        {
-            var size = Marshal.SizeOf<T>();
-            var buffer = new byte[size];
-            bool result = Offsets.ReadProcessMemory(System.Diagnostics.Process.GetProcessesByName("League of Legends").FirstOrDefault().Handle, address, buffer, size, out var lpRead);
-            var ptr = Marshal.AllocHGlobal(size);
-            Marshal.Copy(buffer, 0, ptr, size);
-            var @struct = Marshal.PtrToStructure<T>(ptr);
-            Marshal.FreeHGlobal(ptr);
-            return @struct;
-        }
+     
     }
 }

@@ -19,11 +19,11 @@ namespace Invictus.Pub
         public static string riot = String.Empty;
         public static void LoadCore()
         {
-          if(!riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6"))
-          {
+            if (!riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6"))
+            {
                 Environment.Exit(1);
                 return;
-          }
+            }
 
 
             Application.EnableVisualStyles();
@@ -33,6 +33,10 @@ namespace Invictus.Pub
 
         internal static async void InitialiseCore()
         {
+#if DEBUG
+            DebugConsole.AllocConsole();
+            DebugConsole.PrintDbgMessage("DEBUG CONSOLE LOADED!");
+#endif
             await Task.Run(() => ThreadService.LoadMainThread());
             await Task.Run(() => overlay.Show());
         }

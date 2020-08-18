@@ -107,7 +107,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static bool IsAlive(int obj)
         {
-            return GetHealth(obj) > 0f;
+            return GetHealth(obj) > 1f;
         }
 
         internal static bool IsEnemy(int obj)
@@ -117,8 +117,9 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static bool IsVisible(int obj)
         {
-            return Utils.Read<bool>((IntPtr)(obj + Offsets.OObjVisibility));
+            return Utils.Read<bool>(obj + Offsets.OObjVisibility);
         }
+      
         internal static bool IsValidTarget(int obj)
         {
             return IsInRange(obj) && IsAlive(obj) && IsEnemy(obj) && obj != 0 && IsVisible(obj);

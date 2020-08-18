@@ -3,6 +3,7 @@
 // </copyright>
 
 using Invictus.Pub.Invictus.GameEngine.GameObjects;
+using Invictus.Pub.Invictus.LogService;
 using System;
 
 namespace Invictus.Pub.Invictus.Hacks

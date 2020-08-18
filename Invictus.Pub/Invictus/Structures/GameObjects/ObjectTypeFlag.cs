@@ -70,7 +70,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
                     {
                         v10 = Convert.ToByte(v9++); //*v9++;
                         //*((_BYTE*)&v12 + v8++) ^= ~v10;
-                        byte _Temp = Utils.Read<byte>((IntPtr)(v12 + v8++));
+                        int _Temp = Utils.ReadInt(v12 + v8++);
                         _Temp ^= Convert.ToByte(~v10);
                     }
                     while (v8 < 4);
@@ -87,6 +87,11 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
         internal static bool IsInvalidObject(int obj)
         {
             return ObjectTypeFlag.CompareObjectType(obj, (int)ObjectTypeFlag.ECObjectTypeFlags.InvalidObject);
+        }
+
+        internal static bool IsHero(int obj)
+        {
+            return ObjectTypeFlag.CompareObjectType(obj, 0x1000);
         }
     }
 }

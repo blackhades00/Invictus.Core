@@ -49,8 +49,7 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
                 int obj = Utils.ReadInt(HeroList + i);
                 if (obj != 0)
                 {
-                    if (!ObjectTypeFlag.IsDeadObject(obj) && !ObjectTypeFlag.IsInvalidObject(obj))
-                    {
+                  
                         if (GameObject.IsInRange(obj) && obj != 0x00)
                         {
                             if (GameObject.IsValidTarget(obj))
@@ -66,8 +65,6 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
                             }
 
                         }
-                    }
-
                 }
                 else
                     break;
