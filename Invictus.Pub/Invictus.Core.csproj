@@ -210,7 +210,7 @@
     <Compile Include="Invictus\Framework\Menu\CoreSettingView.Designer.cs">
       <DependentUpon>CoreSettingView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Invictus\Framework\Menu\Globals.cs" />
+    <Compile Include="Invictus\Framework\Globals.cs" />
     <Compile Include="Invictus\Framework\Menu\IngameMenu.cs" />
     <Compile Include="Invictus\Framework\Menu\MenuBox.cs">
       <SubType>Form</SubType>

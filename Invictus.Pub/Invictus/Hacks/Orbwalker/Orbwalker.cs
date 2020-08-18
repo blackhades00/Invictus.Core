@@ -19,11 +19,8 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
         private static Point lastMovePoint;
         private static Point Position = Point.Empty;
 
-
         internal static void Orbwalk()
         {
-            
-
 
             if (Utils.IsKeyPressed(Keys.Space))
             {
@@ -33,19 +30,18 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
                 else
                     Position = Point.Empty;
 
-
-                  if (Position != Point.Empty && Engine.CanAttack())
+                if (Position != Point.Empty && Engine.CanAttack())
                 {
                     DebugConsole.PrintDbgMessage("Position");
                     Point C = Cursor.Position;
                     IssueOrder(OrderType.AttackUnit, Position);
-                    Engine.LastAATick = Environment.TickCount + 30;
+                    Engine.LastAATick = Environment.TickCount - 30 / 2;
                     Thread.Sleep(20);
                     Cursor.Position = C;
                 }
 
-                if (Engine.CanMove(45f))
-                    
+                if (Engine.CanMove(90f))
+
                     Mouse.MouseClickRight();
 
             }
@@ -66,11 +62,13 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
                             Mouse.MouseClickRight();
                             break;
                         }
+
                         if (Vector2D == new Point(Cursor.Position.X, Cursor.Position.Y))
                         {
                             Mouse.MouseClickRight();
                             break;
                         }
+
                         Mouse.MouseMove(Vector2D.X, Vector2D.Y);
                         Mouse.MouseClickRight();
                         break;
@@ -81,6 +79,7 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
                             Mouse.MouseClickRight();
                             break;
                         }
+
                         Mouse.MouseMove(Vector2D.X, Vector2D.Y);
                         Mouse.MouseClickRight();
                         break;

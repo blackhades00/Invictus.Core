@@ -25,11 +25,11 @@ namespace Invictus.Pub.Invictus.Framework.Menu
         {
             if (this.DrawAttackRangeCheckBox.Checked)
             {
-                Globals.DrawAttackRange = true;
+                TargetSelectorSettings.DrawAttackRange = true;
             }
             else
             {
-                Globals.DrawAttackRange = false;
+                TargetSelectorSettings.DrawAttackRange = false;
             }
         }
     }

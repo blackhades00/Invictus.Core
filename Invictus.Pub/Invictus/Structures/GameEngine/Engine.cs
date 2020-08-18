@@ -17,7 +17,6 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
             return Utils.ReadFloat(Offsets.BASE + Offsets.oGameTime);
         }
 
-
         internal static int GetPing()
         {
             return 30;

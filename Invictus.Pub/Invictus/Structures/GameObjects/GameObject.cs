@@ -68,7 +68,8 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static float GetBoundingRadius(int obj)
         {
-            float boundingRadius = Utils.ReadFloat(obj + Offsets.OCharData + 0x438);
+
+            float boundingRadius = Utils.ReadFloat(obj + Offsets.OCharData + 0x1c);
 
             if (boundingRadius >= 200.00f)
             {
@@ -78,6 +79,8 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             {
                 return boundingRadius;
             }
+
+
         }
 
         [DllImport("Invictus.ACD.dll")]
@@ -107,7 +110,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static bool IsAlive(int obj)
         {
-            return GetHealth(obj) > 1f;
+            return GetHealth(obj) > 1.0f;
         }
 
         internal static bool IsEnemy(int obj)
@@ -117,12 +120,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static bool IsVisible(int obj)
         {
-            return Utils.Read<bool>(obj + Offsets.OObjVisibility);
-        }
-      
-        internal static bool IsValidTarget(int obj)
-        {
-            return IsInRange(obj) && IsAlive(obj) && IsEnemy(obj) && obj != 0 && IsVisible(obj);
+            return Utils.Read<byte>(obj + Offsets.OObjVisibility) == 1;
         }
     }
 }

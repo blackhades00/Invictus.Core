@@ -11,7 +11,6 @@ namespace Invictus.Pub.Invictus.ThreadService
     {
         private static Thread thread;
 
-
         internal static void LoadMainThread()
         {
 
@@ -19,7 +18,6 @@ namespace Invictus.Pub.Invictus.ThreadService
             thread.IsBackground = true;
             thread.Start();
         }
-
 
     }
 }

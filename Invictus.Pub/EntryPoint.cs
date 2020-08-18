@@ -25,7 +25,6 @@ namespace Invictus.Pub
                 return;
             }
 
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             InitialiseCore(); // Init the core, start of main functions. Call this in Loader.
@@ -33,10 +32,7 @@ namespace Invictus.Pub
 
         internal static async void InitialiseCore()
         {
-#if DEBUG
-            DebugConsole.AllocConsole();
             DebugConsole.PrintDbgMessage("DEBUG CONSOLE LOADED!");
-#endif
             await Task.Run(() => ThreadService.LoadMainThread());
             await Task.Run(() => overlay.Show());
         }

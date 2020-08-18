@@ -85,8 +85,8 @@ namespace Invictus.Core.Invictus.Framework.Input
 
         internal static void MouseClickRight()
         {
-            Thread.Sleep(20);
             MouseRightDown();
+            Thread.Sleep(30);
             MouseRightUp();
         }
     }

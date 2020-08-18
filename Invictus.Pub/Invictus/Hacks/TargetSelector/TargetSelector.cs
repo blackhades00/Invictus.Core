@@ -7,6 +7,7 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
     using global::Invictus.Core.Invictus.Structures.GameObjects;
     using global::Invictus.Pub.Invictus.Framework.Menu;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
+    using global::Invictus.Pub.Invictus.LogService;
 
     internal class TargetSelector
     {
@@ -20,7 +21,7 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
             */
 
             int target = 0;
-            switch (Globals.TSMode)
+            switch (TargetSelectorSettings.TSMode)
             {
                 case "LowestHPTarget":
                     target = GetLowestHPTarget();
@@ -44,68 +45,63 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
             int lowestHPTarget = 0;
 
 
-            for (int i = 0x0; i <= 0x40; i += 0x4)
+            for (int i = 0; Utils.ReadInt(HeroList + i) != 0; i += 4)
             {
-                int obj = Utils.ReadInt(HeroList + i);
+                var obj = Utils.ReadInt(HeroList + i);
                 if (obj != 0)
                 {
-                  
-                        if (GameObject.IsInRange(obj) && obj != 0x00)
+                    if (GameObject.IsInRange(obj))
+                    {
+                        if (GameObject.IsAlive(obj) && GameObject.IsVisible(obj))
                         {
-                            if (GameObject.IsValidTarget(obj))
+                            if (GameObject.IsEnemy(obj))
                             {
                                 if (lowestHPTarget == 0)
-                                {
                                     lowestHPTarget = obj;
-                                }
-                                else if (GameObject.GetHealth(obj) < GameObject.GetHealth(lowestHPTarget))
+
+                                else if(GameObject.GetHealth(obj) < GameObject.GetHealth(lowestHPTarget))
                                 {
                                     lowestHPTarget = obj;
                                 }
                             }
-
                         }
-                }
-                else
-                    break;
+                    }
 
+                }
             }
+
             return lowestHPTarget;
         }
 
         private static int GetClosestTarget()
         {
             int closestTarget = 0;
-            int LocalPlayer = GameObject.GetLocalPLayer();
+            var LocalPlayer = GameObject.GetLocalPLayer();
 
-            for (int i = 0x0; i < 0x40; i += 0x4)
+            for (int i = 0; Utils.ReadInt(HeroList + i) != 0; i += 4)
             {
-                int obj = Utils.ReadInt(HeroList + i);
+                var obj = Utils.ReadInt(HeroList + i);
                 if (obj != 0)
                 {
                     if (GameObject.IsInRange(obj))
                     {
-                        if (GameObject.IsValidTarget(obj))
+                        if (GameObject.IsAlive(obj) && GameObject.IsVisible(obj))
                         {
-                            if (closestTarget == 0)
+                            if (GameObject.IsEnemy(obj))
                             {
-                                closestTarget = obj;
-                            }
-                            else if (GameObject.GetDistance(obj, LocalPlayer) < GameObject.GetDistance(closestTarget, LocalPlayer))
-                            {
-                                closestTarget = obj;
+                                if (closestTarget == 0)
+                                    closestTarget = obj;
+
+                                else if (GameObject.GetDistance(LocalPlayer,obj) < GameObject.GetDistance(LocalPlayer, closestTarget))
+                                {
+                                    closestTarget = obj;
+                                }
                             }
                         }
-
                     }
 
                 }
-                else
-                {
-                    break;
-                }
             }
-
 
             return closestTarget;
         }

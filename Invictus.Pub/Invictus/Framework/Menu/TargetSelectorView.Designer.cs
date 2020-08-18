@@ -1,4 +1,4 @@
-﻿namespace Invictus.Pub.Invictus.Framework.Menu
+﻿namespace Invictus.Core.Invictus.Framework.Menu
 {
     partial class TargetSelectorView
     {
@@ -28,38 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.targetSelectorMode = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // targetSelectorMode
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "\"LowestHPTarget\"",
-            "\"ClosestTarget\""});
-            this.comboBox1.Location = new System.Drawing.Point(28, 58);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged_1);
+            this.targetSelectorMode.FormattingEnabled = true;
+            this.targetSelectorMode.Items.AddRange(new object[] {
+            "LowestHPTarget",
+            "ClosestTarget"});
+            this.targetSelectorMode.Location = new System.Drawing.Point(30, 76);
+            this.targetSelectorMode.Name = "targetSelectorMode";
+            this.targetSelectorMode.Size = new System.Drawing.Size(121, 21);
+            this.targetSelectorMode.TabIndex = 0;
+            this.targetSelectorMode.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(30, 57);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "TargetSelector Mode";
             // 
             // TargetSelectorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.targetSelectorMode);
             this.Name = "TargetSelectorView";
             this.Size = new System.Drawing.Size(692, 472);
-            this.Load += new System.EventHandler(this.TargetSelectorView_Load);
+            this.Load += new System.EventHandler(this.UserControl1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox targetSelectorMode;
+        private System.Windows.Forms.Label label1;
     }
 }

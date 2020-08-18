@@ -158,6 +158,7 @@ namespace Invictus.Pub.Invictus.Drawings
                 line[count + 1].Y = y2;
                 count += 2;
             }
+
             DrawCircleLine.Begin();
             DrawCircleLine.Draw(line, color);
             DrawCircleLine.End();

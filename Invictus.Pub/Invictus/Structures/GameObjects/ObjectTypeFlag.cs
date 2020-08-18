@@ -16,7 +16,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             DeadObject = (1 << 4),  //0x10
             InvalidObject = (1 << 5),  //0x20
             AIBaseCommon = (1 << 7),  //0x80
-            AttackableUnit = (1 << 9),  //0x200 
+            AttackableUnit = (1 << 9),  //0x200
             AI = (1 << 10), //0x400
             Minion = (1 << 11), //0x800
             Hero = (1 << 12), //0x1000
@@ -26,7 +26,8 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             Unknown1 = (1 << 16), //0x10000
             Building = (1 << 17), //0x20000
             Unknown2 = (1 << 18), //0x40000
-        };
+        }
+;
 
         internal static bool CompareObjectType(int obj, int a2)
         {
@@ -41,7 +42,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             byte v10; // cl
             int v12; // [esp+8h] [ebp-4h]
 
-            v2 = obj;                                                   // object 
+            v2 = obj;                                                   // object
 
             v3 = 0;
             v4 = Utils.ReadInt(obj + 0x81);                             // ReadInt(object + 0x81)
@@ -59,6 +60,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
                 }
                 while (v3 < v4);
             }
+
             v7 = Utils.ReadInt(v2 + 0x82); //v2[82];
             if (v7 == 0)
             {
@@ -76,6 +78,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
                     while (v8 < 4);
                 }
             }
+
             return (v12 & a2) != 0;
         }
 

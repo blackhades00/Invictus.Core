@@ -1,30 +1,31 @@
-﻿// <copyright file="TargetSelectorView.cs" company="Invictus">
-// Copyright (c) Invictus. All rights reserved.
-// </copyright>
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Invictus.Pub.Invictus.Framework.Menu;
 
-namespace Invictus.Pub.Invictus.Framework.Menu
+namespace Invictus.Core.Invictus.Framework.Menu
 {
-    using System;
-    using System.Windows.Forms;
-
     public partial class TargetSelectorView : UserControl
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TargetSelectorView"/> class.
-        /// </summary>
         public TargetSelectorView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
-        private void TargetSelectorView_Load(object sender, EventArgs e)
+        private void UserControl1_Load(object sender, EventArgs e)
         {
-            this.comboBox1.Text = "LowestHPTarget";
+
         }
 
-        private void ComboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Globals.TSMode = this.comboBox1.Text;
+            TargetSelectorSettings.TSMode = this.targetSelectorMode.GetItemText(this.targetSelectorMode.SelectedItem);
         }
     }
 }

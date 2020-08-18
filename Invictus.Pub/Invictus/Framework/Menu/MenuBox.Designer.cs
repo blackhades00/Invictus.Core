@@ -33,8 +33,8 @@
             this.SideMenuPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.OrbwalkerSettingButton = new System.Windows.Forms.Button();
             this.CoreSettingButton = new System.Windows.Forms.Button();
-            this.TargetSelectorButton = new System.Windows.Forms.Button();
             this.MenuContentPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.MenuTopPanel.SuspendLayout();
             this.SideMenuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +71,7 @@
             this.SideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(23)))), ((int)(((byte)(49)))));
             this.SideMenuPanel.Controls.Add(this.OrbwalkerSettingButton);
             this.SideMenuPanel.Controls.Add(this.CoreSettingButton);
-            this.SideMenuPanel.Controls.Add(this.TargetSelectorButton);
+            this.SideMenuPanel.Controls.Add(this.button1);
             this.SideMenuPanel.Location = new System.Drawing.Point(0, 38);
             this.SideMenuPanel.Name = "SideMenuPanel";
             this.SideMenuPanel.Size = new System.Drawing.Size(143, 335);
@@ -107,21 +107,6 @@
             this.CoreSettingButton.UseVisualStyleBackColor = true;
             this.CoreSettingButton.Click += new System.EventHandler(this.CoreSettingButton_Click);
             // 
-            // TargetSelectorButton
-            // 
-            this.TargetSelectorButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TargetSelectorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TargetSelectorButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TargetSelectorButton.ForeColor = System.Drawing.Color.White;
-            this.TargetSelectorButton.Location = new System.Drawing.Point(3, 101);
-            this.TargetSelectorButton.Name = "TargetSelectorButton";
-            this.TargetSelectorButton.Size = new System.Drawing.Size(137, 43);
-            this.TargetSelectorButton.TabIndex = 5;
-            this.TargetSelectorButton.Text = "TargetSelector";
-            this.TargetSelectorButton.UseVisualStyleBackColor = true;
-            this.TargetSelectorButton.Click += new System.EventHandler(this.Button1_Click);
-            // 
             // MenuContentPanel
             // 
             this.MenuContentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -133,6 +118,21 @@
             this.MenuContentPanel.Size = new System.Drawing.Size(554, 334);
             this.MenuContentPanel.TabIndex = 3;
             this.MenuContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuContentPanel_Paint);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(3, 101);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(137, 43);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "TargetSelector";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // MenuBox
             // 
@@ -165,6 +165,6 @@
         private System.Windows.Forms.Label ParadoxLabel;
         private System.Windows.Forms.Panel MenuContentPanel;
         private System.Windows.Forms.Button CoreSettingButton;
-        private System.Windows.Forms.Button TargetSelectorButton;
+        private System.Windows.Forms.Button button1;
     }
 }

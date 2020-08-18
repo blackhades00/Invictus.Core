@@ -33,6 +33,7 @@ namespace Invictus.Core.Invictus.Framework.Input
 
             return inputData;
         }
+
         private static INPUT[] CreateKeyBoardInput(short wVk, short wScan, int dwFlags)
         {
             return CreateKeyBoardInput(wVk, wScan, dwFlags, 0, IntPtr.Zero);

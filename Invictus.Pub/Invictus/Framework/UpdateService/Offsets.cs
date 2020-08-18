@@ -27,8 +27,8 @@ namespace Invictus.Pub.Invictus
         public static readonly int OObjTeam = 0x4C;
         public static readonly int OObjName = 0x6C;
         public static readonly int OObjNetworkID = 0xCC;
-        public static readonly int OObjPos = 0x220; //0x1D8;
-        public static readonly int OObjVisibility = 0x39C;
+        public static readonly int OObjPos = 0x1D8; //0x220;
+        public static readonly int OObjVisibility = 0x450; // 0x39C
         public static readonly int OObjHealth = 0xFA8;
         public static readonly int OObjMaxHealth = 0xFB8;
         public static readonly int OObjArmor = 0x1464;
@@ -36,23 +36,21 @@ namespace Invictus.Pub.Invictus
         public static readonly int OObjBonusAtk = 0x13BC;
         public static readonly int OObjMoveSpeed = 0x147C;
         public static readonly int OObjAtkRange = 0x14B4;	// D8 81 ? ? ? ? 8B 81 ? ? ? ?
-        public static readonly int OObjBuffMgr = 0x2320;
-        public static readonly int oAttackSpeed = 0x14B4;
         public static readonly int OObjSpellBook = 0x2AD0;
         public static readonly int OObjChampionName = 0x358C;
         public static readonly int OObjLevel = 0x4EA4;
-        public static readonly int ORenderer = 0x35269A0;	// 8B 15 ? ? ? ? 83 EC 08 F3;
+        public static readonly int ORenderer = 0x35269A0;	// 8B 15 ? ? ? ? 83 EC 08 F3 // ["blurKernelSigma", +0x27F] // xref the string, move -0x27f there should be a dword.
         public static readonly int OViewMatrix = 0x3523CC0;	// B9 ? ? ? ? E8 ? ? ? ? B9 ? ? ? ? E9 ? ? ? ?
-        public static readonly int OCharData = 0x337C;
+        public static readonly int OCharData = 0x3368;
         public static readonly int OObjManager = 0x1C5CC30;
         public static readonly int oGameTime = 0x34F7A7C;
         public static readonly int oHeroList = 0x28A8FFC;
         public static readonly int oMinionList = 0x28A915C;
+        public static readonly int oTurretList = 0x34F412C;
         public static readonly int OGetFirst = 0x2BBAF0;
         public static readonly int OGetNext = 0x2BCCA0;
         public static readonly int oGetAttackCastDelay = 0x2B6360;
         public static readonly int oGetAttackDelay = 0x2B6460;
-        public static readonly int oGetPing = 0x343DC0;
     }
 }
 

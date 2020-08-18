@@ -27,6 +27,7 @@ namespace ExSharpBase.API
             {
                 throw new IndexOutOfRangeException($"player: {PlayerId} is not available");
             }
+
             var PlayerData = AllPlayerData[PlayerId];
             PlayerData playerData = new PlayerData()
             {
@@ -64,6 +65,7 @@ namespace ExSharpBase.API
                 };
                 allPlayersList.Add(playerToAdd);
             }
+
             return allPlayersList;
         }
     }

@@ -25,5 +25,10 @@ namespace Invictus.Pub.Invictus.Framework.Menu
         private void SetViewDesign()
         {
         }
+
+        private void orbExtraWindup_Scroll(object sender, EventArgs e)
+        {
+            OrbSettings.orbExtraWindup = (float)this.orbExtraWindup.Value;
+        }
     }
 }

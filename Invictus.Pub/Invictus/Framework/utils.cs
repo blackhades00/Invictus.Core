@@ -61,6 +61,7 @@ namespace Invictus.Pub.Invictus
                 var v = val[i] & 0xFF;
                 res += (ulong)(v << (i * 8));
             }
+
             return (long)res;
         }
 
@@ -73,6 +74,7 @@ namespace Invictus.Pub.Invictus
                 res[i] = (byte)(uval & 0xff);
                 uval = uval >> 8;
             }
+
             return res;
         }
 
@@ -86,6 +88,7 @@ namespace Invictus.Pub.Invictus
             {
                 return buff.ToString();
             }
+
             return String.Empty;
         }
 
@@ -120,6 +123,7 @@ namespace Invictus.Pub.Invictus
             Marshal.FreeHGlobal(Ptr);
             return Struct;
         }
+
         internal static int ReadInt(int addr)
         {
             var buffer = new byte[4];
@@ -143,6 +147,7 @@ namespace Invictus.Pub.Invictus
 
             return Encoding.GetString(dataBuffer).Split('\0')[0];
         }
+
         internal static float ReadFloat(int addr)
         {
             var buffer = new byte[4];
@@ -199,6 +204,5 @@ namespace Invictus.Pub.Invictus
             return tmp;
         }
 
-     
     }
 }

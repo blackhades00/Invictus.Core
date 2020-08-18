@@ -87,6 +87,31 @@ namespace ExSharpBase.API
             }
         }
 
+        public static JObject GetUnitRadius()
+        {
+            if (IsLiveGameRunning())
+            {
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://invictus.ninja/UnitRadius.json");
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    try { return JObject.Parse(reader.ReadToEnd()); }
+                    catch (Exception Ex)
+                    {
+                        Console.WriteLine("GameDataParseFailedException");
+                        throw new Exception("GameDataParseFailedException");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("GameDataParseFailedException");
+                throw new Exception("GameDataParseFailedException");
+            }
+        }
+
         public static bool IsLiveGameRunning()
         {
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://127.0.0.1:2999/liveclientdata/allgamedata");

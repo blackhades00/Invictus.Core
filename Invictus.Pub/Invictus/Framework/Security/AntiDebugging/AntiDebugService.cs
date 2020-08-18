@@ -91,6 +91,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
                     }
                 }
             }
+
             return false;
         }
 
@@ -126,8 +127,6 @@ namespace Invictus.Pub.Invictus.Framework.Security
                 HideOSThreads(); // Hide from Debugger attachlist
             }
         }
-
-
 
         /// <summary>
         /// Asks the CLR for the presence of an attached managed debugger, and never even bothers to check for the presence of a native debugger.

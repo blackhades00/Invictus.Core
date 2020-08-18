@@ -56,13 +56,13 @@ namespace Invictus.Pub.Invictus.Framework.Menu
             this.MenuContentPanel.Controls["CoreSettingView"].BringToFront();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            this.MenuContentPanel.Controls["TargetSelectorView"].BringToFront();
-        }
-
         private void MenuContentPanel_Paint(object sender, PaintEventArgs e)
         {
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.MenuContentPanel.Controls["TargetSelectorView"].BringToFront();
         }
     }
 }
