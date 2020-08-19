@@ -7,7 +7,6 @@ namespace Invictus.Pub
     using System;
     using System.Threading.Tasks;
     using System.Windows.Forms;
-    using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
     using global::Invictus.Pub.Invictus.LogService;
     using global::Invictus.Pub.Invictus.ThreadService;
     using Paradox.Core.Drawing;
@@ -17,6 +16,7 @@ namespace Invictus.Pub
         internal static Overlay overlay = new Overlay();
 
         public static string riot = String.Empty;
+
         public static void LoadCore()
         {
             if (!riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6"))
@@ -24,7 +24,7 @@ namespace Invictus.Pub
                 Environment.Exit(1);
                 return;
             }
-
+            //DebugConsole.AllocConsole();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             InitialiseCore(); // Init the core, start of main functions. Call this in Loader.

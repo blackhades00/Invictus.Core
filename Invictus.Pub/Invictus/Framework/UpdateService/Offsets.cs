@@ -8,6 +8,9 @@ namespace Invictus.Pub.Invictus
     using System.Diagnostics;
     using System.Runtime.InteropServices;
 
+    /// <summary>
+    /// Contains all Offsets
+    /// </summary>
     internal class Offsets
     {
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -27,8 +30,8 @@ namespace Invictus.Pub.Invictus
         public static readonly int OObjTeam = 0x4C;
         public static readonly int OObjName = 0x6C;
         public static readonly int OObjNetworkID = 0xCC;
-        public static readonly int OObjPos = 0x1D8; //0x220;
-        public static readonly int OObjVisibility = 0x450; // 0x39C
+        public static readonly int OObjPos = 0x220; //0x1D8;
+        public static readonly int OObjVisibility = 0x450; // 0x450
         public static readonly int OObjHealth = 0xFA8;
         public static readonly int OObjMaxHealth = 0xFB8;
         public static readonly int OObjArmor = 0x1464;
@@ -52,6 +55,7 @@ namespace Invictus.Pub.Invictus
         public static readonly int OGetNext = 0x2BCCA0;
         public static readonly int oGetAttackCastDelay = 0x2B6360;
         public static readonly int oGetAttackDelay = 0x2B6460;
+        public static readonly int oIsObjectType = 0x1898C0; // 51 56 57 8B F9 33 D2 0F B6 47 58 | find IsHero -> Decompile -> IsObjectType is being called within Ishero function
     }
 }
 

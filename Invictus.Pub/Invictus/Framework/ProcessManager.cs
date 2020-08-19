@@ -9,6 +9,9 @@ namespace Invictus.Pub.Modules
     using System.Diagnostics;
     using System.Linq;
 
+    /// <summary>
+    /// ProcessManager class to get the ProcessName of League to obtain the BaseAddress.
+    /// </summary>
     internal class ProcessManager
     {
         internal static Process GetProcessString(string processName)

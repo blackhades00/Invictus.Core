@@ -10,6 +10,9 @@ namespace ExSharpBase.API
     using System.Threading;
     using Newtonsoft.Json.Linq;
 
+    /// <summary>
+    /// JsonParser Class.
+    /// </summary>
     class Service
     {
         public static JObject GetActivePlayerData()
@@ -23,7 +26,7 @@ namespace ExSharpBase.API
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     try { return JObject.Parse(reader.ReadToEnd()); }
-                    catch (Exception Ex)
+                    catch (Exception ex)
                     {
 
                         throw new Exception("PlayerDataParseFailedException");
@@ -48,7 +51,7 @@ namespace ExSharpBase.API
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     try { return JArray.Parse(reader.ReadToEnd()); }
-                    catch (Exception Ex)
+                    catch (Exception ex)
                     {
 
                         throw new Exception("AllPlayerDataParseFailedException");
@@ -73,7 +76,7 @@ namespace ExSharpBase.API
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     try { return JObject.Parse(reader.ReadToEnd()); }
-                    catch (Exception Ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine("GameDataParseFailedException");
                         throw new Exception("GameDataParseFailedException");
@@ -98,7 +101,7 @@ namespace ExSharpBase.API
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     try { return JObject.Parse(reader.ReadToEnd()); }
-                    catch (Exception Ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine("GameDataParseFailedException");
                         throw new Exception("GameDataParseFailedException");
@@ -133,7 +136,7 @@ namespace ExSharpBase.API
                     if (response.StatusCode == HttpStatusCode.OK) flag = true;
                 }
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
 
                 Thread.Sleep(10000);

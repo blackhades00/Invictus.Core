@@ -6,14 +6,12 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
 {
     using System;
     using System.Drawing;
-    using System.Threading;
     using System.Windows.Forms;
     using global::Invictus.Core.Invictus.Framework.Input;
     using global::Invictus.Core.Invictus.Hacks.Orbwalker;
     using global::Invictus.Core.Invictus.Hacks.TargetSelector;
     using global::Invictus.Core.Invictus.Structures.GameEngine;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
-    using global::Invictus.Pub.Invictus.LogService;
 
     internal class Orbwalker
     {
@@ -25,24 +23,15 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
 
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X))
             {
-
-                if (ObjectManager.GetTarget() != 0)
-                    Position = GameObject.GetObj2DPos(ObjectManager.GetTarget());
-                else
-                    Position = Point.Empty;
-
-                if (Position != Point.Empty && Engine.CanAttack())
+                if (ObjectManager.GetTarget() != 0 && Engine.CanAttack())
                 {
-                    DebugConsole.PrintDbgMessage("Position");
-                    Point C = Cursor.Position;
-                    IssueOrder(OrderType.AttackUnit, Position);
+                    Point c = Cursor.Position;
+                    IssueOrder(OrderType.AttackUnit, GameObject.GetObj2DPos(ObjectManager.GetTarget()));
                     Engine.LastAATick = Environment.TickCount - 30 / 2;
-                    Thread.Sleep(20);
-                    Cursor.Position = C;
+                    Cursor.Position = c;
                 }
 
-                if (Engine.CanMove(90f))
-
+                if (Engine.CanMove(45f))
                     Mouse.MouseClickRight();
 
             }

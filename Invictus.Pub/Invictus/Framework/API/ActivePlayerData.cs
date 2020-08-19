@@ -4,6 +4,9 @@
 
 namespace ExSharpBase.API
 {
+    /// <summary>
+    /// ActivePlayer Class contains Information about the LocalPlayer readen through JsonParsing parsed from the <see cref="Service"/> Class.
+    /// </summary>
     public class ActivePlayerData
     {
         public static string GetSummonerName()

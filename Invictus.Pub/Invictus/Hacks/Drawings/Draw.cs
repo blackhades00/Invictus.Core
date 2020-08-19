@@ -37,7 +37,7 @@ namespace Invictus.Pub.Invictus.Hacks.Drawings
             watermarkPoint.X = Screen.PrimaryScreen.WorkingArea.Width / 2;
             watermarkPoint.Y = Screen.PrimaryScreen.WorkingArea.Top + 10;
 
-            DrawFactory.DrawFont("Invictus", 60, watermarkPoint, Color.Red);
+            DrawFactory.DrawFont("InvictusSharp", 60, watermarkPoint, Color.Red);
         }
 
         /// <summary>
@@ -48,6 +48,12 @@ namespace Invictus.Pub.Invictus.Hacks.Drawings
         {
             if(Utils.IsGameInForeground())
             DrawFactory.DrawCircleRange(GameObject.GetObj3DPos(gameObject), GameObject.GetBoundingRadius(gameObject) + GameObject.GetAttackRange(gameObject), rGB, 1.5f);
+        }
+
+        internal static void DrawCooldown(int obj)
+        {
+            var w2sPos = GameObject.GetObj2DPos(obj);
+            DrawFactory.DrawFont("TEST", 30, new SharpDX.Point(w2sPos.X, w2sPos.Y), Color.Cyan);
         }
     }
 }

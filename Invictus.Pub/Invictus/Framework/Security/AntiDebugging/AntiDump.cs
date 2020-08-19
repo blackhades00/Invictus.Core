@@ -6,6 +6,9 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
 {
     using System;
 
+    /// <summary>
+    /// Protects InvictusSharp from being dumped
+    /// </summary>
     class AntiDump
     {
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]

@@ -18,6 +18,7 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
             if(Utils.IsKeyPressed(System.Windows.Forms.Keys.X))
             {
                 target = MinionSelector.GetLasthitTarget();
+                return target;
             }
 
             // if ComboKey is being pressed, return Hero Target.

@@ -9,6 +9,9 @@ namespace Invictus.Pub.Invictus.Callbacks
     using global::Invictus.Pub.Invictus.Hacks.Drawings;
     using SharpDX;
 
+    /// <summary>
+    /// OnDraw Callback, all Drawing Functions are being called here.
+    /// </summary>
     internal class OnDraw
     {
         // All drawings here!
@@ -22,6 +25,8 @@ namespace Invictus.Pub.Invictus.Callbacks
 
                 if(TargetSelectorSettings.DrawAttackRange)
                 Draw.DrawAttackRange(GameObject.GetLocalPLayer(), Color.Cyan);
+
+                Draw.DrawCooldown(GameObject.GetLocalPLayer());
             }
         }
     }

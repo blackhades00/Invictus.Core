@@ -47,8 +47,8 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static float GetAttackSpeed(int obj)
         {
-           return ActivePlayerData.ChampionStats.GetAttackSpeed();
-           // return Utils.ReadFloat(obj + Offsets.oAttackSpeed);
+            return ActivePlayerData.ChampionStats.GetAttackSpeed();
+            // return Utils.ReadFloat(obj + Offsets.oAttackSpeed);
         }
 
         internal static float GetAttackRange(int gameObject)
@@ -94,7 +94,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static string GetChampionName(int obj)
         {
-            return Utils.ReadString(obj + Offsets.OObjChampionName,System.Text.Encoding.ASCII);
+            return Utils.ReadString(obj + Offsets.OObjChampionName, System.Text.Encoding.ASCII);
         }
 
         internal static float GetBaseAD(int obj)
@@ -112,11 +112,9 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             return GetBaseAD(obj) + GetBonusAD(obj);
         }
 
-        [DllImport("Invictus.ACD.dll")]
-        private static extern int GetAttackDelay(IntPtr LolHandle, int AttackDelayAddr, int Object);
         internal static int GetAttackDelay(int obj)
         {
-             return (int)(1000.0f / GameObject.GetAttackSpeed(GameObject.GetLocalPLayer()));
+            return (int)(1000.0f / GameObject.GetAttackSpeed(GameObject.GetLocalPLayer()));
         }
 
         internal static float GetTotalArmor(int obj)
@@ -143,7 +141,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static bool IsAlive(int obj)
         {
-            return GetHealth(obj) > 1.0f;
+            return GetHealth(obj) > 1.5f;
         }
 
         internal static bool IsEnemy(int obj)
@@ -153,7 +151,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static bool IsVisible(int obj)
         {
-            return Utils.Read<byte>(obj + Offsets.OObjVisibility) == 1;
+            return Utils.Read<byte>((IntPtr)(obj + Offsets.OObjVisibility)) == 1;
         }
     }
 }

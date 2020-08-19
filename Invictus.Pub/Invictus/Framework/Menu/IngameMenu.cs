@@ -6,7 +6,9 @@ namespace Invictus.Pub.Invictus.Framework.Menu
 {
     using System.Windows.Forms;
     using global::Invictus.Core.Invictus.Framework.Menu;
-
+    /// <summary>
+    /// Renders the IngameMenu.
+    /// </summary>
     internal class IngameMenu
     {
         /// <summary>
@@ -28,7 +30,6 @@ namespace Invictus.Pub.Invictus.Framework.Menu
             {
                 Dock = DockStyle.Fill,
             };
-
 
             MenuBox.MenuContentPanelExport.Controls.Add(orbView);
             MenuBox.MenuContentPanelExport.Controls.Add(coreView);

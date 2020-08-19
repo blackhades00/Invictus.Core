@@ -16,6 +16,9 @@ namespace Invictus.Pub.Invictus.Framework.Security
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.NTSTATUS;
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.WinStructs;
 
+    /// <summary>
+    /// Class which contains all security features such as Runtime Debugger Detection, Debugger attachment Detection, VM Detection, Riot Spy detection etc.
+    /// </summary>
     public class AntiDebugService
     {
         internal static Thread AntiDebugServiceThread;
@@ -34,11 +37,6 @@ namespace Invictus.Pub.Invictus.Framework.Security
             {
                 return false;
             }
-        }
-
-        public static void Test()
-        {
-            MessageBox.Show("TEST");
         }
 
         private static bool IsDebuggerRunningHWND()
@@ -96,6 +94,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
         }
 
         public static bool debuggerPresent = false;
+
         private static void CheckForDebugger()
         {
             IntPtr pROCESS_HANDLE = Process.GetCurrentProcess().Handle;
@@ -177,19 +176,20 @@ namespace Invictus.Pub.Invictus.Framework.Security
         }
 
         static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
+
         private static bool CheckDebugPort()
         {
             NtStatus status;
-            IntPtr DebugPort = new IntPtr(0);
-            int ReturnLength;
+            IntPtr debugPort = new IntPtr(0);
+            int returnLength;
 
             unsafe
             {
-                status = NativeImport.NtQueryInformationProcess(System.Diagnostics.Process.GetCurrentProcess().Handle, PROCESSINFOCLASS.ProcessDebugPort, out DebugPort, Marshal.SizeOf(DebugPort), out ReturnLength);
+                status = NativeImport.NtQueryInformationProcess(System.Diagnostics.Process.GetCurrentProcess().Handle, PROCESSINFOCLASS.ProcessDebugPort, out debugPort, Marshal.SizeOf(debugPort), out returnLength);
 
                 if (status == NtStatus.Success)
                 {
-                    if (DebugPort == new IntPtr(-1))
+                    if (debugPort == new IntPtr(-1))
                     {
                         return true;
                     }
@@ -204,8 +204,10 @@ namespace Invictus.Pub.Invictus.Framework.Security
 
         [DllImport("kernel32.dll")]
         static extern IntPtr OpenThread(ThreadAccess dwDesiredAccess, bool bInheritHandle, uint dwThreadId);
+
         [DllImport("kernel32.dll")]
         static extern uint SuspendThread(IntPtr hThread);
+
         [DllImport("kernel32.dll")]
         static extern int ResumeThread(IntPtr hThread);
 

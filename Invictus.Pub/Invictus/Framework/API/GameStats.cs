@@ -4,6 +4,9 @@
 
 namespace ExSharpBase.API
 {
+    /// <summary>
+    /// The GameStats class contains information about the current game readen from the Riot Web API. Data is being parsed through a JsonParser (<see cref="Service").
+    /// </summary>
     class GameStats
     {
         internal static string GetGameMode()
