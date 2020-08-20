@@ -6,17 +6,18 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
 {
     using System;
     using System.Drawing;
+    using System.Threading;
     using System.Windows.Forms;
     using global::Invictus.Core.Invictus.Framework.Input;
     using global::Invictus.Core.Invictus.Hacks.Orbwalker;
     using global::Invictus.Core.Invictus.Hacks.TargetSelector;
     using global::Invictus.Core.Invictus.Structures.GameEngine;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
+    using global::Invictus.Pub.Invictus.LogService;
 
     internal class Orbwalker
     {
         private static Point lastMovePoint;
-        private static Point Position = Point.Empty;
 
         internal static void Orbwalk()
         {
@@ -25,9 +26,11 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
             {
                 if (ObjectManager.GetTarget() != 0 && Engine.CanAttack())
                 {
+                    //DebugConsole.PrintDbgMessage("HEALTH: " +GameObject.GetHealth(ObjectManager.GetTarget()));
                     Point c = Cursor.Position;
                     IssueOrder(OrderType.AttackUnit, GameObject.GetObj2DPos(ObjectManager.GetTarget()));
-                    Engine.LastAATick = Environment.TickCount - 30 / 2;
+                    Engine.LastAATick = Environment.TickCount;
+                    Thread.Sleep(20);
                     Cursor.Position = c;
                 }
 

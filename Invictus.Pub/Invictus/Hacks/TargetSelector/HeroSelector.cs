@@ -4,6 +4,7 @@
 
 namespace Invictus.Pub.Invictus.Hacks.TargetSelector
 {
+    using global::Invictus.Core.Invictus.Hacks.TargetSelector;
     using global::Invictus.Core.Invictus.Structures.GameObjects;
     using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
     using System.Collections.Generic;
@@ -13,44 +14,30 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
     /// </summary>
     internal class HeroSelector
     {
-        private static readonly int HeroList = Utils.ReadInt(Offsets.BASE + Offsets.oHeroList);
+
 
         internal static int GetLowestHPTarget()
         {
             int lowestHPTarget = 0;
-            int index = 0x0;
-            int obj = -1;
 
-            while (obj != 0)
+            for (int i = 0; i < ObjectManager.CachedHeroes.Count; i++)
             {
-                obj = Utils.ReadInt(HeroList + index);
-                index += 0x4;
+                var obj = ObjectManager.CachedHeroes[i];
 
-                if (obj == 0x00)
-                    continue;
-                else
+                if (GameObject.IsInRange(obj))
                 {
-                    if (!ObjectTypeFlag.IsDeadObject(obj) && !ObjectTypeFlag.IsInvalidObject(obj))
+
+                    if (GameObject.IsEnemy(obj))
                     {
-                        if (GameObject.IsInRange(obj))
-                        {
-                            if (GameObject.IsAlive(obj) && GameObject.IsEnemy(obj))
-                            {
-
-                                if (GameObject.IsVisible(obj) && ObjectTypeFlag.IsAttackable(obj))
-                                {
-                                    if (lowestHPTarget == 0)
-                                        lowestHPTarget = obj;
-                                    else if (GameObject.GetHealth(lowestHPTarget) > GameObject.GetHealth(obj))
-                                        lowestHPTarget = obj;
-                                }
-
-                            }
-                        }
+                        if (lowestHPTarget == 0)
+                            lowestHPTarget = obj;
+                        else if (GameObject.GetHealth(obj) < GameObject.GetHealth(lowestHPTarget))
+                            lowestHPTarget = obj;
                     }
-                }
 
+                }
             }
+
             return lowestHPTarget;
         }
 
@@ -58,38 +45,25 @@ namespace Invictus.Pub.Invictus.Hacks.TargetSelector
         {
             int closestTarget = 0;
             var localPlayer = GameObject.GetLocalPLayer();
-            int index = 0x0;
-            int obj = -1;
 
-            while (obj != 0)
+            for (int i = 0; i < ObjectManager.CachedHeroes.Count; i++)
             {
-                obj = Utils.ReadInt(HeroList + index);
-                index += 0x4;
+                var obj = ObjectManager.CachedHeroes[i];
 
-                if (obj == 0x00)
-                    continue;
-                else
+                if (GameObject.IsInRange(obj))
                 {
-                    if (!ObjectTypeFlag.IsDeadObject(obj) && !ObjectTypeFlag.IsInvalidObject(obj))
+
+                    if (GameObject.IsEnemy(obj))
                     {
-                        if (GameObject.IsInRange(obj))
-                        {
-                            if (GameObject.IsAlive(obj) && GameObject.IsEnemy(obj))
-                            {
-
-                                if (GameObject.IsVisible(obj) && ObjectTypeFlag.IsAttackable(obj))
-                                {
-                                    if (closestTarget == 0)
-                                        closestTarget = obj;
-                                    else if (GameObject.GetHealth(closestTarget) > GameObject.GetHealth(obj))
-                                        closestTarget = obj;
-
-                                }
-                            }
-                        }
+                        if (closestTarget == 0)
+                            closestTarget = obj;
+                        else if (GameObject.GetDistance(obj,localPlayer) < GameObject.GetDistance(localPlayer,closestTarget))
+                            closestTarget = obj;
                     }
+
                 }
             }
+
             return closestTarget;
         }
     }
