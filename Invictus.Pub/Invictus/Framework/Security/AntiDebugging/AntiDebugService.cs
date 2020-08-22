@@ -10,7 +10,6 @@ namespace Invictus.Pub.Invictus.Framework.Security
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Threading;
-    using System.Windows.Forms;
     using global::Invictus.Pub.Modules;
 
     using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.NTSTATUS;
@@ -236,7 +235,8 @@ namespace Invictus.Pub.Invictus.Framework.Security
                 IntPtr pOpenThread = OpenThread(ThreadAccess.SET_INFORMATION, false, (uint)thread.Id);
 
                 if (pOpenThread == IntPtr.Zero)
-                {                    continue;
+                {
+                    continue;
                 }
 
                 HideFromDebugger(pOpenThread);

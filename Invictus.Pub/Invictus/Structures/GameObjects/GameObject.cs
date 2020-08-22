@@ -7,6 +7,8 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
     using System;
     using System.Runtime.InteropServices;
     using ExSharpBase.API;
+    using global::Invictus.Core.Invictus.Hacks.TargetSelector;
+    using global::Invictus.Core.Invictus.Structures.GameObjects;
     using global::Invictus.Pub.Invictus.Drawings;
     using SharpDX;
 
@@ -32,8 +34,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             var vec1 = GetObj3DPos(obj1);
             var vec2 = GetObj3DPos(obj2);
 
-            var distance = (float)Math.Sqrt(Math.Pow(vec1.X - vec2.X, 2) + Math.Pow(vec1.Y - vec2.Y, 2) + Math.Pow(vec1.Z - vec2.Z, 2));
-            return distance;
+            return Vector3.Distance(vec1, vec2);
         }
 
         internal static System.Drawing.Point GetObj2DPos(int gameObject)
@@ -68,19 +69,7 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
 
         internal static float GetBoundingRadius(int obj)
         {
-            /*
-            float boundingRadius = Utils.ReadFloat(obj + Offsets.OCharData + 0x1c);
-
-            if (boundingRadius >= 200.00f)
-            {
-                return 65.00f;
-            }
-            else
-            {
-                return boundingRadius;
-            }
-            */
-            return 62.0f;
+            return 65f;
 
         }
 
@@ -122,16 +111,20 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             return Utils.ReadFloat(obj + Offsets.oTotalArmor);
         }
 
-        internal static float GetTotalDamage(int target)
+        internal static float GetEffectiveHealth(int target)
         {
-            return GetTotalAD(GetLocalPLayer()) * (100 / (100 + GetTotalArmor(target)));
+            var resistance = GetTotalArmor(target);
+            var effectiveHP = GetHealth(target);
+
+            effectiveHP *= 1 + (resistance / 100);
+            return effectiveHP;
+
+            // return GetTotalAD(GetLocalPLayer()) * (100 / (100 + GetTotalArmor(target)));
         }
 
         internal static bool IsLasthitable(int obj)
         {
-            float distance = GetDistance(obj, GetLocalPLayer()) / 15;
-
-            return GetHealth(obj) <= GetTotalDamage(GetLocalPLayer()) + distance;
+            return GetEffectiveHealth(obj) <= GetTotalAD(GetLocalPLayer());
         }
 
         internal static bool IsInRange(int obj)
@@ -139,9 +132,16 @@ namespace Invictus.Pub.Invictus.GameEngine.GameObjects
             return GameObject.GetDistance(obj, GameObject.GetLocalPLayer()) <= GameObject.GetAttackRange(GameObject.GetLocalPLayer());
         }
 
+        /// <summary>
+        /// Checks if the given object is alive through String comparison
+        /// to a DeadChampions List given by <see cref="ObjectManager.GetDeadChampions()"/>.
+        /// <return>returns true if the given objects name is != to all objects from the <see cref="ObjectManager.GetDeadChampions()"/> List.</return>
+        /// </summary>
+        /// <param name="obj">the object to check</param>
+        /// <returns></returns>
         internal static bool IsAlive(int obj)
         {
-            return GetHealth(obj) > 1.5f;
+            return GameObject.GetHealth(obj) > 0.0f && GameObject.GetHealth(obj) != 1000.0f ;
         }
 
         internal static bool IsEnemy(int obj)

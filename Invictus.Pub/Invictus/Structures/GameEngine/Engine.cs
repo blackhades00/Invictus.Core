@@ -10,7 +10,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
     class Engine
     {
-       internal static float LastAATick = 0;
+        internal static float LastAATick = 0;
 
         internal static float GetGameTime()
         {

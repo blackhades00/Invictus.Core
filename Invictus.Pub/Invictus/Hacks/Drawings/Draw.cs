@@ -40,14 +40,23 @@ namespace Invictus.Pub.Invictus.Hacks.Drawings
             DrawFactory.DrawFont("InvictusSharp", 60, watermarkPoint, Color.Red);
         }
 
+        internal static void DrawDebugText(string debugText)
+        {
+            Point debugTextPos = new Point();
+            debugTextPos.X = Screen.PrimaryScreen.WorkingArea.Width / 2 + 20;
+            debugTextPos.Y = Screen.PrimaryScreen.WorkingArea.Top + 10;
+        }
+
         /// <summary>
         /// Draws Champion Attack Range.
         /// </summary>
         /// <param name="rGB"></param>
         internal static void DrawAttackRange(int gameObject, Color rGB)
         {
-            if(Utils.IsGameInForeground())
-            DrawFactory.DrawCircleRange(GameObject.GetObj3DPos(gameObject), GameObject.GetBoundingRadius(gameObject) + GameObject.GetAttackRange(gameObject), rGB, 1.5f);
+            if (Utils.IsGameInForeground())
+            {
+                DrawFactory.DrawCircleRange(GameObject.GetObj3DPos(gameObject), GameObject.GetBoundingRadius(gameObject) + GameObject.GetAttackRange(gameObject), rGB, 1.5f);
+            }
         }
 
         internal static void DrawCooldown(int obj)

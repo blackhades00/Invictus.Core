@@ -32,6 +32,7 @@ namespace Invictus.Pub.Invictus
         public static readonly int OObjNetworkID = 0xCC;
         public static readonly int OObjPos = 0x1d8; //0x1D8;
         public static readonly int OObjVisibility = 0x450; // 0x450
+        public static readonly int oIsAlive = 0x1EEFF0;
         public static readonly int OObjHealth = 0xFA8;
         public static readonly int OObjMaxHealth = 0xFB8;
         public static readonly int OObjArmor = 0x1464;

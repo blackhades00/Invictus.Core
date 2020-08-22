@@ -17,7 +17,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             DeadObject = 0x10,
             InvalidObject = 0x20,
             AIBaseCommon = 0x80,
-            AttackableUnit = 1024, //0x200, // 2048, 1024 4640
+            AttackableUnit = 0x200, //0x200, // 2048, 1024 4640
             AI = 0x400,
             Minion = 0x800,
             Hero = 4096,//0x1000,
@@ -67,12 +67,11 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             return CompareObjectType(obj, (int)ECObjectTypeFlags.Minion);
         }
 
-        
         internal static bool IsHero(int obj)
         {
             return CompareObjectType(obj, (int)ECObjectTypeFlags.Hero);
         }
-        
+
         internal static bool IsTurret(int obj)
         {
             return CompareObjectType(obj, (int)ECObjectTypeFlags.Turret);

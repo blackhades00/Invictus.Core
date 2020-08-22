@@ -133,7 +133,10 @@ namespace ExSharpBase.API
             {
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    if (response.StatusCode == HttpStatusCode.OK) flag = true;
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        flag = true;
+                    }
                 }
             }
             catch (Exception ex)

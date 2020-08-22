@@ -1,0 +1,16 @@
+<project outputDir="C:\Users\Shadow\Desktop\Projects\InvictusSharp\Builds\Releases\Current\Confused" baseDir="C:\Users\Shadow\Desktop\Projects\InvictusSharp\Builds\Releases\Current" xmlns="http://confuser.codeplex.com">
+  <rule pattern="true" preset="maximum">
+    <protection id="anti ildasm" />
+    <protection id="anti tamper" />
+    <protection id="constants" />
+    <protection id="ctrl flow" />
+    <protection id="anti dump" />
+    <protection id="anti debug" />
+    <protection id="invalid metadata" />
+    <protection id="ref proxy" />
+    <protection id="rename" />
+  </rule>
+  <packer id="compressor" />
+  <module path="Invictus.Loader.exe" />
+  <module path="Invictus.Core.dll" />
+</project>

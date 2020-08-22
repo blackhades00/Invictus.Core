@@ -20,7 +20,9 @@ namespace Invictus.Pub.Invictus.Hacks
                 }
 
                 if (GameObject.GetLocalPLayer() == 0)
+                {
                     Environment.Exit(1);
+                }
             }
 
         }

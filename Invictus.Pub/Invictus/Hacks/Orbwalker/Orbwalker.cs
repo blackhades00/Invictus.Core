@@ -24,19 +24,19 @@ namespace Invictus.Pub.Invictus.Hacks.Orbwalker
 
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X))
             {
-                if (ObjectManager.GetTarget() != 0 && Engine.CanAttack())
+                if (ObjectManager.GetTarget() != 0 && Engine.CanAttack() && GameObject.IsAlive(ObjectManager.GetTarget()))
                 {
-                    //DebugConsole.PrintDbgMessage("HEALTH: " +GameObject.GetHealth(ObjectManager.GetTarget()));
+                    Point enemyPos = GameObject.GetObj2DPos(ObjectManager.GetTarget());
                     Point c = Cursor.Position;
-                    IssueOrder(OrderType.AttackUnit, GameObject.GetObj2DPos(ObjectManager.GetTarget()));
-                    Engine.LastAATick = Environment.TickCount;
-                    Thread.Sleep(20);
+                    IssueOrder(OrderType.AttackUnit, enemyPos);
+                    Engine.LastAATick = Environment.TickCount + 30 / 2;
                     Cursor.Position = c;
                 }
 
-                if (Engine.CanMove(45f))
+                if (Engine.CanMove(90f))
+                {
                     Mouse.MouseClickRight();
-
+                }
             }
         }
 

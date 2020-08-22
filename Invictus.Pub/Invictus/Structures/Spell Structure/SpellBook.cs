@@ -1,10 +1,4 @@
 ﻿using Invictus.Core.Invictus.Framework.Input;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Invictus.Core.Invictus.Structures.Spell_Structure
 {
@@ -156,49 +150,49 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
             return GetSpellClassByID(FindSlotID).IsSpellReady();
         }*/
 
-        public enum SpellSlot
-        {
-            Q = Keyboard.KeyBoardScanCodes.KEY_Q,
-            W = Keyboard.KeyBoardScanCodes.KEY_W,
-            E = Keyboard.KeyBoardScanCodes.KEY_E,
-            R = Keyboard.KeyBoardScanCodes.KEY_R
-        }
-
-        public enum SummonerSpellSlot
-        {
-            Summoner1 = Keyboard.KeyBoardScanCodes.KEY_D,
-            Summoner2 = Keyboard.KeyBoardScanCodes.KEY_F,
-            Recall = Keyboard.VirtualKeyCodes.KEY_B
-        }
-
-        public enum ItemSlot
-        {
-            Item1 = Keyboard.KeyBoardScanCodes.KEY_1,
-            Item2 = Keyboard.KeyBoardScanCodes.KEY_2,
-            Item3 = Keyboard.KeyBoardScanCodes.KEY_3,
-            Item4 = Keyboard.KeyBoardScanCodes.KEY_5,
-            Item5 = Keyboard.KeyBoardScanCodes.KEY_6,
-            Item6 = Keyboard.KeyBoardScanCodes.KEY_7,
-            Trinket = Keyboard.KeyBoardScanCodes.KEY_4,
-        }
-
-        public enum SpellSlotID
-        {
-            Q = 0,
-            W = 1,
-            E = 2,
-            R = 3,
-            Summoner1 = 4,
-            Summoner2 = 5,
-            Item1 = 6,
-            Item2 = 7,
-            Item3 = 8,
-            Item4 = 9,
-            Item5 = 10,
-            Item6 = 11,
-            Trinket = 12,
-            Recall = 13
-        }
+    public enum SpellSlot
+    {
+        Q = Keyboard.KeyBoardScanCodes.KEY_Q,
+        W = Keyboard.KeyBoardScanCodes.KEY_W,
+        E = Keyboard.KeyBoardScanCodes.KEY_E,
+        R = Keyboard.KeyBoardScanCodes.KEY_R
     }
+
+    public enum SummonerSpellSlot
+    {
+        Summoner1 = Keyboard.KeyBoardScanCodes.KEY_D,
+        Summoner2 = Keyboard.KeyBoardScanCodes.KEY_F,
+        Recall = Keyboard.VirtualKeyCodes.KEY_B
+    }
+
+    public enum ItemSlot
+    {
+        Item1 = Keyboard.KeyBoardScanCodes.KEY_1,
+        Item2 = Keyboard.KeyBoardScanCodes.KEY_2,
+        Item3 = Keyboard.KeyBoardScanCodes.KEY_3,
+        Item4 = Keyboard.KeyBoardScanCodes.KEY_5,
+        Item5 = Keyboard.KeyBoardScanCodes.KEY_6,
+        Item6 = Keyboard.KeyBoardScanCodes.KEY_7,
+        Trinket = Keyboard.KeyBoardScanCodes.KEY_4,
+    }
+
+    public enum SpellSlotID
+    {
+        Q = 0,
+        W = 1,
+        E = 2,
+        R = 3,
+        Summoner1 = 4,
+        Summoner2 = 5,
+        Item1 = 6,
+        Item2 = 7,
+        Item3 = 8,
+        Item4 = 9,
+        Item5 = 10,
+        Item6 = 11,
+        Trinket = 12,
+        Recall = 13
+    }
+}
 
 

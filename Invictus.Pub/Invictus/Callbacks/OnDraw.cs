@@ -23,10 +23,12 @@ namespace Invictus.Pub.Invictus.Callbacks
 
                 Draw.DrawMenu();
 
-                if(TargetSelectorSettings.DrawAttackRange)
-                Draw.DrawAttackRange(GameObject.GetLocalPLayer(), Color.Cyan);
+                if (TargetSelectorSettings.DrawAttackRange)
+                {
+                    Draw.DrawAttackRange(GameObject.GetLocalPLayer(), Color.Cyan);
+                }
 
-                Draw.DrawCooldown(GameObject.GetLocalPLayer());
+                Draw.DrawCooldown(GameObject.GetLocalPLayer());   
             }
         }
     }

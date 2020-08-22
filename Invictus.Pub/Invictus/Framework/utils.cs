@@ -23,13 +23,13 @@ namespace Invictus.Pub.Invictus
     {
         internal static void Unload()
         {
-            if(Utils.IsKeyPressed(Keys.F12))
+            if (Utils.IsKeyPressed(Keys.F12))
             {
                 var result = MessageBox.Show("Do you want to exit?", "Exit",
                                  MessageBoxButtons.YesNo,
                                  MessageBoxIcon.Information);
 
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     Environment.Exit(1);
                 }

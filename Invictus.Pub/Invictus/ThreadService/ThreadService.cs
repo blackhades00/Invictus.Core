@@ -15,10 +15,6 @@ namespace Invictus.Pub.Invictus.ThreadService
 
         internal static void LoadMainThread()
         {
-            staticListThread = new Thread(new ThreadStart(ObjectManager.UpdateAndCache));
-            staticListThread.IsBackground = true;
-            staticListThread.Start();
-
             thread = new Thread(new ThreadStart(MainThread.MainLoop));
             thread.IsBackground = true;
             thread.Start();
