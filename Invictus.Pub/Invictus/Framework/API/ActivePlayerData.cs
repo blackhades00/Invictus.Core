@@ -2,16 +2,44 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace ExSharpBase.API
+using System;
+using System.IO;
+using System.Linq;
+using Invictus.Core.Invictus.LogService;
+using Newtonsoft.Json.Linq;
+
+namespace Invictus.Core.Invictus.Framework.API
 {
     /// <summary>
     /// ActivePlayer Class contains Information about the LocalPlayer readen through JsonParsing parsed from the <see cref="Service"/> Class.
     /// </summary>
     public class ActivePlayerData
     {
+      internal static JObject UnitRadiusData;
         public static string GetSummonerName()
         {
             return Service.GetActivePlayerData()["summonerName"].ToString();
+        }
+
+        public static string GetChampionName()
+        {
+            return AllPlayerData.AllPlayers.Where(x => x.SummonerName == GetSummonerName()).First().ChampionName;
+        }
+
+        public static void ParseUnitRadiusData()
+        {
+            try
+            {
+                string unitRadiusDataString = File.ReadAllText(Directory.GetCurrentDirectory() + @"\UnitRadius.json");
+                UnitRadiusData = JObject.Parse(unitRadiusDataString);
+
+              
+            }
+            catch (Exception ex)
+            {
+               DebugConsole.PrintErrorMessage("Failed Parsing BoundingRadius");
+                throw new Exception("UnitRadiusParseExecption");
+            }
         }
 
         public static int GetLevel()
@@ -38,7 +66,7 @@ namespace ExSharpBase.API
                     return Service.GetActivePlayerData()["Q"]["displayName"].ToString();
                 }
 
-                public static string GetSpellID()
+                public static string GetSpellId()
                 {
                     return Service.GetActivePlayerData()["Q"]["id"].ToString();
                 }
@@ -56,7 +84,7 @@ namespace ExSharpBase.API
                     return Service.GetActivePlayerData()["W"]["displayName"].ToString();
                 }
 
-                public static string GetSpellID()
+                public static string GetSpellId()
                 {
                     return Service.GetActivePlayerData()["W"]["id"].ToString();
                 }
@@ -74,7 +102,7 @@ namespace ExSharpBase.API
                     return Service.GetActivePlayerData()["E"]["displayName"].ToString();
                 }
 
-                public static string GetSpellID()
+                public static string GetSpellId()
                 {
                     return Service.GetActivePlayerData()["E"]["id"].ToString();
                 }
@@ -92,7 +120,7 @@ namespace ExSharpBase.API
                     return Service.GetActivePlayerData()["R"]["displayName"].ToString();
                 }
 
-                public static string GetSpellID()
+                public static string GetSpellId()
                 {
                     return Service.GetActivePlayerData()["R"]["id"].ToString();
                 }

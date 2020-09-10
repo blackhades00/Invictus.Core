@@ -2,11 +2,12 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Callbacks
+using Invictus.Core.Invictus.Framework;
+using Invictus.Core.Invictus.Hacks.Drawings;
+using Invictus.Core.Invictus.Structures.GameObjects;
+
+namespace Invictus.Core.Invictus.Callbacks
 {
-    using global::Invictus.Pub.Invictus.Framework.Menu;
-    using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
-    using global::Invictus.Pub.Invictus.Hacks.Drawings;
     using SharpDX;
 
     /// <summary>
@@ -19,16 +20,17 @@ namespace Invictus.Pub.Invictus.Callbacks
         {
             if (Utils.IsGameInForeground())
             {
-                Draw.DrawWatermark();
+               Draw.DrawWatermark();
 
                 Draw.DrawMenu();
 
                 if (TargetSelectorSettings.DrawAttackRange)
                 {
-                    Draw.DrawAttackRange(GameObject.GetLocalPLayer(), Color.Cyan);
+                   Draw.DrawAttackRange(GameObject.Me, Color.Cyan);
                 }
 
-                Draw.DrawCooldown(GameObject.GetLocalPLayer());   
+                //Draw.DrawCooldown(GameObject.me);
+               Draw.DrawWard();
             }
         }
     }

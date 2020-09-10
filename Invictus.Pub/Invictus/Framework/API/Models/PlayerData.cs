@@ -2,10 +2,10 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace ExSharpBase.API.Models
-{
-    using System.Collections.Generic;
+using System.Collections.Generic;
 
+namespace Invictus.Core.Invictus.Framework.API.Models
+{
     public class PlayerData
     {
         public string ChampionName { get; set; }
@@ -22,7 +22,7 @@ namespace ExSharpBase.API.Models
 
         public float RespawnTimer { get; set; }
 
-        public int SkinID { get; set; }
+        public int SkinId { get; set; }
 
         public string SummonerName { get; set; }
 

@@ -2,20 +2,20 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus
-{
-    using System;
-    using System.Linq;
-    using System.Runtime.InteropServices;
-    using System.Security.Cryptography;
-    using System.Text;
-    using System.Windows.Forms;
-    using DeviceId;
-    using DeviceId.Encoders;
-    using DeviceId.Formatters;
-    using global::Invictus.Pub.Modules;
-    using SharpDX;
+using System;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
+using DeviceId;
+using DeviceId.Encoders;
+using DeviceId.Formatters;
+using Invictus.Core.Invictus.Framework.UpdateService;
+using Invictus.Core.Invictus.LogService;
+using SharpDX;
 
+namespace Invictus.Core.Invictus.Framework
+{
     /// <summary>
     /// The Utils class contains all "Utility" functions such as generating a unique ID using the HWID, Unloading InvictusSharp etc.
     /// </summary>
@@ -23,11 +23,9 @@ namespace Invictus.Pub.Invictus
     {
         internal static void Unload()
         {
-            if (Utils.IsKeyPressed(Keys.F12))
+            if (IsKeyPressed(Keys.F12))
             {
-                var result = MessageBox.Show("Do you want to exit?", "Exit",
-                                 MessageBoxButtons.YesNo,
-                                 MessageBoxIcon.Information);
+                var result = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (result == DialogResult.Yes)
                 {
@@ -42,17 +40,17 @@ namespace Invictus.Pub.Invictus
 
         public static string GetUniqueIdentifier()
         {
-            DeviceIdBuilder deviceID = new DeviceIdBuilder();
-            deviceID.AddMacAddress(true, true);
-            deviceID.AddMachineName();
-            deviceID.AddMotherboardSerialNumber();
-            deviceID.AddOSInstallationID();
-            deviceID.AddProcessorId();
-            deviceID.AddSystemDriveSerialNumber();
-            deviceID.AddSystemUUID();
-            deviceID.UseFormatter(new HashDeviceIdFormatter(() => SHA512.Create(), new Base64UrlByteArrayEncoder()));
+            DeviceIdBuilder deviceId = new DeviceIdBuilder();
+            deviceId.AddMacAddress(true, true);
+            deviceId.AddMachineName();
+            deviceId.AddMotherboardSerialNumber();
+            deviceId.AddOSInstallationID();
+            deviceId.AddProcessorId();
+            deviceId.AddSystemDriveSerialNumber();
+            deviceId.AddSystemUUID();
+            deviceId.UseFormatter(new HashDeviceIdFormatter(() => SHA512.Create(), new Base64UrlByteArrayEncoder()));
 
-            return deviceID.ToString();
+            return deviceId.ToString();
         }
 
         internal static long ToInt(byte[] val)
@@ -91,10 +89,10 @@ namespace Invictus.Pub.Invictus
                 return buff.ToString();
             }
 
-            return String.Empty;
+            return string.Empty;
         }
 
-        internal static bool IsKeyPressed(System.Windows.Forms.Keys keys)
+        internal static bool IsKeyPressed(Keys keys)
         {
             return (NativeImport.GetAsyncKeyState((int)keys) & 0x8000) != 0;
         }
@@ -109,52 +107,66 @@ namespace Invictus.Pub.Invictus
             return (NativeImport.GetAsyncKeyState((int)0x10) & 0x8000) != 0;
         }
 
-        public static bool IsGameInForeground()
+        internal static bool IsGameInForeground()
         {
             return GetActiveWindowTitle() == "League of Legends (TM) Client";
         }
 
-        internal static T Read<T>(IntPtr address)
+
+        internal static T Read<T>(int address)
         {
             var size = Marshal.SizeOf<T>();
             var buffer = new byte[size];
-            bool result = Offsets.ReadProcessMemory(System.Diagnostics.Process.GetProcessesByName("League of Legends").FirstOrDefault().Handle, address, buffer, size, out var lpRead);
+            bool result = Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, buffer, size, out var lpRead);
             var ptr = Marshal.AllocHGlobal(size);
             Marshal.Copy(buffer, 0, ptr, size);
             var @struct = Marshal.PtrToStructure<T>(ptr);
             Marshal.FreeHGlobal(ptr);
             return @struct;
         }
+        /// <summary>
+        /// Reads an bool (true or false) from a specific memory address.
+        /// </summary>
+        /// <param name="address">address to read from</param>
+        /// <returns>returns if the bool at the given address is true or false </returns>
+        internal static bool ReadBool(int address)
+        {
+           
+            byte[] dataBuffer = new byte[4];
+            IntPtr bytesRead = IntPtr.Zero;
+
+           
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, dataBuffer, dataBuffer.Length, out bytesRead);
+
+            return BitConverter.ToBoolean(dataBuffer, 0);
+        }
 
         internal static int ReadInt(int addr)
         {
             var buffer = new byte[4];
             IntPtr output = IntPtr.Zero;
-            Offsets.ReadProcessMemory(Offsets.PROCESS_HANDLE, (IntPtr)addr, buffer, buffer.Length, out output);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)addr, buffer, buffer.Length, out output);
 
             return BitConverter.ToInt32(buffer, 0);
         }
 
-        internal static string ReadString(int address, Encoding Encoding)
+        internal static string ReadString(int address, Encoding encoding)
         {
             byte[] dataBuffer = new byte[512];
             IntPtr bytesRead = IntPtr.Zero;
 
-            Offsets.ReadProcessMemory(System.Diagnostics.Process.GetProcessesByName("League of Legends").FirstOrDefault().Handle, (IntPtr)address, dataBuffer, dataBuffer.Length, out bytesRead);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, dataBuffer, dataBuffer.Length, out bytesRead);
 
-            if (bytesRead == IntPtr.Zero)
-            {
-                return string.Empty;
-            }
+           
 
-            return Encoding.GetString(dataBuffer).Split('\0')[0];
+            return encoding.GetString(dataBuffer).Split('\0')[0];
         }
 
-        internal static float ReadFloat(int addr)
+        internal static float ReadFloat(int address)
         {
             var buffer = new byte[4];
             IntPtr output = IntPtr.Zero;
-            Offsets.ReadProcessMemory(Offsets.PROCESS_HANDLE, (IntPtr)addr, buffer, buffer.Length, out output);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, buffer, buffer.Length, out output);
 
             return BitConverter.ToSingle(buffer, 0);
         }
@@ -163,7 +175,7 @@ namespace Invictus.Pub.Invictus
         {
             var buffer = new byte[4];
             IntPtr output = IntPtr.Zero;
-            Offsets.ReadProcessMemory(Offsets.PROCESS_HANDLE, (IntPtr)addr, buffer, buffer.Length, out output);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)addr, buffer, buffer.Length, out output);
 
             return BitConverter.ToUInt32(buffer, 0);
         }
@@ -175,11 +187,11 @@ namespace Invictus.Pub.Invictus
             byte[] buffer = new byte[64];
             IntPtr byteRead;
 
-            Offsets.ReadProcessMemory(System.Diagnostics.Process.GetProcessesByName("League of Legends").FirstOrDefault().Handle, (IntPtr)address, buffer, 64, out byteRead);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, buffer, 64, out byteRead);
 
             if (byteRead == IntPtr.Zero)
             {
-                Console.WriteLine($"[ReadMatrix] No bytes has been read at 0x{address.ToString("X")}");
+               Logger.Log($"[ReadMatrix] No bytes has been read at 0x{address.ToString("X")}",Logger.eLoggerType.Warn);
                 return new Matrix();
             }
 
@@ -206,5 +218,13 @@ namespace Invictus.Pub.Invictus
             return tmp;
         }
 
+
+        [DllImport("Invictus.ACD.dll")]
+        private static extern int DeobfuscateMember(IntPtr leagueHandle, int address);
+
+        internal static int DeobfuscateMember(int address)
+        {
+           return DeobfuscateMember(Offsets.ProcessHandle, address);
+        }
     }
 }

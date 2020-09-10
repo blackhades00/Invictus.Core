@@ -1,4 +1,4 @@
-﻿namespace Paradox.Core.Drawing
+﻿namespace Invictus.Core.Invictus.Hacks.Drawings
 {
     partial class Overlay
     {

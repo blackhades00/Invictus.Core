@@ -2,10 +2,10 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Framework.Menu
+using System.Windows.Forms;
+
+namespace Invictus.Core.Invictus.Framework.Menu
 {
-    using System.Windows.Forms;
-    using global::Invictus.Core.Invictus.Framework.Menu;
     /// <summary>
     /// Renders the IngameMenu.
     /// </summary>

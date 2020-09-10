@@ -2,9 +2,9 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Framework.Security
+namespace Invictus.Core.Invictus.Framework.Security.Packman
 {
-    internal class LACE
+    internal class Lace
     {
     }
 

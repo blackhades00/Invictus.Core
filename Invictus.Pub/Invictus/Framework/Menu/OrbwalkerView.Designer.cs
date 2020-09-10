@@ -1,4 +1,4 @@
-﻿namespace Invictus.Pub.Invictus.Framework.Menu
+﻿namespace Invictus.Core.Invictus.Framework.Menu
 {
     partial class OrbwalkerView
     {

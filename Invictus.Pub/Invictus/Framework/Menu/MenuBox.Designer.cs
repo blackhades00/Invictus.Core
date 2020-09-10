@@ -1,4 +1,4 @@
-﻿namespace Invictus.Pub.Invictus.Framework.Menu
+﻿namespace Invictus.Core.Invictus.Framework.Menu
 {
     partial class MenuBox
     {
@@ -33,8 +33,8 @@
             this.SideMenuPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.OrbwalkerSettingButton = new System.Windows.Forms.Button();
             this.CoreSettingButton = new System.Windows.Forms.Button();
-            this.MenuContentPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
+            this.MenuContentPanel = new System.Windows.Forms.Panel();
             this.MenuTopPanel.SuspendLayout();
             this.SideMenuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -107,18 +107,6 @@
             this.CoreSettingButton.UseVisualStyleBackColor = true;
             this.CoreSettingButton.Click += new System.EventHandler(this.CoreSettingButton_Click);
             // 
-            // MenuContentPanel
-            // 
-            this.MenuContentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MenuContentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.MenuContentPanel.Location = new System.Drawing.Point(145, 39);
-            this.MenuContentPanel.Name = "MenuContentPanel";
-            this.MenuContentPanel.Size = new System.Drawing.Size(554, 334);
-            this.MenuContentPanel.TabIndex = 3;
-            this.MenuContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuContentPanel_Paint);
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -133,6 +121,18 @@
             this.button1.Text = "TargetSelector";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // MenuContentPanel
+            // 
+            this.MenuContentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MenuContentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.MenuContentPanel.Location = new System.Drawing.Point(145, 39);
+            this.MenuContentPanel.Name = "MenuContentPanel";
+            this.MenuContentPanel.Size = new System.Drawing.Size(554, 334);
+            this.MenuContentPanel.TabIndex = 3;
+            this.MenuContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuContentPanel_Paint);
             // 
             // MenuBox
             // 

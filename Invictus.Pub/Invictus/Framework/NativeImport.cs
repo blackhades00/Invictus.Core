@@ -2,15 +2,16 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Modules
+using global::Invictus.Core.Invictus.Framework.Security.AntiDebugging;
+using System;
+using System.Runtime.InteropServices;
+using System.Text;
+using Invictus.Core.Invictus.Framework.Input;
+using Invictus.Core.Invictus.Hacks.Drawings;
+
+namespace Invictus.Core.Invictus.Framework
 {
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Text;
-    using global::Invictus.Pub.Invictus.Drawings;
-    using static global::Invictus.Core.Invictus.Framework.Input.Keyboard;
-    using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.NTSTATUS;
-    using static global::Invictus.Core.Invictus.Framework.Security.AntiDebugging.WinStructs;
+    using static WinStructs;
 
     internal class NativeImport
     {
@@ -18,16 +19,16 @@ namespace Invictus.Pub.Modules
         internal static extern bool IsDebuggerPresent();
 
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool CheckRemoteDebuggerPresent(IntPtr hProcess, [MarshalAs(UnmanagedType.Bool)] ref bool isDebuggerPresent);
+        [return: MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
+        internal static extern bool CheckRemoteDebuggerPresent(IntPtr hProcess, [MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)] ref bool isDebuggerPresent);
 
         internal const int WM_NCLBUTTONDOWN = 0xA1;
         internal const int HTCAPTION = 0x2;
 
-        [DllImportAttribute("user32.dll")]
+        [DllImport("user32.dll")]
         internal static extern bool ReleaseCapture();
 
-        [DllImportAttribute("user32.dll")]
+        [DllImport("user32.dll")]
         internal static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 
         [DllImport("user32.dll")]
@@ -54,27 +55,31 @@ namespace Invictus.Pub.Modules
         // DEBUG IMPORTS
 
         [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
-        internal static extern NtStatus NtQueryInformationProcess([In] IntPtr ProcessHandle, [In] PROCESSINFOCLASS ProcessInformationClass, out IntPtr ProcessInformation, [In] int ProcessInformationLength, [Optional] out int ReturnLength);
+        internal static extern Ntstatus.NtStatus NtQueryInformationProcess([In]
+            IntPtr processHandle, [In] Processinfoclass processInformationClass, out IntPtr processInformation, [In] int processInformationLength, [Optional] out int returnLength);
 
         [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
-        internal static extern NtStatus NtClose([In] IntPtr Handle);
+        internal static extern Ntstatus.NtStatus NtClose([In]
+            IntPtr handle);
 
         [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
-        internal static extern NtStatus NtRemoveProcessDebug(IntPtr ProcessHandle, IntPtr DebugObjectHandle);
+        internal static extern Ntstatus.NtStatus NtRemoveProcessDebug(IntPtr processHandle, IntPtr debugObjectHandle);
 
         [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
-        internal static extern NtStatus NtSetInformationDebugObject([In] IntPtr DebugObjectHandle, [In] DebugObjectInformationClass DebugObjectInformationClass, [In] IntPtr DebugObjectInformation, [In] int DebugObjectInformationLength, [Out] [Optional] out int ReturnLength);
+        internal static extern Ntstatus.NtStatus NtSetInformationDebugObject([In]
+            IntPtr debugObjectHandle, [In] DebugObjectInformationClass debugObjectInformationClass, [In]
+            IntPtr debugObjectInformation, [In] int debugObjectInformationLength, [Out] [Optional] out int returnLength);
 
         [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
-        internal static extern NtStatus NtQuerySystemInformation([In] SYSTEM_INFORMATION_CLASS SystemInformationClass, IntPtr SystemInformation, [In] int SystemInformationLength, [Out] [Optional] out int ReturnLength);
+        internal static extern Ntstatus.NtStatus NtQuerySystemInformation([In] SystemInformationClass systemInformationClass, IntPtr systemInformation, [In] int systemInformationLength, [Out] [Optional] out int returnLength);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        [DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
 
         [DllImport("User32.Dll")]
         public static extern long SetCursorPos(int x, int y);
 
         [DllImport("user32.dll")]
-        public static extern UInt32 SendInput(UInt32 nInputs, [MarshalAs(UnmanagedType.LPArray, SizeConst = 1)] INPUT[] pInputs, Int32 cbSize);
+        public static extern System.UInt32 SendInput(System.UInt32 nInputs, [MarshalAs(System.Runtime.InteropServices.UnmanagedType.LPArray, SizeConst = 1)] Keyboard.INPUT[] pInputs, System.Int32 cbSize);
     }
 }

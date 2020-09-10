@@ -2,7 +2,7 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Framework.Menu
+namespace Invictus.Core.Invictus.Framework
 {
     /// <summary>
     /// Contains all TargetSelector settings.
@@ -11,7 +11,7 @@ namespace Invictus.Pub.Invictus.Framework.Menu
     {
         internal static bool DrawAttackRange = true;
 
-        internal static string TSMode = "LowestHPTarget";
+        internal static string TsMode = "LowestHPTarget";
     }
 
     /// <summary>
@@ -19,7 +19,7 @@ namespace Invictus.Pub.Invictus.Framework.Menu
     /// </summary>
     internal class OrbSettings
     {
-        internal static float orbExtraWindup = 90f;
+        internal static float OrbExtraWindup = 90f;
     }
 
 }

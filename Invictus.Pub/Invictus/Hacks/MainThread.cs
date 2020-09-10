@@ -2,11 +2,12 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Hacks
-{
-    using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
-    using System;
+using System;
+using Invictus.Core.Invictus.Framework;
+using Invictus.Core.Invictus.Structures.GameEngine;
 
+namespace Invictus.Core.Invictus.Hacks
+{
     internal class MainThread
     {
         internal static void MainLoop()
@@ -19,7 +20,7 @@ namespace Invictus.Pub.Invictus.Hacks
                     Orbwalker.Orbwalker.Orbwalk();
                 }
 
-                if (GameObject.GetLocalPLayer() == 0)
+                if (Engine.GetLocalPlayer() == 0)
                 {
                     Environment.Exit(1);
                 }

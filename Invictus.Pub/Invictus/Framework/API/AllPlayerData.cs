@@ -2,12 +2,12 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace ExSharpBase.API
-{
-    using System;
-    using System.Collections.Generic;
-    using ExSharpBase.API.Models;
+using System;
+using System.Collections.Generic;
+using Invictus.Core.Invictus.Framework.API.Models;
 
+namespace Invictus.Core.Invictus.Framework.API
+{
     /// <summary>
     /// AllPlayerData Class contains Information all Players readen through JsonParsing parsed from the <see cref="Service"/> Class.
     /// </summary>
@@ -57,7 +57,7 @@ namespace ExSharpBase.API
                 RolePosition = PlayerData["position"].ToString(),
                 RawChampionName = PlayerData["rawChampionName"].ToString(),
                 RespawnTimer = PlayerData["respawnTimer"].ToObject<float>(),
-                SkinID = PlayerData["skinID"].ToObject<int>(),
+                SkinId = PlayerData["skinID"].ToObject<int>(),
                 SummonerName = PlayerData["summonerName"].ToString(),
                 Team = PlayerData["team"].ToString()
             };
@@ -78,7 +78,7 @@ namespace ExSharpBase.API
                     RolePosition = playerData["position"].ToString(),
                     RawChampionName = playerData["rawChampionName"].ToString(),
                     RespawnTimer = playerData["respawnTimer"].ToObject<float>(),
-                    SkinID = playerData["skinID"].ToObject<int>(),
+                    SkinId = playerData["skinID"].ToObject<int>(),
                     SummonerName = playerData["summonerName"].ToString(),
                     Team = playerData["team"].ToString()
                 };

@@ -2,11 +2,11 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Framework.Menu
-{
-    using System;
-    using System.Windows.Forms;
+using System;
+using System.Windows.Forms;
 
+namespace Invictus.Core.Invictus.Framework.Menu
+{
     public partial class CoreSettingView : UserControl
     {
         /// <summary>
@@ -14,7 +14,7 @@ namespace Invictus.Pub.Invictus.Framework.Menu
         /// </summary>
         public CoreSettingView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void CoreSettingView_Load(object sender, EventArgs e)
@@ -23,7 +23,7 @@ namespace Invictus.Pub.Invictus.Framework.Menu
 
         private void DrawAttackRangeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.DrawAttackRangeCheckBox.Checked)
+            if (DrawAttackRangeCheckBox.Checked)
             {
                 TargetSelectorSettings.DrawAttackRange = true;
             }

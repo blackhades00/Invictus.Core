@@ -2,18 +2,17 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Paradox.Core.Drawing
-{
-    using System;
-    using System.Windows.Forms;
-    using Invictus.Pub.Invictus.Callbacks;
-    using Invictus.Pub.Invictus.Drawings;
-    using Invictus.Pub.Invictus.Framework.Menu;
-    using Invictus.Pub.Modules;
-    using SharpDX;
-    using SharpDX.Direct3D9;
-    using SharpDX.Windows;
+using System;
+using System.Windows.Forms;
+using Invictus.Core.Invictus.Callbacks;
+using Invictus.Core.Invictus.Framework;
+using Invictus.Core.Invictus.Framework.Menu;
+using SharpDX;
+using SharpDX.Direct3D9;
+using SharpDX.Windows;
 
+namespace Invictus.Core.Invictus.Hacks.Drawings
+{
     public partial class Overlay : Form
     {
         internal static MenuBox MenuBoxView = new MenuBox();
@@ -23,19 +22,19 @@ namespace Paradox.Core.Drawing
         /// </summary>
         public Overlay()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void Overlay_Load(object sender, EventArgs e)
         {
             // MenuBoxView.Show();
-            this.TopMost = true;
-            this.OnLoad();
+            TopMost = true;
+            OnLoad();
         }
 
         private void Overlay_Paint(object sender, PaintEventArgs e)
         {
-            this.OnPaint();
+            OnPaint();
         }
 
         internal void StartRenderLoop()
@@ -46,7 +45,7 @@ namespace Paradox.Core.Drawing
                 DrawFactory.Device.SetRenderState(RenderState.ZEnable, false);
                 DrawFactory.Device.SetRenderState(RenderState.Lighting, false);
                 DrawFactory.Device.SetRenderState(RenderState.CullMode, Cull.None);
-                DrawFactory.Device.SetTransform(TransformState.Projection, Matrix.OrthoOffCenterLH(0, this.Width, this.Height, 0, 0, 1));
+                DrawFactory.Device.SetTransform(TransformState.Projection, Matrix.OrthoOffCenterLH(0, Width, Height, 0, 0, 1));
 
                 DrawFactory.Device.BeginScene();
 
@@ -59,10 +58,10 @@ namespace Paradox.Core.Drawing
 
         internal void OnLoad()
         {
-            NativeImport.SetWindowLong(this.Handle, DrawFactory.GWL_EXSTYLE,
-            (IntPtr)(NativeImport.GetWindowLong(this.Handle, DrawFactory.GWL_EXSTYLE) ^ DrawFactory.WS_EX_LAYERED ^ DrawFactory.WS_EX_TRANSPARENT));
+            NativeImport.SetWindowLong(Handle, DrawFactory.GWL_EXSTYLE,
+            (IntPtr)(NativeImport.GetWindowLong(Handle, DrawFactory.GWL_EXSTYLE) ^ DrawFactory.WS_EX_LAYERED ^ DrawFactory.WS_EX_TRANSPARENT));
 
-            NativeImport.SetLayeredWindowAttributes(this.Handle, 0, 255, DrawFactory.LWA_ALPHA);
+            NativeImport.SetLayeredWindowAttributes(Handle, 0, 255, DrawFactory.LWA_ALPHA);
 
             PresentParameters presentParameters = new PresentParameters
             {
@@ -71,7 +70,7 @@ namespace Paradox.Core.Drawing
                 BackBufferFormat = Format.A8R8G8B8,
             };
 
-            DrawFactory.Device = new SharpDX.Direct3D9.Device(DrawFactory.D3D, 0, DeviceType.Hardware, this.Handle, CreateFlags.HardwareVertexProcessing, presentParameters);
+            DrawFactory.Device = new Device(DrawFactory.D3D, 0, DeviceType.Hardware, Handle, CreateFlags.HardwareVertexProcessing, presentParameters);
 
             DrawFactory.DrawLineValue = new Line(DrawFactory.Device);
             DrawFactory.DrawBoxLine = new Line(DrawFactory.Device);
@@ -91,20 +90,20 @@ namespace Paradox.Core.Drawing
                 Quality = FontQuality.ClearType,
             };
 
-            DrawFactory.Font = new SharpDX.Direct3D9.Font(DrawFactory.Device, fontDescription);
+            DrawFactory.Font = new Font(DrawFactory.Device, fontDescription);
             DrawFactory.InitialiseCircleDrawing(DrawFactory.Device);
 
-            this.StartRenderLoop();
+            StartRenderLoop();
         }
 
         public void OnPaint()
         {
             DrawFactory.Marg.Left = 0;
             DrawFactory.Marg.Top = 0;
-            DrawFactory.Marg.Right = this.Width;
-            DrawFactory.Marg.Bottom = this.Height;
+            DrawFactory.Marg.Right = Width;
+            DrawFactory.Marg.Bottom = Height;
 
-            NativeImport.DwmExtendFrameIntoClientArea(this.Handle, ref DrawFactory.Marg);
+            NativeImport.DwmExtendFrameIntoClientArea(Handle, ref DrawFactory.Marg);
         }
     }
 }

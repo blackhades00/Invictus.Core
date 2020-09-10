@@ -2,88 +2,94 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Hacks.Orbwalker
-{
-    using System;
-    using System.Drawing;
-    using System.Threading;
-    using System.Windows.Forms;
-    using global::Invictus.Core.Invictus.Framework.Input;
-    using global::Invictus.Core.Invictus.Hacks.Orbwalker;
-    using global::Invictus.Core.Invictus.Hacks.TargetSelector;
-    using global::Invictus.Core.Invictus.Structures.GameEngine;
-    using global::Invictus.Pub.Invictus.GameEngine.GameObjects;
-    using global::Invictus.Pub.Invictus.LogService;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
+using Invictus.Core.Invictus.Framework;
+using Invictus.Core.Invictus.Framework.Input;
+using Invictus.Core.Invictus.Hacks.TargetSelector;
+using Invictus.Core.Invictus.LogService;
+using Invictus.Core.Invictus.Structures.GameEngine;
+using Invictus.Core.Invictus.Structures.GameObjects;
 
+namespace Invictus.Core.Invictus.Hacks.Orbwalker
+{
     internal class Orbwalker
     {
-        private static Point lastMovePoint;
-
         internal static void Orbwalk()
         {
+            GameObject test = new GameObject(GameObject.Me);
+            DebugConsole.PrintDbgMessage("HEALTH: " + test.GetHealth());
 
-            if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X))
+            if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
             {
-                if (ObjectManager.GetTarget() != 0 && Engine.CanAttack() && GameObject.IsAlive(ObjectManager.GetTarget()))
+                if (ObjectManager.GetTarget() != 0 && Engine.CanAttack() && GameObject.IsAlive(ObjectManager.GetTarget()) && GameObject.IsTargetable(ObjectManager.GetTarget()))
                 {
                     Point enemyPos = GameObject.GetObj2DPos(ObjectManager.GetTarget());
                     Point c = Cursor.Position;
                     IssueOrder(OrderType.AttackUnit, enemyPos);
-                    Engine.LastAATick = Environment.TickCount + 30 / 2;
+                    Engine.LastAaTick = Engine.GetGameTimeTickCount() + 20;
+
+                    while (Engine.CanAttack()) Thread.Sleep(1);
                     Cursor.Position = c;
                 }
+                if (Engine.CanMove(90f)) IssueMove();
+            }
+        }
 
-                if (Engine.CanMove(90f))
+        public static void IssueOrder(OrderType order, Point vector2D = new Point())
+        {
+            if (Utils.IsGameInForeground())
+            {
+                switch (order)
                 {
-                    Mouse.MouseClickRight();
+                    case OrderType.HoldPosition:
+                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyS);
+                        break;
+                    case OrderType.MoveTo:
+                        if (vector2D.X == 0 && vector2D.Y == 0)
+                        {
+                            Mouse.MouseClickRight();
+                            break;
+                        }
+
+                        if (vector2D == new Point(Cursor.Position.X, Cursor.Position.Y))
+                        {
+                            Mouse.MouseMove(vector2D.X, vector2D.Y);
+                            IssueMove();
+                            break;
+                        }
+
+                        Mouse.MouseMove(vector2D.X, vector2D.Y);
+                        Mouse.MouseClickRight();
+                        break;
+                    case OrderType.AttackUnit:
+                        if (vector2D.X == 0 && vector2D.Y == 0)
+                        {
+                            Cursor.Position = vector2D;
+                            Mouse.MouseClickRight();
+                            break;
+                        }
+
+                        Cursor.Position = vector2D;
+                        Thread.Sleep(3);
+                        Mouse.MouseClickRight();
+                        break;
+                    case OrderType.AutoAttack:
+                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyOpeningBrackets);
+                        break;
+                    case OrderType.Stop:
+                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyS);
+                        break;
                 }
             }
         }
 
-        public static void IssueOrder(OrderType Order, Point Vector2D = new Point())
+        private static void IssueMove()
         {
-            if (Utils.IsGameInForeground())
-            {
-                switch (Order)
-                {
-                    case OrderType.HoldPosition:
-                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KEY_S);
-                        break;
-                    case OrderType.MoveTo:
-                        if (Vector2D.X == 0 && Vector2D.Y == 0)
-                        {
-                            Mouse.MouseClickRight();
-                            break;
-                        }
-
-                        if (Vector2D == new Point(Cursor.Position.X, Cursor.Position.Y))
-                        {
-                            Mouse.MouseClickRight();
-                            break;
-                        }
-
-                        Mouse.MouseMove(Vector2D.X, Vector2D.Y);
-                        Mouse.MouseClickRight();
-                        break;
-                    case OrderType.AttackUnit:
-                        if (Vector2D.X == 0 && Vector2D.Y == 0)
-                        {
-                            Mouse.MouseMove(Cursor.Position.X, Cursor.Position.Y);
-                            Mouse.MouseClickRight();
-                            break;
-                        }
-
-                        Mouse.MouseMove(Vector2D.X, Vector2D.Y);
-                        Mouse.MouseClickRight();
-                        break;
-                    case OrderType.AutoAttack:
-                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KEY_OPENING_BRACKETS);
-                        break;
-                    case OrderType.Stop:
-                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KEY_S);
-                        break;
-                }
-            }
+            Thread.Sleep(30);
+            Mouse.MouseRightDown();
+            Mouse.MouseRightUp();
         }
     }
 }

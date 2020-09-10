@@ -2,11 +2,11 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.LogService
-{
-    using System;
-    using System.Runtime.InteropServices;
+using System;
+using System.Runtime.InteropServices;
 
+namespace Invictus.Core.Invictus.LogService
+{
     internal static class DebugConsole
     {
         [DllImport("kernel32.dll", SetLastError = true)]

@@ -2,7 +2,7 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace ExSharpBase.API.Models
+namespace Invictus.Core.Invictus.Framework.API.Models
 {
     public class Item
     {

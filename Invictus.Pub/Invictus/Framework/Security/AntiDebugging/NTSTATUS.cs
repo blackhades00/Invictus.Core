@@ -4,7 +4,7 @@
 
 namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
 {
-    class NTSTATUS
+    class Ntstatus
     {
         /// <summary>
         /// A NT status value.

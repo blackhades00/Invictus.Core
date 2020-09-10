@@ -2,156 +2,168 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.GameEngine.GameObjects
-{
-    using System;
-    using System.Runtime.InteropServices;
-    using ExSharpBase.API;
-    using global::Invictus.Core.Invictus.Hacks.TargetSelector;
-    using global::Invictus.Core.Invictus.Structures.GameObjects;
-    using global::Invictus.Pub.Invictus.Drawings;
-    using SharpDX;
+using SharpDX;
+using Invictus.Core.Invictus.Framework;
+using Invictus.Core.Invictus.Framework.UpdateService;
+using Invictus.Core.Invictus.Hacks.Drawings;
+using Invictus.Core.Invictus.Structures.GameEngine;
 
+namespace Invictus.Core.Invictus.Structures.GameObjects
+{
+    /// <summary>
+    /// The GameObject class contains everything related to GameObject class. For example Minions, Champions, Neutrals etc.
+    /// </summary>
     internal class GameObject
     {
+        /// <summary>
+        /// The memory addreess of this GameObject.
+        /// </summary>
+        internal readonly int _objAddr;
 
-        internal static int GetLocalPLayer()
+        /// <summary>
+        /// the Team
+        /// </summary>
+        internal readonly int _Team;
+
+        /// <summary>
+        /// True if GameObject is alive.
+        /// </summary>
+        internal readonly bool _Alive;
+
+        /// <summary>
+        /// True if GameObject is vargetable.
+        /// </summary>
+        internal readonly bool _Targetable;
+
+        /// <summary>
+        /// True if GameObject is visible.
+        /// </summary>
+        internal readonly bool _Visible;
+
+        /// <summary>
+        /// True if GameObject is in minionList but it is not a minion.
+        /// </summary>
+        internal readonly bool _NoMinion;
+
+        internal GameObject(int objAddr)
         {
-            return Utils.ReadInt(Offsets.BASE + Offsets.OLocalPlayer);
+            this._objAddr = objAddr;
+
+            _Team = this.GetTeam();
+            _Alive = this.IsAlive();
+            _Targetable = this.IsTargetable();
+            _Visible = this.IsVisible();
+            _NoMinion = this.IsNoMinion();
         }
 
-        public static Vector3 GetObj3DPos(int gameObj)
+        public Vector3 GetObj3DPos()
         {
-            float posX = Utils.ReadFloat(gameObj + Offsets.OObjPos);
-            float posY = Utils.ReadFloat(gameObj + Offsets.OObjPos + 0x4);
-            float posZ = Utils.ReadFloat(gameObj + Offsets.OObjPos + 0x8);
+            float posX = Utils.ReadFloat(this._objAddr + Offsets.GameObject.OObjPos);
+            float posY = Utils.ReadFloat(this._objAddr + Offsets.GameObject.OObjPos + 0x4);
+            float posZ = Utils.ReadFloat(this._objAddr + Offsets.GameObject.OObjPos + 0x8);
 
             return new Vector3() { X = posX, Y = posY, Z = posZ };
         }
 
-        public static float GetDistance(int obj1, int obj2)
+        public float GetDistanceTo(GameObject obj)
         {
-            var vec1 = GetObj3DPos(obj1);
-            var vec2 = GetObj3DPos(obj2);
+            var vec1 = this.GetObj3DPos();
+            var vec2 = obj.GetObj3DPos();
 
             return Vector3.Distance(vec1, vec2);
         }
 
-        internal static System.Drawing.Point GetObj2DPos(int gameObject)
+        internal System.Drawing.Point GetObj2DPos()
         {
-            Vector2 enemyVec2 = Renderer.WorldToScreen(GetObj3DPos(gameObject));
+            Vector2 enemyVec2 = Renderer.WorldToScreen(this.GetObj3DPos());
 
             System.Drawing.Point enemyPos = new System.Drawing.Point((int)enemyVec2.X, (int)enemyVec2.Y);
 
             return enemyPos;
         }
 
-        internal static float GetAttackSpeed(int obj)
+        internal float GetMaxHp()
         {
-            return ActivePlayerData.ChampionStats.GetAttackSpeed();
-            // return Utils.ReadFloat(obj + Offsets.oAttackSpeed);
+            return Utils.ReadFloat(this._objAddr + Offsets.GameObject.OObjMaxHealth);
         }
 
-        internal static float GetAttackRange(int gameObject)
+        internal bool IsNoMinion()
         {
-            return Utils.ReadFloat(gameObject + Offsets.OObjAtkRange) + GetBoundingRadius(gameObject);
+            return this.GetMaxHp() == 1f || this.GetMaxHp() == 3f || this.GetMaxHp() == 4f;
         }
 
-        internal static float GetHealth(int obj)
+        internal bool IsWard()
         {
-            return Utils.ReadFloat(obj + Offsets.OObjHealth);
+            return this.GetMaxHp() == 3f || this.GetMaxHp() == 4f;
         }
 
-        internal static int GetTeam(int obj)
+        internal float GetHealth()
         {
-            return Utils.ReadInt(obj + Offsets.OObjTeam);
+            return Utils.ReadFloat(this._objAddr + Offsets.GameObject.OObjHealth);
         }
 
-        internal static float GetBoundingRadius(int obj)
+        internal int GetTeam()
         {
-            return 65f;
-
+            return Utils.ReadInt(this._objAddr + Offsets.GameObject.OObjTeam);
         }
 
-        [DllImport("Invictus.ACD.dll")]
-        private static extern float GetAttackCastDelay(IntPtr LolHandle, int AttackCastDelayAddr, int Object);
-
-        internal static float GetAttackCastDelay(int obj)
+        internal string GetChampionName()
         {
-            return GetAttackCastDelay(Offsets.PROCESS_HANDLE, Offsets.BASE + Offsets.oGetAttackCastDelay, obj);
+            return Utils.ReadString(this._objAddr + Offsets.GameObject.OObjChampionName, System.Text.Encoding.ASCII);
         }
 
-        internal static string GetChampionName(int obj)
+        internal float GetBaseAd()
         {
-            return Utils.ReadString(obj + Offsets.OObjChampionName, System.Text.Encoding.ASCII);
+            return Utils.ReadFloat(this._objAddr + Offsets.CharInfo.OBaseAttackDamage);
         }
 
-        internal static float GetBaseAD(int obj)
+        internal float GetBonusAd()
         {
-            return Utils.ReadFloat(obj + Offsets.OObjBaseAtk);
+            return Utils.ReadFloat(this._objAddr + Offsets.CharInfo.OFlatPhysicalDamageMod);
         }
 
-        internal static float GetBonusAD(int obj)
+        internal float GetTotalAd()
         {
-            return Utils.ReadFloat(obj + Offsets.OObjBonusAtk);
+            return this.GetBaseAd() + this.GetBonusAd();
         }
 
-        internal static float GetTotalAD(int obj)
+        internal float GetTotalArmor()
         {
-            return GetBaseAD(obj) + GetBonusAD(obj);
+            return Utils.ReadFloat(this._objAddr + Offsets.CharInfo.OArmor);
         }
 
-        internal static int GetAttackDelay(int obj)
+        internal float GetEffectiveHealth()
         {
-            return (int)(1000.0f / GameObject.GetAttackSpeed(GameObject.GetLocalPLayer()));
+            var resistance = this.GetTotalArmor();
+            var effectiveHp = this.GetHealth();
+
+            effectiveHp *= 1 + (resistance / 100);
+            return effectiveHp;
         }
 
-        internal static float GetTotalArmor(int obj)
+        internal bool IsLasthitable()
         {
-            return Utils.ReadFloat(obj + Offsets.oTotalArmor);
+            return this.GetEffectiveHealth() <= this.GetTotalAd();
         }
 
-        internal static float GetEffectiveHealth(int target)
+        internal bool IsAlive()
         {
-            var resistance = GetTotalArmor(target);
-            var effectiveHP = GetHealth(target);
-
-            effectiveHP *= 1 + (resistance / 100);
-            return effectiveHP;
-
-            // return GetTotalAD(GetLocalPLayer()) * (100 / (100 + GetTotalArmor(target)));
+            return this.GetHealth() > 0.0f && this.GetHealth() != 0 && this.GetHealth() != 1000;
         }
 
-        internal static bool IsLasthitable(int obj)
+        internal bool IsEnemy()
         {
-            return GetEffectiveHealth(obj) <= GetTotalAD(GetLocalPLayer());
+            return this._Team != Engine.GetLocalPlayer()._Team;
         }
 
-        internal static bool IsInRange(int obj)
+        internal bool IsVisible()
         {
-            return GameObject.GetDistance(obj, GameObject.GetLocalPLayer()) <= GameObject.GetAttackRange(GameObject.GetLocalPLayer());
+            return Utils.ReadBool(this._objAddr + Offsets.GameObject.OObjVisibility);
         }
 
-        /// <summary>
-        /// Checks if the given object is alive through String comparison
-        /// to a DeadChampions List given by <see cref="ObjectManager.GetDeadChampions()"/>.
-        /// <return>returns true if the given objects name is != to all objects from the <see cref="ObjectManager.GetDeadChampions()"/> List.</return>
-        /// </summary>
-        /// <param name="obj">the object to check</param>
-        /// <returns></returns>
-        internal static bool IsAlive(int obj)
+        internal bool IsTargetable()
         {
-            return GameObject.GetHealth(obj) > 0.0f && GameObject.GetHealth(obj) != 1000.0f ;
-        }
-
-        internal static bool IsEnemy(int obj)
-        {
-            return GetTeam(obj) != GetTeam(GetLocalPLayer());
-        }
-
-        internal static bool IsVisible(int obj)
-        {
-            return Utils.Read<byte>((IntPtr)(obj + Offsets.OObjVisibility)) == 1;
+            return Utils.ReadBool(this._objAddr + Offsets.GameObject.OIsTargetable);
         }
     }
 }

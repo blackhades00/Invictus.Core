@@ -2,11 +2,11 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Framework.Menu
-{
-    using System;
-    using System.Windows.Forms;
+using System;
+using System.Windows.Forms;
 
+namespace Invictus.Core.Invictus.Framework.Menu
+{
     public partial class OrbwalkerView : UserControl
     {
         /// <summary>
@@ -14,12 +14,12 @@ namespace Invictus.Pub.Invictus.Framework.Menu
         /// </summary>
         public OrbwalkerView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void OrbwalkerView_Load(object sender, EventArgs e)
         {
-            this.SetViewDesign();
+            SetViewDesign();
         }
 
         private void SetViewDesign()
@@ -28,7 +28,7 @@ namespace Invictus.Pub.Invictus.Framework.Menu
 
         private void orbExtraWindup_Scroll(object sender, EventArgs e)
         {
-            OrbSettings.orbExtraWindup = (float)this.orbExtraWindup.Value;
+            OrbSettings.OrbExtraWindup = (float)orbExtraWindup.Value;
         }
     }
 }

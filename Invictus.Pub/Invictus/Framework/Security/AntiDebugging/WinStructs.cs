@@ -8,7 +8,7 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
 
     class WinStructs
     {
-        internal enum PROCESSINFOCLASS : int
+        internal enum Processinfoclass : int
         {
             ProcessBasicInformation, // 0, q: PROCESS_BASIC_INFORMATION, PROCESS_EXTENDED_BASIC_INFORMATION
             ProcessQuotaLimits, // qs: QUOTA_LIMITS, QUOTA_LIMITS_EX
@@ -26,7 +26,7 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
             ProcessIoPortHandlers, // (kernel-mode only)
             ProcessPooledUsageAndLimits, // q: POOLED_USAGE_AND_LIMITS
             ProcessWorkingSetWatch, // q: PROCESS_WS_WATCH_INFORMATION[]; s: void
-            ProcessUserModeIOPL,
+            ProcessUserModeIopl,
             ProcessEnableAlignmentFaultFixup, // s: BOOLEAN
             ProcessPriorityClass, // qs: PROCESS_PRIORITY_CLASS
             ProcessWx86Information,
@@ -38,7 +38,7 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
             ProcessForegroundInformation, // s: PROCESS_FOREGROUND_BACKGROUND
             ProcessWow64Information, // q: ULONG_PTR
             ProcessImageFileName, // q: UNICODE_STRING
-            ProcessLUIDDeviceMapsEnabled, // q: ULONG
+            ProcessLuidDeviceMapsEnabled, // q: ULONG
             ProcessBreakOnTermination, // qs: ULONG
             ProcessDebugObjectHandle, // 30, q: HANDLE
             ProcessDebugFlags, // qs: ULONG
@@ -82,7 +82,7 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
             MaxDebugObjectInfoClass
         }
 
-        public enum SYSTEM_INFORMATION_CLASS
+        public enum SystemInformationClass
         {
             SystemBasicInformation, // q: SYSTEM_BASIC_INFORMATION
             SystemProcessorInformation, // q: SYSTEM_PROCESSOR_INFORMATION
@@ -254,7 +254,7 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
             ThreadImpersonationToken = 5,
             ThreadDescriptorTableEntry = 6,
             ThreadEnableAlignmentFaultFixup = 7,
-            ThreadEventPair_Reusable = 8,
+            ThreadEventPairReusable = 8,
             ThreadQuerySetWin32StartAddress = 9,
             ThreadZeroTlsCell = 10,
             ThreadPerformanceCount = 11,
@@ -290,19 +290,19 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
         [Flags]
         public enum ThreadAccess : int
         {
-            TERMINATE = (0x0001),
-            SUSPEND_RESUME = (0x0002),
-            GET_CONTEXT = (0x0008),
-            SET_CONTEXT = (0x0010),
-            SET_INFORMATION = (0x0020),
-            QUERY_INFORMATION = (0x0040),
-            SET_THREAD_TOKEN = (0x0080),
-            IMPERSONATE = (0x0100),
-            DIRECT_IMPERSONATION = (0x0200)
+            Terminate = (0x0001),
+            SuspendResume = (0x0002),
+            GetContext = (0x0008),
+            SetContext = (0x0010),
+            SetInformation = (0x0020),
+            QueryInformation = (0x0040),
+            SetThreadToken = (0x0080),
+            Impersonate = (0x0100),
+            DirectImpersonation = (0x0200)
         }
 
         [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-        public struct SYSTEM_KERNEL_DEBUGGER_INFORMATION
+        public struct SystemKernelDebuggerInformation
         {
             [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.U1)]
             public bool KernelDebuggerEnabled;

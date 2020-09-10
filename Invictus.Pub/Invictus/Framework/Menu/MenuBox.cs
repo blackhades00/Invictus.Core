@@ -2,13 +2,12 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Framework.Menu
-{
-    using System;
-    using System.Drawing;
-    using System.Windows.Forms;
-    using global::Invictus.Pub.Modules;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
+namespace Invictus.Core.Invictus.Framework.Menu
+{
     public partial class MenuBox : Form
     {
         internal static Panel MenuContentPanelExport;
@@ -18,23 +17,23 @@ namespace Invictus.Pub.Invictus.Framework.Menu
         /// </summary>
         public MenuBox()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void MenuBox_Load(object sender, EventArgs e)
         {
-            this.SetMenuDesign();
-            MenuContentPanelExport = this.MenuContentPanel;
+            SetMenuDesign();
+            MenuContentPanelExport = MenuContentPanel;
             IngameMenu.LoadMenuContent();
         }
 
         private void SetMenuDesign()
         {
-            this.OrbwalkerSettingButton.FlatAppearance.BorderSize = 1;
-            this.OrbwalkerSettingButton.FlatAppearance.BorderColor = Color.FromArgb(142, 95, 197);
+            OrbwalkerSettingButton.FlatAppearance.BorderSize = 1;
+            OrbwalkerSettingButton.FlatAppearance.BorderColor = Color.FromArgb(142, 95, 197);
 
-            this.CoreSettingButton.FlatAppearance.BorderSize = 1;
-            this.CoreSettingButton.FlatAppearance.BorderColor = Color.FromArgb(142, 95, 197);
+            CoreSettingButton.FlatAppearance.BorderSize = 1;
+            CoreSettingButton.FlatAppearance.BorderColor = Color.FromArgb(142, 95, 197);
         }
 
         private void MenuTopPanel_MouseDown(object sender, MouseEventArgs e)
@@ -42,18 +41,18 @@ namespace Invictus.Pub.Invictus.Framework.Menu
             if (e.Button == MouseButtons.Left)
             {
                 NativeImport.ReleaseCapture();
-                NativeImport.SendMessage(this.Handle, NativeImport.WM_NCLBUTTONDOWN, NativeImport.HTCAPTION, 0);
+                NativeImport.SendMessage(Handle, NativeImport.WM_NCLBUTTONDOWN, NativeImport.HTCAPTION, 0);
             }
         }
 
         private void OrbwalkerSettingButton_Click(object sender, EventArgs e)
         {
-            this.MenuContentPanel.Controls["OrbwalkerView"].BringToFront();
+            MenuContentPanel.Controls["OrbwalkerView"].BringToFront();
         }
 
         private void CoreSettingButton_Click(object sender, EventArgs e)
         {
-            this.MenuContentPanel.Controls["CoreSettingView"].BringToFront();
+            MenuContentPanel.Controls["CoreSettingView"].BringToFront();
         }
 
         private void MenuContentPanel_Paint(object sender, PaintEventArgs e)
@@ -62,7 +61,7 @@ namespace Invictus.Pub.Invictus.Framework.Menu
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            this.MenuContentPanel.Controls["TargetSelectorView"].BringToFront();
+            MenuContentPanel.Controls["TargetSelectorView"].BringToFront();
         }
     }
 }

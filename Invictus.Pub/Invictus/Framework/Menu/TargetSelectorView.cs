@@ -4,7 +4,6 @@
 
 namespace Invictus.Core.Invictus.Framework.Menu
 {
-    using global::Invictus.Pub.Invictus.Framework.Menu;
     using System;
     using System.Windows.Forms;
 
@@ -22,7 +21,7 @@ namespace Invictus.Core.Invictus.Framework.Menu
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TargetSelectorSettings.TSMode = this.targetSelectorMode.GetItemText(this.targetSelectorMode.SelectedItem);
+            TargetSelectorSettings.TsMode = targetSelectorMode.GetItemText(targetSelectorMode.SelectedItem);
         }
     }
 }

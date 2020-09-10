@@ -2,10 +2,12 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Drawings
-{
-    using SharpDX;
+using Invictus.Core.Invictus.Framework;
+using Invictus.Core.Invictus.Framework.UpdateService;
+using SharpDX;
 
+namespace Invictus.Core.Invictus.Hacks.Drawings
+{
     internal class Renderer
     {
         private const int Width = 0x0014;
@@ -13,10 +15,10 @@ namespace Invictus.Pub.Invictus.Drawings
 
         // B9 ? ? ? ? E8 ? ? ? ? B9 ? ? ? ? E9 ? ? ? ?
         // ZoomClass + 0 = ViewMatrix
-        private static readonly int ViewMatrix = Offsets.BASE + Offsets.OViewMatrix;
+        private static readonly int ViewMatrix = Offsets.Base + Offsets.Renderer.OViewMatrix;
         private static readonly int ProjectionMatrix = ViewMatrix + 0x40;
 
-        internal static int Instance { get; } = Utils.ReadInt(Offsets.BASE + Offsets.ORenderer);
+        internal static int Instance { get; } = Utils.ReadInt(Offsets.Base + Offsets.Renderer.ORenderer);
 
         /// <summary>
         /// Gets ViewProjection Matrix.

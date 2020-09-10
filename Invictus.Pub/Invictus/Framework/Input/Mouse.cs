@@ -4,27 +4,28 @@
 
 namespace Invictus.Core.Invictus.Framework.Input
 {
-    using global::Invictus.Pub.Modules;
-    using System.Threading;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
     class Mouse
     {
-        private const uint MOUSEEVENTF_LEFTDOWN = 0x02;
-        private const uint MOUSEEVENTF_LEFTUP = 0x04;
-        private const uint MOUSEEVENTF_RIGHTDOWN = 0x08;
-        private const uint MOUSEEVENTF_RIGHTUP = 0x10;
-        private const int MOUSEEVENTF_MOVE = 0x0001;
-        private const int MOUSEEVENTF_ABSOLUTE = 0x8000;
+        private const uint MouseeventfLeftdown = 0x02;
+        private const uint MouseeventfLeftup = 0x04;
+        private const uint MouseeventfRightdown = 0x08;
+        private const uint MouseeventfRightup = 0x10;
+        private const int MouseeventfMove = 0x0001;
+        private const int MouseeventfAbsolute = 0x8000;
 
         public static void MoveTo(int x, int y)
         {
-            NativeImport.mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE, (uint)x, (uint)y, 0, 0);
+            NativeImport.mouse_event(MouseeventfAbsolute | MouseeventfMove, (uint)x, (uint)y, 0, 0);
         }
 
+        [DllImport("Invictus.ACD.dll")]
+        private static extern void IssueAttack(int x, int y);
         internal static void MouseMove(int x, int y)
         {
-            NativeImport.SetCursorPos(x, y);
+            IssueAttack(x, y);
         }
 
         internal static void MouseMoveRelative(int xOffset, int yOffset)
@@ -43,7 +44,7 @@ namespace Invictus.Core.Invictus.Framework.Input
 
         internal static void MouseLeftDown()
         {
-            MouseEvent(MOUSEEVENTF_LEFTDOWN, (uint)Cursor.Position.X, (uint)Cursor.Position.Y);
+            MouseEvent(MouseeventfLeftdown, (uint) Cursor.Position.X, (uint) Cursor.Position.Y);
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Invictus.Core.Invictus.Framework.Input
 
         internal static void MouseLeftUp()
         {
-            MouseEvent(MOUSEEVENTF_LEFTUP, (uint)Cursor.Position.X, (uint)Cursor.Position.Y);
+            MouseEvent(MouseeventfLeftup, (uint) Cursor.Position.X, (uint) Cursor.Position.Y);
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace Invictus.Core.Invictus.Framework.Input
 
         internal static void MouseRightDown()
         {
-            MouseEvent(MOUSEEVENTF_RIGHTDOWN, (uint)Cursor.Position.X, (uint)Cursor.Position.Y);
+            MouseEvent(MouseeventfRightdown, (uint) Cursor.Position.X, (uint) Cursor.Position.Y);
         }
 
         /// <summary>
@@ -80,7 +81,7 @@ namespace Invictus.Core.Invictus.Framework.Input
 
         internal static void MouseRightUp()
         {
-            MouseEvent(MOUSEEVENTF_RIGHTUP, (uint)Cursor.Position.X, (uint)Cursor.Position.Y);
+            MouseEvent(MouseeventfRightup, (uint) Cursor.Position.X, (uint) Cursor.Position.Y);
         }
 
         /// <summary>
@@ -91,7 +92,6 @@ namespace Invictus.Core.Invictus.Framework.Input
         {
             MouseRightDown();
             MouseRightUp();
-            Thread.Sleep(20);
         }
     }
 }

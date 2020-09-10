@@ -2,16 +2,16 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.Drawings
-{
-    using System;
-    using SharpDX;
-    using SharpDX.Direct3D9;
-    using SharpDX.Mathematics.Interop;
+using System;
+using SharpDX;
+using SharpDX.Direct3D9;
+using SharpDX.Mathematics.Interop;
 
+namespace Invictus.Core.Invictus.Hacks.Drawings
+{
     internal class DrawFactory
     {
-        internal static SharpDX.Direct3D9.Device Device = null;
+        internal static Device Device = null;
         internal static Direct3D D3D = new Direct3D();
 
         /// <summary>
@@ -36,12 +36,12 @@ namespace Invictus.Pub.Invictus.Drawings
         }
 
         internal static Margins Marg;
-        internal static SharpDX.Direct3D9.Font Font;
-        internal static SharpDX.Direct3D9.Line DrawBoxLine;
-        internal static SharpDX.Direct3D9.Line DrawLineValue;
-        internal static SharpDX.Direct3D9.Line DrawCircleLine;
-        internal static SharpDX.Direct3D9.Line DrawFilledBoxLine;
-        internal static SharpDX.Direct3D9.Line DrawTriLine;
+        internal static Font Font;
+        internal static Line DrawBoxLine;
+        internal static Line DrawLineValue;
+        internal static Line DrawCircleLine;
+        internal static Line DrawFilledBoxLine;
+        internal static Line DrawTriLine;
 
         internal const int GWL_EXSTYLE = -20;
         internal const int WS_EX_LAYERED = 0x80000;
@@ -173,8 +173,8 @@ namespace Invictus.Pub.Invictus.Drawings
             for (i = 0; i < 360; i++)
             {
                 double rad = i * 3.14159 / 180.0;
-                line[i].X = x + ((float)Math.Cos(rad) * radiusX);
-                line[i].Y = y + ((float)Math.Sin(rad) * radiusY);
+                line[i].X = x + ((float) Math.Cos(rad) * radiusX);
+                line[i].Y = y + ((float) Math.Sin(rad) * radiusY);
             }
 
             DrawCircleLine.Width = width;
@@ -196,7 +196,6 @@ namespace Invictus.Pub.Invictus.Drawings
         // Method for drawing out a triangle
         internal static void DrawTriangle(int x, int y, int w, int h, Color c)
         {
-
             Vector2[] vertices =
             {
                 new Vector2(x, y),
@@ -212,57 +211,56 @@ namespace Invictus.Pub.Invictus.Drawings
             /* Triangle(x Axis, y Axis, base length, height, color); */
         }
 
-        private static Effect Effect;
-        private static EffectHandle Technique;
-        private static VertexBuffer VertexBuffer;
-        private static VertexDeclaration VertexDeclaration;
-        private static VertexElement[] VertexElements;
+        private static Effect _effect;
+        private static EffectHandle _technique;
+        private static VertexBuffer _vertexBuffer;
+        private static VertexDeclaration _vertexDeclaration;
+        private static VertexElement[] _vertexElements;
 
         internal static void DrawCircleRange(Vector3 position, float radius, Color color, float thickness, bool filled = false)
         {
-            if (Effect == null || Effect.IsDisposed)
+            if (_effect == null || _effect.IsDisposed)
             {
                 return;
             }
 
             VertexDeclaration vertexDeclaration = Device.VertexDeclaration;
-            Effect.Begin();
-            Device.SetStreamSource(0, VertexBuffer, 0, Utilities.SizeOf<Vector4>());
-            Device.VertexDeclaration = VertexDeclaration;
+            _effect.Begin();
+            Device.SetStreamSource(0, _vertexBuffer, 0, Utilities.SizeOf<Vector4>());
+            Device.VertexDeclaration = _vertexDeclaration;
             Matrix viewMatrix = Renderer.GetViewMatrix();
             var projectionMatrix = Renderer.GetProjectionMatrix();
             Vector3 value = position;
-            Effect.BeginPass(0);
-            Effect.SetValue<Matrix>("ProjectionMatrix", Matrix.Translation(value) * viewMatrix * projectionMatrix);
-            Effect.SetValue<Vector4>("Color", new Vector4((float)color.R / 255f, (float)color.G / 255f, (float)color.B / 255f, (float)color.A / 255f));
-            Effect.SetValue("Radius", radius);
-            Effect.SetValue("Width", thickness);
-            Effect.SetValue("Filled", filled);
-            Effect.SetValue("EnableZ", false);
-            Effect.SetValue("antiAlias", 1.25f);
-            Effect.EndPass();
+            _effect.BeginPass(0);
+            _effect.SetValue("ProjectionMatrix", Matrix.Translation(value) * viewMatrix * projectionMatrix);
+            _effect.SetValue("Color", new Vector4((float)color.R / 255f, (float)color.G / 255f, (float)color.B / 255f, (float)color.A / 255f));
+            _effect.SetValue("Radius", radius);
+            _effect.SetValue("Width", thickness);
+            _effect.SetValue("Filled", filled);
+            _effect.SetValue("EnableZ", false);
+            _effect.SetValue("antiAlias", 1.25f);
+            _effect.EndPass();
             Device.DrawPrimitives(PrimitiveType.TriangleList, 0, 1);
-            Effect.CommitChanges();
-            Effect.End();
+            _effect.CommitChanges();
+            _effect.End();
             Device.VertexDeclaration = vertexDeclaration;
         }
 
-        internal static void InitialiseCircleDrawing(SharpDX.Direct3D9.Device device)
+        internal static void InitialiseCircleDrawing(Device device)
         {
-            VertexBuffer = new VertexBuffer(device, Utilities.SizeOf<Vector4>() * 3, Usage.WriteOnly, VertexFormat.Texture0, Pool.Managed);
-            VertexBuffer.Lock(0, 0, LockFlags.None).WriteRange<Vector4>(new Vector4[]
+            _vertexBuffer = new VertexBuffer(device, Utilities.SizeOf<Vector4>() * 3, Usage.WriteOnly, VertexFormat.Texture0, Pool.Managed);
+            _vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(new Vector4[]
             {
         new Vector4(-20000f, 0f, -20000f, 1f),
         new Vector4(0f, 0f, 20000f, 1f),
         new Vector4(20000f, 0f, -20000f, 1f),
             });
-            VertexBuffer.Unlock();
-            VertexElements = new VertexElement[]
+            _vertexBuffer.Unlock();
+            _vertexElements = new VertexElement[]
             {
-        new VertexElement(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.Position, 0),
-        VertexElement.VertexDeclarationEnd,
+        new VertexElement(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.Position, 0), VertexElement.VertexDeclarationEnd,
             };
-            VertexDeclaration = new VertexDeclaration(device, VertexElements);
+            _vertexDeclaration = new VertexDeclaration(device, _vertexElements);
             byte[] memory = new byte[]
             {
         1,
@@ -3270,8 +3268,8 @@ namespace Invictus.Pub.Invictus.Drawings
         0,
         0,
             };
-            Effect = Effect.FromMemory(device, memory, ShaderFlags.OptimizationLevel1);
-            Technique = Effect.GetTechnique(0);
+            _effect = Effect.FromMemory(device, memory, ShaderFlags.OptimizationLevel1);
+            _technique = _effect.GetTechnique(0);
         }
     }
 }

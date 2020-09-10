@@ -2,22 +2,21 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-namespace Invictus.Pub.Invictus.ThreadService
-{
-    using System.Threading;
-    using global::Invictus.Core.Invictus.Hacks.TargetSelector;
-    using global::Invictus.Pub.Invictus.Hacks;
+using System.Threading;
+using Invictus.Core.Invictus.Hacks;
 
+namespace Invictus.Core.Invictus.ThreadService
+{
     internal class ThreadService
     {
-        private static Thread thread;
-        private static Thread staticListThread;
+        private static Thread _thread;
+        private static Thread _staticListThread;
 
         internal static void LoadMainThread()
         {
-            thread = new Thread(new ThreadStart(MainThread.MainLoop));
-            thread.IsBackground = true;
-            thread.Start();
+            _thread = new Thread(new ThreadStart(MainThread.MainLoop));
+            _thread.IsBackground = true;
+            _thread.Start();
         }
 
     }

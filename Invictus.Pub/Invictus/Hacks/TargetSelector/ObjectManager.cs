@@ -1,11 +1,4 @@
-﻿using Invictus.Pub.Invictus;
-using Invictus.Pub.Invictus.Framework.Menu;
-using Invictus.Pub.Invictus.Hacks.TargetSelector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Invictus.Core.Invictus.Framework;
 
 namespace Invictus.Core.Invictus.Hacks.TargetSelector
 {
@@ -16,10 +9,13 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
             if (Utils.IsKeyPressed(System.Windows.Forms.Keys.X))
                 return MinionManager.GetLasthitTarget();
 
-            switch (TargetSelectorSettings.TSMode)
+            if (Utils.IsKeyPressed(System.Windows.Forms.Keys.V))
+                return MinionManager.GetWaveclearTarget();
+
+            switch (TargetSelectorSettings.TsMode)
             {
                 case "LowestHPTarget":
-                    return HeroManager.GetLowestHPTarget();
+                    return HeroManager.GetLowestHpTarget();
 
                 case "ClosestTarget":
                     return HeroManager.GetClosestTarget();
