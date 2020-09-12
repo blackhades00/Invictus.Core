@@ -15,60 +15,21 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
     /// </summary>
     internal class HeroManager
     {
+        /// <summary>
+        /// Returns the static HeroList. Contains all active Heroes within a game. Objects must be checked for invalidity or deletion though.
+        /// </summary>
         private static readonly int HeroList = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OHeroList);
 
-        private static List<GameObject> enemyList = new List<GameObject>();
+        /// <summary>
+        /// Static list which contains all enemys.
+        /// </summary>
+        private static readonly List<int> enemyList = new List<int>();
 
+        /// <summary>
+        /// Pushes all Heroes in their specified collection. Function should be called upon gamestart.
+        /// </summary>
         internal static void PushHeroList()
         {
-            int index = 0x4;
-            int obj = -1;
-
-            while (obj != 0)
-            {
-                obj = Utils.ReadInt(HeroList + index);
-                GameObject hero = new GameObject(obj);
-                index += 0x4;
-
-                switch (obj)
-                {
-                    case 0x00:
-                        continue;
-                    default:
-                    {
-                        if(GameObject.IsEnemy(obj))
-                            enemyList.Add(obj);
-                        break;
-                    }
-                }
-            }
-        }
-
-        internal static GameObject GetLowestHPTarget()
-        {
-            GameObject lowestHPTarget = null;
-
-            foreach (var enemyObject in enemyList)
-            {
-                GameObject enemy = new GameObject(enemyObject);
-
-                if (lowestHPTarget == null)
-                {
-                    lowestHPTarget = enemy;
-                }
-               
-
-
-            }
-
-            return null;
-        }
-
-       /*
-        internal static int GetLowestHpTarget()
-        {
-            int lowestHpTarget = 0;
-
             int index = 0x4;
             int obj = -1;
             while (obj != 0)
@@ -82,39 +43,53 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
                         continue;
                     default:
                         {
-                            if (GameObject.IsEnemy(obj))
+                            if (obj.IsEnemy())
                             {
-                                if (GameObject.IsVisible(obj))
-                                {
-                                    if (GameObject.IsInRange(obj))
-                                    {
-                                        if (GameObject.IsAlive(obj) && GameObject.IsTargetable(obj))
-                                        {
-                                            if (lowestHpTarget == 0)
-                                                lowestHpTarget = obj;
-
-                                            else if (GameObject.GetHealth(obj) < GameObject.GetHealth(lowestHpTarget))
-                                                lowestHpTarget = obj;
-                                        }
-                                    }
-                                }
+                                enemyList.Add(obj);
                             }
+
 
                             break;
                         }
                 }
             }
-
-            return lowestHpTarget;
         }
-       */
+
+        /// <summary>
+        /// Returns the lowest HP Object.
+        /// The Object is valid for a attack, which means its in range and a valid target/succeeded on a validation check.
+        /// </summary>
+        /// <returns></returns>
+        internal static int GetLowestHPTarget()
+        {
+            int lowestHPTarget = 0;
+
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+
+                if (enemyList[i].IsInRange())
+                {
+                    if (enemyList[i].IsAlive() && enemyList[i].IsVisible() && enemyList[i].IsTargetable())
+                    {
+                        if (lowestHPTarget == 0)
+                        {
+                            lowestHPTarget = enemyList[i];
+                        }
+
+                        if (enemyList[i].GetHealth() < lowestHPTarget.GetHealth())
+                            lowestHPTarget = enemyList[i];
+                    }
+                }
+            }
+            return lowestHPTarget;
+        }
+
         internal static int GetClosestTarget()
         {
-            int closestTarget = 0;
-            var localPlayer = GameObject.Me;
+            var closestTarget = 0;
 
 
-            return closestTarget;
+            return 0;
         }
     }
 }

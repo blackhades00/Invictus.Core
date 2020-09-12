@@ -56,10 +56,14 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         {
             if (Utils.IsGameInForeground())
             {
-                DrawFactory.DrawCircleRange(GameObject.GetObj3DPos(gameObject), Engine.BoundingRadius + Engine.GetLocalPlayerAtkRange(gameObject), rGb, 1.5f);
+                DrawFactory.DrawCircleRange(gameObject.GetObj3DPos(), Engine.BoundingRadius + Engine.GetLocalObjectAtkRange(), rGb, 1.5f);
             }
         }
-
+        
+        /// <summary>
+        /// Draws wards (not visible ones). The colors are specified for the wardtype.
+        /// Control wards have a red circle, while normal wards got a yellow one.
+        /// </summary>
         internal static void DrawWard()
         {
 
@@ -78,19 +82,19 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
                         continue;
                     else
                     {
-                        if (GameObject.IsWard(obj))
+                        if (obj.IsWard())
                         {
 
-                            if (GameObject.IsEnemy(obj))
+                            if (obj.IsEnemy())
                             {
 
-                                if (GameObject.IsAlive(obj))
+                                if (obj.IsAlive())
                                 {
-                                    DrawFactory.DrawCircleRange(GameObject.GetObj3DPos(obj), 60f, Color.Red, 1.5f);
+                                    DrawFactory.DrawCircleRange(obj.GetObj3DPos(), 60f, Color.Red, 1.5f);
 
-                                    var w2SPos = GameObject.GetObj2DPos(obj);
+                                    var w2SPos = obj.GetObj2DPos();
 
-                                    float objectMaxHp = GameObject.GetMaxHp(obj);
+                                    float objectMaxHp = obj.GetMaxHp();
 
                                     switch (objectMaxHp)
                                     {
@@ -109,9 +113,13 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
             }
         }
 
+        /// <summary>
+        /// Draws spell cooldowns for the given object.
+        /// </summary>
+        /// <param name="obj"></param>
         internal static void DrawCooldown(int obj)
         {
-            var w2SPos = GameObject.GetObj2DPos(obj);
+            var w2SPos = obj.GetObj2DPos();
             DrawFactory.DrawFont("TEST", 30, new Point(w2SPos.X, w2SPos.Y), Color.Cyan);
         }
     }

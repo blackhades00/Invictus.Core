@@ -6,9 +6,11 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Invictus.Core.Invictus.Framework.API;
+using Invictus.Core.Invictus.Framework.UpdateService;
 using Invictus.Core.Invictus.Hacks.Drawings;
 using Invictus.Core.Invictus.Hacks.TargetSelector;
 using Invictus.Core.Invictus.LogService;
+using Invictus.Core.Invictus.Structures.GameEngine;
 using Invictus.Core.Invictus.Structures.GameObjects;
 using Invictus.Core.Invictus.ThreadService;
 
@@ -35,10 +37,10 @@ namespace Invictus.Core
 
         internal static async void InitialiseCore()
         {
-            //   DebugConsole.AllocConsole();
+            //  DebugConsole.AllocConsole();
             await Task.Run(() => ActivePlayerData.ParseUnitRadiusData());
             // await Task.Run(() => Service.ParseSpellDBData());
-            await Task.Run(() => GameObject.SetBoundingRadius(GameObject.Me));
+            await Task.Run(() => Engine.SetBoundingRadius());
 
             await Task.Run(() => HeroManager.PushHeroList());
 

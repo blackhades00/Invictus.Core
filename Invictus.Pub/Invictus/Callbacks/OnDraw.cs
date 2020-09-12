@@ -3,7 +3,9 @@
 // </copyright>
 
 using Invictus.Core.Invictus.Framework;
+using Invictus.Core.Invictus.Framework.UpdateService;
 using Invictus.Core.Invictus.Hacks.Drawings;
+using Invictus.Core.Invictus.Structures.GameEngine;
 using Invictus.Core.Invictus.Structures.GameObjects;
 
 namespace Invictus.Core.Invictus.Callbacks
@@ -26,7 +28,7 @@ namespace Invictus.Core.Invictus.Callbacks
 
                 if (TargetSelectorSettings.DrawAttackRange)
                 {
-                   Draw.DrawAttackRange(GameObject.Me, Color.Cyan);
+                   Draw.DrawAttackRange(Engine.GetLocalObject(), Color.Cyan);
                 }
 
                 //Draw.DrawCooldown(GameObject.me);

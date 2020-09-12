@@ -5,6 +5,7 @@
 using System;
 using Invictus.Core.Invictus.Framework;
 using Invictus.Core.Invictus.Structures.GameEngine;
+using Invictus.Core.Invictus.Structures.GameObjects;
 
 namespace Invictus.Core.Invictus.Hacks
 {
@@ -20,7 +21,7 @@ namespace Invictus.Core.Invictus.Hacks
                     Orbwalker.Orbwalker.Orbwalk();
                 }
 
-                if (Engine.GetLocalPlayer() == 0)
+                if (Engine.GetLocalObject() == 0)
                 {
                     Environment.Exit(1);
                 }

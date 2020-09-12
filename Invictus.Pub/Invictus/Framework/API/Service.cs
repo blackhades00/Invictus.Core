@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using Invictus.Core.Invictus.LogService;
+using Invictus.Core.Invictus.Structures.GameEngine;
 using Invictus.Core.Invictus.Structures.GameObjects;
 using Invictus.Core.Invictus.Structures.Spell_Structure;
 using Newtonsoft.Json.Linq;
@@ -25,7 +26,7 @@ namespace Invictus.Core.Invictus.Framework.API
             try
             {
                 string spellDbDataString = File.ReadAllText(Directory.GetCurrentDirectory() + @"\SpellDB.json");
-                string championName =GameObject.GetChampionName(GameObject.Me);
+                string championName = Engine.GetLocalObject().GetChampionName();
 
                SpellBook.SpellDb = JObject.Parse(spellDbDataString)[championName].ToObject<JObject>();
 
@@ -41,7 +42,7 @@ namespace Invictus.Core.Invictus.Framework.API
         {
             if (IsLiveGameRunning())
             {
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://127.0.0.1:55266/liveclientdata/activeplayer");
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://127.0.0.1:52519/liveclientdata/activeplayer");
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 using (Stream stream = response.GetResponseStream())
@@ -66,7 +67,7 @@ namespace Invictus.Core.Invictus.Framework.API
         {
             if (IsLiveGameRunning())
             {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create("https://127.0.0.1:55266/liveclientdata/playerlist");
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create("https://127.0.0.1:52519/liveclientdata/playerlist");
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 using (Stream stream = response.GetResponseStream())
@@ -91,7 +92,7 @@ namespace Invictus.Core.Invictus.Framework.API
         {
             if (IsLiveGameRunning())
             {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create("https://127.0.0.1:55266/liveclientdata/gamestats");
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create("https://127.0.0.1:52519/liveclientdata/gamestats");
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 using (Stream stream = response.GetResponseStream())
@@ -139,7 +140,7 @@ namespace Invictus.Core.Invictus.Framework.API
 
         public static bool IsLiveGameRunning()
         {
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create("https://127.0.0.1:55266/liveclientdata/allgamedata");
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create("https://127.0.0.1:52519/liveclientdata/allgamedata");
             ServicePointManager.ServerCertificateValidationCallback += delegate (object sender, System.Security.Cryptography.X509Certificates.X509Certificate certificate, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
             {
                 return true; // **** Always accept

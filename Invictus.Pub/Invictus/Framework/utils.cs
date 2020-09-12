@@ -38,44 +38,21 @@ namespace Invictus.Core.Invictus.Framework
             }
         }
 
+        /// <summary>
+        /// Being called within the Loader.
+        /// </summary>
+        /// <returns></returns>
         public static string GetUniqueIdentifier()
         {
             DeviceIdBuilder deviceId = new DeviceIdBuilder();
             deviceId.AddMacAddress(true, true);
-            deviceId.AddMachineName();
             deviceId.AddMotherboardSerialNumber();
-            deviceId.AddOSInstallationID();
             deviceId.AddProcessorId();
             deviceId.AddSystemDriveSerialNumber();
             deviceId.AddSystemUUID();
             deviceId.UseFormatter(new HashDeviceIdFormatter(() => SHA512.Create(), new Base64UrlByteArrayEncoder()));
 
             return deviceId.ToString();
-        }
-
-        internal static long ToInt(byte[] val)
-        {
-            ulong res = 0;
-            for (var i = 0; i < val.Length; i++)
-            {
-                var v = val[i] & 0xFF;
-                res += (ulong)(v << (i * 8));
-            }
-
-            return (long)res;
-        }
-
-        internal static byte[] Int64ToBytes(long intVal)
-        {
-            var res = new byte[8];
-            var uval = (ulong)intVal;
-            for (var i = 0; i < res.Length; i++)
-            {
-                res[i] = (byte)(uval & 0xff);
-                uval = uval >> 8;
-            }
-
-            return res;
         }
 
         private static string GetActiveWindowTitle()
@@ -117,18 +94,14 @@ namespace Invictus.Core.Invictus.Framework
         {
             var size = Marshal.SizeOf<T>();
             var buffer = new byte[size];
-            bool result = Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, buffer, size, out var lpRead);
+            bool result = Offsets.ReadProcessMemory(Offsets.ProcessHandle,(IntPtr)address, buffer, size, out var lpRead);
             var ptr = Marshal.AllocHGlobal(size);
             Marshal.Copy(buffer, 0, ptr, size);
             var @struct = Marshal.PtrToStructure<T>(ptr);
             Marshal.FreeHGlobal(ptr);
             return @struct;
         }
-        /// <summary>
-        /// Reads an bool (true or false) from a specific memory address.
-        /// </summary>
-        /// <param name="address">address to read from</param>
-        /// <returns>returns if the bool at the given address is true or false </returns>
+
         internal static bool ReadBool(int address)
         {
            
@@ -171,11 +144,11 @@ namespace Invictus.Core.Invictus.Framework
             return BitConverter.ToSingle(buffer, 0);
         }
 
-        internal static uint ReadUInt(int addr)
+        internal static uint ReadUInt(IntPtr addr)
         {
             var buffer = new byte[4];
             IntPtr output = IntPtr.Zero;
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)addr, buffer, buffer.Length, out output);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, addr, buffer, buffer.Length, out output);
 
             return BitConverter.ToUInt32(buffer, 0);
         }
@@ -218,7 +191,12 @@ namespace Invictus.Core.Invictus.Framework
             return tmp;
         }
 
-
+        /// <summary>
+        /// Used for Deobfuscation of internal League Functions.
+        /// </summary>
+        /// <param name="leagueHandle">Handle to League of Legends</param>
+        /// <param name="address">Address of the Member u want to deobfuscate.</param>
+        /// <returns></returns>
         [DllImport("Invictus.ACD.dll")]
         private static extern int DeobfuscateMember(IntPtr leagueHandle, int address);
 

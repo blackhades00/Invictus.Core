@@ -13,8 +13,7 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
         internal static int GetLasthitTarget()
         {
             int minionList = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
-            
-            int lasthitTarget = 0;
+
             int index = 0x0;
             int obj = -1;
             while (obj != 0)
@@ -27,110 +26,31 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
                     case 0x00:
                         continue;
                     default:
-                    {
-                        if (GameObject.IsEnemy(obj) && !GameObject.IsNoMinion(obj))
                         {
-                            if (GameObject.IsVisible(obj))
+                            if (obj.IsEnemy() && !obj.IsNoMinion())
                             {
-                                if (GameObject.IsInRange(obj))
+                                if (obj.IsVisible())
                                 {
-                                    if (GameObject.IsAlive(obj) && GameObject.IsTargetable(obj))
+                                    if (obj.IsInRange())
                                     {
-                                        if (GameObject.IsLasthitable(obj))
+                                        if (obj.IsAlive() && obj.IsTargetable())
                                         {
-                                            return obj;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        break;
-                    }
-                }
-            }
-
-            return lasthitTarget;
-        }
-
-
-        internal static int GetWaveclearTarget()
-        {
-            int minionList = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
-            int turretList = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OTurretList);
-
-            int turretIdx = 0x0;
-            int turretObj = -1;
-
-            while(turretObj != 0)
-            {
-                turretObj = Utils.ReadInt(turretList + turretIdx);
-                turretIdx += 0x4;
-
-                switch (turretObj)
-                {
-                    case 0x00:
-                        continue;
-                    default:
-                    {
-                        if(GameObject.IsInRange(turretObj))
-                        {
-                            if (GameObject.IsEnemy(turretObj) && GameObject.IsAlive(turretObj) && GameObject.IsTargetable(turretObj))
-                                return turretObj;
-                        }
-
-                        break;
-                    }
-                }
-            }
-
-            int waveclearTarget = 0;
-            int index = 0x0;
-            int obj = -1;
-            while (obj != 0)
-            {
-                obj = Utils.ReadInt(minionList + index);
-                index += 0x4;
-
-                switch (obj)
-                {
-                    case 0x00:
-                        continue;
-                    default:
-                    {
-                        if (GameObject.IsEnemy(obj) && !GameObject.IsNoMinion(obj))
-                        {
-                            if (GameObject.IsVisible(obj))
-                            {
-                                if (GameObject.IsInRange(obj))
-                                {
-                                    if (GameObject.IsAlive(obj) && GameObject.IsTargetable(obj))
-                                    {
-                                        if (GameObject.GetTeam(obj) == 300)
-                                            return obj;
-                                        else
-                                        {
-                                            if (GameObject.IsLasthitable(obj))
-                                                return obj;
-                                            else
+                                            if (obj.IsLasthitable())
                                             {
                                                 return obj;
                                             }
-
                                         }
-
-
                                     }
                                 }
                             }
-                        }
 
-                        break;
-                    }
+                            break;
+                        }
                 }
             }
 
-            return waveclearTarget;
+            return 0;
         }
     }
 }
+

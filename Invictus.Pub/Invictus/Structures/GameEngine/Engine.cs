@@ -29,15 +29,12 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
         internal static float GetGameTime()
         {
-            //return Utils.ReadFloat(Offsets.Base + Offsets.Engine.OGameTime);
             return GameStats.GetGameTime();
         }
 
-        internal static GameObject GetLocalPlayer()
+        internal static int GetLocalObject()
         {
-            var localPlayer = Utils.ReadInt(Offsets.Base + Offsets.GameObject.OLocalPlayer);
-
-            return new GameObject(localPlayer);
+            return Utils.ReadInt(Offsets.Base + Offsets.GameObject.OLocalPlayer);
         }
 
         internal static int GetGameTimeTickCount()
@@ -53,7 +50,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
         internal static float GetAttackDelay()
         {
-            return (int)(1000.0f / Engine.GetLocalPlayerAttackSpeed());
+            return (int)(1000.0f / Engine.GetLocalObjectAttackSpeed());
         }
 
         [DllImport("Invictus.ACD.dll")]
@@ -63,7 +60,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
         {
             try
             {
-                return GetAttackCastDelay(Offsets.ProcessHandle, Offsets.Base + Offsets.Engine.Functions.OGetAttackCastDelay, GetLocalPlayer()._objAddr);
+                return GetAttackCastDelay(Offsets.ProcessHandle, Offsets.Base + Offsets.Engine.Functions.OGetAttackCastDelay, GetLocalObject());
             }
             catch (Exception e)
             {
@@ -73,28 +70,22 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
         }
 
-        internal static float GetLocalPlayerAttackSpeed()
+        internal static float GetLocalObjectAttackSpeed()
         {
             return ActivePlayerData.ChampionStats.GetAttackSpeed();
         }
 
 
-        internal static float GetLocalPlayerAtkRange()
+        internal static float GetLocalObjectAtkRange()
         {
             return ActivePlayerData.ChampionStats.GetAttackRange() + Engine.BoundingRadius;
         }
 
-
-        internal bool IsInRange(GameObject obj)
-        {
-            return GetLocalPlayer().GetDistanceTo(obj) <= Engine.GetLocalPlayerAtkRange();
-        }
-
-        internal static void SetBoundingRadius(int obj)
+        internal static void SetBoundingRadius()
         {
             try
             {
-                Engine.BoundingRadius = int.Parse(ActivePlayerData.UnitRadiusData[GetLocalPlayer().GetChampionName()]["Gameplay radius"].ToString());
+                Engine.BoundingRadius = int.Parse(ActivePlayerData.UnitRadiusData[GetLocalObject().GetChampionName()]["Gameplay radius"].ToString());
             }
             catch (Exception e)
             {
@@ -104,7 +95,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
         internal static bool CanAttack()
         {
-            if (AiManager.IsDashing(GetLocalPlayer()._objAddr))
+            if (AiManager.IsDashing(GetLocalObject()))
             {
                 return false;
             }
@@ -114,7 +105,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
         internal static bool CanMove(float extrawindup)
         {
-            return GetLocalPlayer().GetChampionName().Contains("Kalista") || GetGameTimeTickCount() + GetPing() / 2 >= LastAaTick + GetAttackCastDelay() * 1000 + extrawindup;
+            return GetLocalObject().GetChampionName().Contains("Kalista") || GetGameTimeTickCount() + GetPing() / 2 >= LastAaTick + GetAttackCastDelay() * 1000 + extrawindup;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Invictus.Core.Invictus.ThreadService
     internal class ThreadService
     {
         private static Thread _thread;
-        private static Thread _staticListThread;
 
         internal static void LoadMainThread()
         {

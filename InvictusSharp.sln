@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invictus.Core", "Invictus.Pub\Invictus.Core.csproj", "{6985A821-749B-4AFE-A24D-F8FCE5C411DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvictusSharp", "Invictus.Pub\InvictusSharp.csproj", "{6985A821-749B-4AFE-A24D-F8FCE5C411DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

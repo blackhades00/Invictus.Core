@@ -18,14 +18,12 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
     {
         internal static void Orbwalk()
         {
-            GameObject test = new GameObject(GameObject.Me);
-            DebugConsole.PrintDbgMessage("HEALTH: " + test.GetHealth());
 
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
             {
-                if (ObjectManager.GetTarget() != 0 && Engine.CanAttack() && GameObject.IsAlive(ObjectManager.GetTarget()) && GameObject.IsTargetable(ObjectManager.GetTarget()))
+                if (ObjectManager.GetTarget() != 0 && Engine.CanAttack())
                 {
-                    Point enemyPos = GameObject.GetObj2DPos(ObjectManager.GetTarget());
+                    Point enemyPos = ObjectManager.GetTarget().GetObj2DPos();
                     Point c = Cursor.Position;
                     IssueOrder(OrderType.AttackUnit, enemyPos);
                     Engine.LastAaTick = Engine.GetGameTimeTickCount() + 20;
@@ -72,7 +70,7 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
                         }
 
                         Cursor.Position = vector2D;
-                        Thread.Sleep(3);
+                        Thread.Sleep(1);
                         Mouse.MouseClickRight();
                         break;
                     case OrderType.AutoAttack:
@@ -87,7 +85,7 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
 
         private static void IssueMove()
         {
-            Thread.Sleep(30);
+            Thread.Sleep(5);
             Mouse.MouseRightDown();
             Mouse.MouseRightUp();
         }
