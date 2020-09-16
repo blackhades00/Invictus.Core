@@ -38,6 +38,8 @@ namespace Invictus.Core
         internal static async void InitialiseCore()
         {
             //  DebugConsole.AllocConsole();
+            await Task.Run(() =>{
+            });
             await Task.Run(() => ActivePlayerData.ParseUnitRadiusData());
             // await Task.Run(() => Service.ParseSpellDBData());
             await Task.Run(() => Engine.SetBoundingRadius());
