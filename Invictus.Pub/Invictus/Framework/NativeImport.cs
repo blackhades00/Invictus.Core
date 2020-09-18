@@ -15,6 +15,10 @@ namespace Invictus.Core.Invictus.Framework
 
     internal class NativeImport
     {
+        [DllImport("Invictus.ACD.dll")]
+        internal static extern void SendKey(int keyID);
+
+
         [DllImport("kernel32.dll")]
         internal static extern bool IsDebuggerPresent();
 
@@ -68,10 +72,10 @@ namespace Invictus.Core.Invictus.Framework
         [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
         internal static extern Ntstatus.NtStatus NtSetInformationDebugObject([In]
             IntPtr debugObjectHandle, [In] DebugObjectInformationClass debugObjectInformationClass, [In]
-            IntPtr debugObjectInformation, [In] int debugObjectInformationLength, [Out] [Optional] out int returnLength);
+            IntPtr debugObjectInformation, [In] int debugObjectInformationLength, [Out][Optional] out int returnLength);
 
         [DllImport("ntdll.dll", SetLastError = true, ExactSpelling = true)]
-        internal static extern Ntstatus.NtStatus NtQuerySystemInformation([In] SystemInformationClass systemInformationClass, IntPtr systemInformation, [In] int systemInformationLength, [Out] [Optional] out int returnLength);
+        internal static extern Ntstatus.NtStatus NtQuerySystemInformation([In] SystemInformationClass systemInformationClass, IntPtr systemInformation, [In] int systemInformationLength, [Out][Optional] out int returnLength);
 
         [DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);

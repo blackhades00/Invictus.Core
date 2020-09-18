@@ -1,147 +1,142 @@
 ﻿using Invictus.Core.Invictus.Framework.Input;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Drawing;
 using Invictus.Core.Invictus.Framework;
 using Invictus.Core.Invictus.Framework.UpdateService;
+using SharpDX;
 
 namespace Invictus.Core.Invictus.Structures.Spell_Structure
 {
 
-    class SpellBook
+    internal class SpellBook
     {
-
-        private static int GetSpellBookInstance(int obj)
-        {
-            return Utils.ReadInt(obj + Offsets.SpellBook.Instance);
-        }
+        private int spellbookInstance { get; set; }
 
         public static JObject SpellDb;
 
-        public static int SpellArray
+        /// <summary>
+        /// Returns an SpellBook Instance.
+        /// </summary>
+        /// <param name="obj"></param>
+        internal SpellBook(int obj)
         {
-            get
-            {
-                return 0x508;
-            }
+            this.spellbookInstance = obj + Offsets.SpellBook.Instance;
         }
 
-        public static SpellClass GetSpellClassById(int obj, SpellSlotId iD)
+        /// <summary>
+        /// Returns an SpellClass Instance.
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public SpellClass GetSpellClassInstance(SpellSlotId ID)
         {
-            SpellClass sClass = new SpellClass();
-            sClass.CurrentSpell = Utils.ReadInt(GetSpellBookInstance(obj) + SpellArray + (0x4 * (int)iD));
+            SpellClass sClass = new SpellClass(spellbookInstance, ID);
             return sClass;
         }
 
-        public static int GetSpellRadius(SpellSlot slot)
+        public int GetSpellRadius(SpellSlot slot)
         {
             string spellSlotName = Enum.GetName(typeof(SpellSlot), slot);
 
             return SpellDb[spellSlotName].ToObject<JObject>()["Range"][0].ToObject<int>();
         }
 
-        public static int GetActiveSpell(int obj)
+        public int GetActiveSpell(int obj)
         {
-            return Utils.ReadInt(GetSpellBookInstance(obj) + 0x24);
+            return Utils.ReadInt(spellbookInstance + 0x24);
         }
 
-        public static void CastStaticSpell(int obj, SpellSlot slot)
+
+
+        public static void CastSpell(int hardwareScanCode)
         {
-            if (Utils.IsGameInForeground() && IsSpellReady(obj, slot)) Keyboard.SendKey((short)slot);
+            //Keyboard.SendKey((short)Slot);
+            NativeImport.SendKey(hardwareScanCode);
         }
 
-        public static void CastSpellAtPoint(int obj, SpellSlot slot, Point spellLocation)
+        public static void CastSpell(SpellSlot Slot, int X, int Y)
         {
-            if (Utils.IsGameInForeground() && IsSpellReady(obj, slot))
+            Mouse.MouseMove(X, Y);
+            Keyboard.SendKey((short)Slot);
+
+        }
+
+        public static void CastSpell(SpellSlot Slot, Point SpellLocation)
+        {
+
+            Mouse.MouseMove(SpellLocation.X, SpellLocation.Y);
+            Keyboard.SendKey((short)Slot);
+
+        }
+
+        /*
+        public static void CastMultiSpells(SpellSlot[] SlotArray)
+        {
+            foreach (SpellSlot Spell in SlotArray)
             {
-                Mouse.MouseMove(spellLocation.X, spellLocation.Y);
-                Keyboard.SendKey((short)slot);
+                CastSpell(Spell);
+            }
+        }
+        */
+        public static void CastMultiSpells(SpellSlot[] SlotArray, int X, int Y)
+        {
+            foreach (SpellSlot Spell in SlotArray)
+            {
+                CastSpell(Spell, X, Y);
             }
         }
 
-        public static void CastMultiSpells(int obj, SpellSlot[] slotArray)
+        public static void CastMultiSpells(SpellSlot[] SlotArray, Point SpellLocation)
         {
-            foreach (SpellSlot spell in slotArray)
+            foreach (SpellSlot Spell in SlotArray)
             {
-                if (Utils.IsGameInForeground() && IsSpellReady(obj, spell)) CastStaticSpell(obj, spell);
+                CastSpell(Spell, SpellLocation);
             }
         }
 
-
-        public static void CastMultiSpells(int obj, SpellSlot[] slotArray, Point spellLocation)
+        public static void CastSummonerSpell(SummonerSpellSlot Slot)
         {
-            foreach (SpellSlot spell in slotArray)
-            {
-                if (Utils.IsGameInForeground() && IsSpellReady(obj, spell)) CastSpellAtPoint(obj, spell, spellLocation);
-            }
+            Keyboard.SendKey((short)Slot);
         }
 
-        public static void CastSummonerSpell(int obj, SummonerSpellSlot slot)
+        public static void CastSummonerSpell(SummonerSpellSlot Slot, int X, int Y)
         {
-            if (Utils.IsGameInForeground() && IsSummonerSpellReady(obj, slot)) Keyboard.SendKey((short)slot);
+
+            Mouse.MouseMove(X, Y);
+            Keyboard.SendKey((short)Slot);
+
         }
 
-        public static void CastSummonerSpell(int obj, SummonerSpellSlot slot, int x, int y)
+        public static void CastSummonerSpell(SummonerSpellSlot Slot, Point SpellLocation)
         {
-            if (Utils.IsGameInForeground() && IsSummonerSpellReady(obj, slot))
-            {
-                Mouse.MouseMove(x, y);
-                Keyboard.SendKey((short)slot);
-            }
+
+            Mouse.MouseMove(SpellLocation.X, SpellLocation.Y);
+            Keyboard.SendKey((short)Slot);
+
         }
 
-        public static void CastSummonerSpell(int obj, SummonerSpellSlot slot, Point spellLocation)
+        public static void CastItem(ItemSlot Slot)
         {
-            if (Utils.IsGameInForeground() && IsSummonerSpellReady(obj, slot))
-            {
-                Mouse.MouseMove(spellLocation.X, spellLocation.Y);
-                Keyboard.SendKey((short)slot);
-            }
+            Keyboard.SendKey((short)Slot);
         }
 
-        public static void CastItem(ItemSlot slot)
+        public static void CastItem(ItemSlot Slot, int X, int Y)
         {
-            if (Utils.IsGameInForeground()) Keyboard.SendKey((short)slot);
+
+
+            Mouse.MouseMove(X, Y);
+            Keyboard.SendKey((short)Slot);
+
         }
 
-        public static void CastItem(ItemSlot slot, int x, int y)
+        public static void CastItem(ItemSlot Slot, Point SpellLocation)
         {
-            if (Utils.IsGameInForeground())
-            {
-                Mouse.MouseMove(x, y);
-                Keyboard.SendKey((short)slot);
-            }
+
+            Mouse.MouseMove(SpellLocation.X, SpellLocation.Y);
+            Keyboard.SendKey((short)Slot);
+
         }
 
-        public static void CastItem(ItemSlot slot, Point spellLocation)
-        {
-            if (Utils.IsGameInForeground())
-            {
-                Mouse.MouseMove(spellLocation.X, spellLocation.Y);
-                Keyboard.SendKey((short)slot);
-            }
-        }
-
-        private static bool IsSpellReady(int obj, SpellSlot slot)
-        {
-            SpellSlotId findSlotId = (SpellSlotId) Enum.Parse(typeof(SpellSlotId), Enum.GetName(typeof(SpellSlot), slot));
-
-            return GetSpellClassById(obj, findSlotId).IsSpellReady();
-        }
-
-        private static bool IsSummonerSpellReady(int obj, SummonerSpellSlot slot)
-        {
-            SpellSlotId findSlotId = (SpellSlotId) Enum.Parse(typeof(SpellSlotId), Enum.GetName(typeof(SummonerSpellSlot), slot));
-
-            return GetSpellClassById(obj, findSlotId).IsSpellReady();
-        }
-
-        /* Broken ATM
-        private static bool IsItemReady(ItemSlot Slot)
-        {
-            SpellSlotID FindSlotID = (SpellSlotID)Enum.Parse(typeof(SpellSlotID), Enum.GetName(typeof(ItemSlot), Slot));
-            return GetSpellClassByID(FindSlotID).IsSpellReady();
-        }*/
 
         public enum SpellSlot
         {

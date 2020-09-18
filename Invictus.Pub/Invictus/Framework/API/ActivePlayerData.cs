@@ -16,6 +16,7 @@ namespace Invictus.Core.Invictus.Framework.API
     public class ActivePlayerData
     {
       internal static JObject UnitRadiusData;
+      internal static JObject SpellDB;
         public static string GetSummonerName()
         {
             return Service.GetActivePlayerData()["summonerName"].ToString();
@@ -38,6 +39,22 @@ namespace Invictus.Core.Invictus.Framework.API
             catch (Exception ex)
             {
                DebugConsole.PrintErrorMessage("Failed Parsing BoundingRadius");
+                throw new Exception("UnitRadiusParseExecption");
+            }
+        }
+
+        public static void ParseSpellDB()
+        {
+            try
+            {
+                string unitRadiusDataString = File.ReadAllText(Directory.GetCurrentDirectory() + @"\SpellDB.json");
+                UnitRadiusData = JObject.Parse(unitRadiusDataString);
+
+              
+            }
+            catch (Exception ex)
+            {
+                DebugConsole.PrintErrorMessage("Failed Parsing BoundingRadius");
                 throw new Exception("UnitRadiusParseExecption");
             }
         }

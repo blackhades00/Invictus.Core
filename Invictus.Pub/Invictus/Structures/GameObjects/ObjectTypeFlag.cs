@@ -35,7 +35,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
 
         private static bool CompareObjectType(int obj, int a2)
         {
-            return LeagueIsObjectType(Offsets.ProcessHandle, obj, a2, Offsets.Base + Offsets.Engine.Functions.OIsObjectType);
+            return LeagueIsObjectType(Offsets.ProcessHandle, obj, a2, Offsets.Base + Offsets.EngineStruct.Functions.OIsObjectType);
         }
 
         internal static bool IsDeadObject(int obj)

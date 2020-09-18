@@ -2,26 +2,30 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
-using System;
 using SharpDX;
 using Invictus.Core.Invictus.Framework;
 using Invictus.Core.Invictus.Framework.UpdateService;
 using Invictus.Core.Invictus.Hacks.Drawings;
+using Invictus.Core.Invictus.Hacks.Prediction;
+using Invictus.Core.Invictus.Structures.AI_Manager;
 using Invictus.Core.Invictus.Structures.GameEngine;
+using Invictus.Core.Invictus.Structures.Spell_Structure;
 
 namespace Invictus.Core.Invictus.Structures.GameObjects
 {
     /// <summary>
-    /// The GameObject class contains everything related to GameObject class. For example Minions, Champions, Neutrals etc.
+    /// The GameObjectStruct class contains everything related to GameObjectStruct class. For example Minions, Champions, Neutrals etc.
     /// Extension Class for Int.
     /// </summary>
     internal static class GameObject
     {
+        internal static int Me;
+
         public static Vector3 GetObj3DPos(this int obj)
         {
-            float posX = Utils.ReadFloat(obj + Offsets.GameObject.OObjPos);
-            float posY = Utils.ReadFloat(obj + Offsets.GameObject.OObjPos + 0x4);
-            float posZ = Utils.ReadFloat(obj + Offsets.GameObject.OObjPos + 0x8);
+            float posX = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos);
+            float posY = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos + 0x4);
+            float posZ = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos + 0x8);
 
             return new Vector3() { X = posX, Y = posY, Z = posZ };
         }
@@ -45,7 +49,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
 
         internal static float GetMaxHp(this int obj)
         {
-            return Utils.ReadFloat(obj + Offsets.GameObject.OObjMaxHealth);
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjMaxHealth);
         }
 
         internal static bool IsNoMinion(this int obj)
@@ -61,27 +65,27 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
 
         internal static bool IsInRange(this int obj)
         {
-            return obj.GetDistance(Engine.GetLocalObject()) <= Engine.GetLocalObjectAtkRange();
+            return obj.GetDistance(Engine.GetLocalObject()) <= Engine.GetLocalObject().GetAttackRange();
         }
 
         internal static float GetHealth(this int obj)
         {
-            return Utils.ReadFloat(obj + Offsets.GameObject.OObjHealth);
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjHealth);
         }
 
         private static int GetTeam(this int obj)
         {
-            return Utils.ReadInt(obj + Offsets.GameObject.OObjTeam);
+            return Utils.ReadInt(obj + Offsets.GameObjectStruct.OObjTeam);
         }
 
         internal static string GetChampionName(this int obj)
         {
-            return Utils.ReadString(obj + Offsets.GameObject.OObjChampionName, System.Text.Encoding.ASCII);
+            return Utils.ReadString(obj + Offsets.GameObjectStruct.OObjChampionName, System.Text.Encoding.ASCII);
         }
 
         internal static string GetName(this int obj)
         {
-            return Utils.ReadString(obj + Offsets.GameObject.OObjName, System.Text.Encoding.ASCII);
+            return Utils.ReadString(obj + Offsets.GameObjectStruct.OObjName, System.Text.Encoding.ASCII);
         }
 
         internal static float GetBaseAd(this int obj)
@@ -104,14 +108,11 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             return Utils.ReadFloat(obj + Offsets.CharInfo.OArmor);
         }
 
-        internal static float GetEffectiveHealth(this int obj)
+        internal static float GetAttackRange(this int obj)
         {
-            var resistance = obj.GetTotalArmor();
-            var effectiveHp = obj.GetHealth();
-
-            effectiveHp *= 1 + (resistance / 100);
-            return effectiveHp;
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oAttackRange);
         }
+
 
         internal static bool IsLasthitable(this int obj)
         {
@@ -120,7 +121,8 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
 
         internal static bool IsAlive(this int obj)
         {
-            return obj.GetHealth() > 0.0f && obj.GetHealth() != 0 && obj.GetHealth() != 1000;
+            var alive = Utils.ReadInt(obj + Offsets.GameObjectStruct.oIsAlive);
+            return alive % 2 == 0 && obj.GetHealth() > 0.0f;
         }
 
         internal static bool IsEnemy(this int obj)
@@ -130,12 +132,32 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
 
         internal static bool IsVisible(this int obj)
         {
-            return Utils.ReadBool(obj + Offsets.GameObject.OObjVisibility);
+            return Utils.ReadBool(obj + Offsets.GameObjectStruct.OObjVisibility);
         }
 
         internal static bool IsTargetable(this int obj)
         {
-            return Utils.ReadBool(obj + Offsets.GameObject.OIsTargetable);
+            return Utils.ReadBool(obj + Offsets.GameObjectStruct.OIsTargetable);
         }
+
+
+        /// <summary>
+        /// Returns an instance of the AI Manager
+        /// </summary>
+        /// <param name="objectPtr"></param>
+        /// <returns></returns>
+        internal static AiManager GetAiManger(this int objectPtr)
+        {
+            var aiManagerInstance = Utils.DeobfuscateMember(objectPtr + Offsets.AIManager.OAiManager);
+
+            return new AiManager(aiManagerInstance);
+        }
+
+        internal static SpellBook GetSpellBook(this int obj)
+        {
+            return new SpellBook(obj);
+
+        }
+
     }
 }

@@ -2,22 +2,54 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
+using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using Invictus.Core.Invictus.Framework;
 using Invictus.Core.Invictus.Framework.Input;
-using Invictus.Core.Invictus.Hacks.TargetSelector;
-using Invictus.Core.Invictus.LogService;
 using Invictus.Core.Invictus.Structures.GameEngine;
 using Invictus.Core.Invictus.Structures.GameObjects;
+
 
 namespace Invictus.Core.Invictus.Hacks.Orbwalker
 {
     internal class Orbwalker
     {
-        internal static void Orbwalk()
+        /// <summary>
+        ///     The tick the most recent attack command was sent.
+        /// </summary>
+        public static int LastAttackCommandT;
+
+        /// <summary>
+        ///     <c>true</c> if the orbwalker will attack.
+        /// </summary>
+        public static bool Attack = true;
+
+        /// <summary>
+        ///     <c>true</c> if the orbwalker will move.
+        /// </summary>
+        public static bool Move = true;
+
+        /// <summary>
+        ///     <c>true</c> if the orbwalker will disable the next attack.
+        /// </summary>
+        public static bool DisableNextAttack = false;
+
+        /// <summary>
+        ///     <c>true</c> if the auto attack missile was launched from the player.
+        /// </summary>
+        internal static bool _missileLaunched;
+
+        /// <summary>
+        ///     The last target
+        /// </summary>
+        private static int _lastTarget;
+
+        /*
+        internal static async void Orbwalk()
         {
+
 
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
             {
@@ -26,13 +58,86 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
                     Point enemyPos = ObjectManager.GetTarget().GetObj2DPos();
                     Point c = Cursor.Position;
                     IssueOrder(OrderType.AttackUnit, enemyPos);
-                    Engine.LastAaTick = Engine.GetGameTimeTickCount() + 20;
-
-                    while (Engine.CanAttack()) Thread.Sleep(1);
+                    Engine.LastAaTick = Engine.GetGameTimeTickCount() - Engine.GetPing();
+                    while(Engine.CanAttack()) Thread.Sleep(1);
                     Cursor.Position = c;
                 }
-                if (Engine.CanMove(90f)) IssueMove();
+
+                if (Engine.CanMove(90f) && ObjectManager.GetTarget() != 0)
+                {
+                    IssueMove();
+                }
+                else if (Engine.CanMove(90f))
+                {
+                    Thread.Sleep(30);
+                    IssueMove();
+                }
             }
+        }
+        */
+
+        public static void Orbwalk(
+            int target,
+            float extraWindup = 90)
+        {
+            if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
+            {
+
+                if (Engine.GetGameTimeTickCount() - LastAttackCommandT < 70 + Math.Min(60, Engine.GetPing()))
+                {
+                    return;
+                }
+
+                try
+                {
+                    if (target != 0 && Engine.CanAttack() && Attack)
+                    {
+                        DisableNextAttack = false;
+                        //FireBeforeAttack(target);
+
+                        
+
+                        if (!DisableNextAttack)
+                        {
+                            if (Engine.GetLocalObject().GetChampionName() != "Kalista")
+                            {
+                                _missileLaunched = false;
+                            }
+
+                            Point position = target.GetObj2DPos();
+                            Point c = Cursor.Position;
+                            IssueOrder(OrderType.AttackUnit, position);
+                        
+                            LastAttackCommandT = Engine.GetGameTimeTickCount();
+                            _lastTarget = target;
+                            Engine.LastAaTick = Engine.GetGameTimeTickCount() + Engine.GetPing();
+                            while(Engine.CanAttack()) Thread.Sleep(1);
+                            Cursor.Position = c;
+                            Attack = false;
+                            Move = true;
+
+                        }
+                    }
+
+                    if (Engine.CanMove(extraWindup) && Move)
+                    {
+                        IssueMove();
+                        Attack = true;
+                        
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+            }
+
+          
+        }
+
+        internal static void ResetAutoAttackTimer()
+        {
+            Engine.LastAaTick = 0;
         }
 
         public static void IssueOrder(OrderType order, Point vector2D = new Point())
@@ -58,7 +163,7 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
                             break;
                         }
 
-                        Mouse.MouseMove(vector2D.X, vector2D.Y);
+                        NativeImport.SetCursorPos(vector2D.X, vector2D.Y);
                         Mouse.MouseClickRight();
                         break;
                     case OrderType.AttackUnit:
@@ -70,7 +175,6 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
                         }
 
                         Cursor.Position = vector2D;
-                        Thread.Sleep(1);
                         Mouse.MouseClickRight();
                         break;
                     case OrderType.AutoAttack:
@@ -85,9 +189,10 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
 
         private static void IssueMove()
         {
-            Thread.Sleep(5);
+            Thread.Sleep(30);
             Mouse.MouseRightDown();
             Mouse.MouseRightUp();
+
         }
     }
 }

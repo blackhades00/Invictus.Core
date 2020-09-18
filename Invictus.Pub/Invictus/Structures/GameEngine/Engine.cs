@@ -1,4 +1,4 @@
-﻿// <copyright file="Engine.cs" company="Invictus">
+﻿// <copyright file="EngineStruct.cs" company="Invictus">
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
@@ -7,8 +7,8 @@ using System;
 using System.Runtime.InteropServices;
 using global::Invictus.Core.Invictus.Framework;
 using global::Invictus.Core.Invictus.Framework.UpdateService;
-using global::Invictus.Core.Invictus.Structures.AI_Manager;
 using Invictus.Core.Invictus.Framework.API;
+using Invictus.Core.Invictus.Hacks.Orbwalker;
 using Invictus.Core.Invictus.LogService;
 using Invictus.Core.Invictus.Structures.GameObjects;
 
@@ -29,12 +29,12 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
         internal static float GetGameTime()
         {
-            return GameStats.GetGameTime();
+            return Utils.ReadFloat(Offsets.Base + Offsets.EngineStruct.OGameTime);
         }
 
         internal static int GetLocalObject()
         {
-            return Utils.ReadInt(Offsets.Base + Offsets.GameObject.OLocalPlayer);
+            return Utils.ReadInt(Offsets.Base + Offsets.GameObjectStruct.OLocalPlayer);
         }
 
         internal static int GetGameTimeTickCount()
@@ -60,7 +60,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
         {
             try
             {
-                return GetAttackCastDelay(Offsets.ProcessHandle, Offsets.Base + Offsets.Engine.Functions.OGetAttackCastDelay, GetLocalObject());
+                return GetAttackCastDelay(Offsets.ProcessHandle, Offsets.Base + Offsets.EngineStruct.Functions.OGetAttackCastDelay, GetLocalObject());
             }
             catch (Exception e)
             {
@@ -75,37 +75,76 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
             return ActivePlayerData.ChampionStats.GetAttackSpeed();
         }
 
-
-        internal static float GetLocalObjectAtkRange()
-        {
-            return ActivePlayerData.ChampionStats.GetAttackRange() + Engine.BoundingRadius;
-        }
-
         internal static void SetBoundingRadius()
         {
             try
             {
-                Engine.BoundingRadius = int.Parse(ActivePlayerData.UnitRadiusData[GetLocalObject().GetChampionName()]["Gameplay radius"].ToString());
+                Engine.BoundingRadius = int.Parse(ActivePlayerData.UnitRadiusData[ActivePlayerData.GetChampionName()]["Gameplay radius"].ToString());
             }
             catch (Exception e)
             {
-                Engine.BoundingRadius = 65;
+                Logger.Log("Couldn't parse Bounding Radius " + e.Message, Logger.eLoggerType.Fatal);
+                throw;
             }
+
+
         }
 
-        internal static bool CanAttack()
+        public static bool CanAttack()
         {
-            if (AiManager.IsDashing(GetLocalObject()))
+            /*
+            if (Player.IsCastingInterruptableSpell())
             {
                 return false;
             }
+            */
+            /*
+            if (Player.HasBuffOfType(BuffType.Blind) && Player.CharData.BaseSkinName != "Kalista")
+            {
+                return false;
+            }
+*/
+            if (Engine.GetLocalObject().GetChampionName() == "Graves")
+            {
+                var attackDelay = 1.0740296828d * 1000 * Engine.GetAttackDelay() - 716.2381256175d;
+                if (Engine.GetGameTimeTickCount() + Engine.GetPing() / 2 + 25 >= Engine.LastAaTick + attackDelay)
+                   // && Player.HasBuff("GravesBasicAttackAmmo1"))
+                {
+                    return true;
+                }
 
-            return GetGameTimeTickCount() + GetPing() / 2 + 25 >= LastAaTick + GetAttackDelay();
+                return false;
+            }
+
+            /*
+            if (GetLocalObject().GetChampionName() == "Jhin")
+            {
+                if (Player.HasBuff("JhinPassiveReload"))
+                {
+                    return false;
+                }
+            }
+            */
+            return GetGameTimeTickCount() + Engine.GetPing() / 2 + 25 >= LastAaTick + GetAttackDelay();
         }
 
-        internal static bool CanMove(float extrawindup)
+        public static bool CanMove(float extraWindup, bool disableMissileCheck = false)
         {
-            return GetLocalObject().GetChampionName().Contains("Kalista") || GetGameTimeTickCount() + GetPing() / 2 >= LastAaTick + GetAttackCastDelay() * 1000 + extrawindup;
+            
+            if (Orbwalker._missileLaunched && !disableMissileCheck)
+            {
+                return true;
+            }
+            
+            var localExtraWindup = 0;
+            if (Engine.GetLocalObject().GetChampionName() == "Rengar" /*&& (Player.HasBuff("rengarqbase") || Player.HasBuff("rengarqemp"))*/)
+            {
+                localExtraWindup = 200;
+            }
+
+            return Engine.GetLocalObject().GetChampionName().Equals("Kalista")
+                   || (GetGameTimeTickCount() + Engine.GetPing() / 2
+                       >= Engine.LastAaTick + Engine.GetAttackCastDelay() * 1000 + extraWindup + localExtraWindup);
         }
     }
 }

@@ -1,66 +1,65 @@
-﻿using System.Text;
-using global::Invictus.Core.Invictus.Framework;
+﻿using Invictus.Core.Invictus.Framework;
+using Invictus.Core.Invictus.Framework.UpdateService;
 using Invictus.Core.Invictus.Structures.GameEngine;
 
 namespace Invictus.Core.Invictus.Structures.Spell_Structure
 {
-    class SpellClass
+    internal class SpellClass
     {
-        public int CurrentSpell;
-
-        public bool IsSpellReady()
+        private int spell { get; set; }
+        private int currentSpellbookInstance { get; set; }
+        /// <summary>
+        /// Returns a SpellClass Instance.
+        /// </summary>
+        /// <param name="spellBookInstance"> the SpellBook instance of the current spell</param>
+        /// <param name="ID"> The SlotID of the current Spell</param>
+        internal SpellClass(int spellBookInstance ,SpellBook.SpellSlotId ID)
         {
-            return GetLevel() >= 1 && Engine.GetGameTime() >= GetCooldownExpire();
+            this.currentSpellbookInstance = spellBookInstance;
+            this.spell = Utils.ReadInt(this.currentSpellbookInstance + Offsets.SpellStructs.SpellClass.SpellArray + (0x4 * (int)ID));
         }
 
-        public string GetSpellName()
+        internal void SetSpell(SpellBook.SpellSlotId ID)
         {
-            return Utils.ReadString(GetSpellData() + 0x58, Encoding.ASCII);
+            this.spell = Utils.ReadInt(this.currentSpellbookInstance + Offsets.SpellStructs.SpellClass.SpellArray + (0x4 * (int)ID));
         }
 
-        public int GetLevel()
+        internal int GetLevel()
         {
-            return Utils.ReadInt(CurrentSpell + 0x20);
+            return Utils.ReadInt(this.spell + Offsets.SpellStructs.SpellClass.Level);
         }
 
-        public float GetCooldown()
+        internal float GetCooldown()
         {
-            return Utils.ReadFloat(CurrentSpell + 0x78);
+            return Utils.ReadFloat(this.spell + Offsets.SpellStructs.SpellClass.Cooldown);
         }
 
-        public float GetCooldownExpire()
+        internal float GetCooldownExpire()
         {
-            return Utils.ReadFloat(CurrentSpell + 0x28);
+            return Utils.ReadFloat(this.spell + Offsets.SpellStructs.SpellClass.CooldownExpire);
         }
 
-        public float GetFinalCooldownExpire()
+        internal float GetFinalCooldownExpire()
         {
-            return Utils.ReadFloat(CurrentSpell + 0x64);
+            return Utils.ReadFloat(this.spell + Offsets.SpellStructs.SpellClass.FinalCooldownExpire);
         }
 
-        public int GetCharges()
+        internal int GetCharges()
         {
-            return Utils.ReadInt(CurrentSpell + 0x58);
-
-            /*
-             if is smite
-                    {
-                        if (spell->GetCharges() >= 1)
-                            cooldownRemaining = spell->GetCDExpires() - LTimerModule::Get().GetGameTime();
-                        else
-                            cooldownRemaining = spell->GetFinalCDExpires() - LTimerModule::Get().GetGameTime();
-                    }
-             */
+            return Utils.ReadInt(this.spell + Offsets.SpellStructs.SpellClass.Charges);
         }
 
-        private int GetSpellInfo()
+        internal bool IsSpellReady()
         {
-            return Utils.ReadInt(CurrentSpell + 0x134);
+            return GetCooldownExpire() - Engine.GetGameTime() <= 0 && GetLevel() > 0;
         }
 
-        private int GetSpellData()
+        internal SpellCastInfo GetSpellCastInfo()
         {
-            return Utils.ReadInt(GetSpellInfo() + 0x44);
+            var spellCastInfoInstance = this.spell + Offsets.SpellStructs.SpellCastInfo.SpellInfoInstance;
+
+            return new SpellCastInfo(spellCastInfoInstance);
         }
+
     }
 }

@@ -23,7 +23,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
         internal static Thread AntiDumpThread;
 
         private static readonly List<string> DebuggerList = new List<string>() { "OLLYDBG", "cheatengine-x86_64", "ReClassEx", "ReClassEx64", "x64dbg", "x32dbg", "IDA Pro", "Immunity Debugger", "Ghidra", "de4dot", "de4dot-x64", "ida", "ida64", "dotPeek64", "dotPeek32", "Fiddler", "dnSpy", "dnSpy-x86", "dnSpy.Console" };
-        private static readonly List<string> DebuggerWindowHandleList = new List<string>() { "Cheat Engine", "IDA", "IDA -", "JetBrains dotPeek", "OllyDbg", "x64dbg", "x32dbg", "Progress Telerik Fiddler", "dnSpy" };
+        private static readonly List<string> DebuggerWindowHandleList = new List<string>() { "Cheat EngineStruct", "IDA", "IDA -", "JetBrains dotPeek", "OllyDbg", "x64dbg", "x32dbg", "Progress Telerik Fiddler", "dnSpy" };
 
         private static bool CheckProcessNamesForDebugger()
         {

@@ -11,12 +11,7 @@ namespace Invictus.Core.Invictus.ThreadService
     {
         private static Thread _thread;
 
-        internal static void LoadMainThread()
-        {
-            _thread = new Thread(new ThreadStart(MainThread.MainLoop));
-            _thread.IsBackground = true;
-            _thread.Start();
-        }
+       
 
     }
 }

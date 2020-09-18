@@ -5,14 +5,16 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Invictus.Core.Invictus.Framework;
 using Invictus.Core.Invictus.Framework.API;
 using Invictus.Core.Invictus.Framework.UpdateService;
+using Invictus.Core.Invictus.Hacks;
 using Invictus.Core.Invictus.Hacks.Drawings;
 using Invictus.Core.Invictus.Hacks.TargetSelector;
 using Invictus.Core.Invictus.LogService;
+using Invictus.Core.Invictus.Modules.Champion_Modules;
 using Invictus.Core.Invictus.Structures.GameEngine;
 using Invictus.Core.Invictus.Structures.GameObjects;
-using Invictus.Core.Invictus.ThreadService;
 
 namespace Invictus.Core
 {
@@ -37,15 +39,22 @@ namespace Invictus.Core
 
         internal static async void InitialiseCore()
         {
-            //  DebugConsole.AllocConsole();
-            await Task.Run(() => ActivePlayerData.ParseUnitRadiusData());
-            // await Task.Run(() => Service.ParseSpellDBData());
-            await Task.Run(() => Engine.SetBoundingRadius());
+            Logger.Log("Initiating InvictusSharp...",Logger.eLoggerType.Info);
 
-            await Task.Run(() => HeroManager.PushHeroList());
+            await Task.Run(() => ActivePlayerData.ParseUnitRadiusData()); 
+            Engine.SetBoundingRadius();
+            ActivePlayerData.ParseSpellDB();
 
-            await Task.Run(() => ThreadService.LoadMainThread());
+            Offsets.Base = Offsets.GetBase();
+            Offsets.ProcessHandle = Offsets.GetLeagueHandle();
+            GameObject.Me = Engine.GetLocalObject();
+            HeroManager.PushHeroList();
+            await Task.Run(() => MainThread.MainLoop());
+            GetChampionModule.LoadChampionModule();
             await Task.Run(() => Overlay.Show());
+
+            Utils.ShowWelcomeMessage();
         }
     }
 }
+ne

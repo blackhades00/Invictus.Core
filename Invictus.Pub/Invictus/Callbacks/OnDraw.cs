@@ -3,10 +3,8 @@
 // </copyright>
 
 using Invictus.Core.Invictus.Framework;
-using Invictus.Core.Invictus.Framework.UpdateService;
 using Invictus.Core.Invictus.Hacks.Drawings;
 using Invictus.Core.Invictus.Structures.GameEngine;
-using Invictus.Core.Invictus.Structures.GameObjects;
 
 namespace Invictus.Core.Invictus.Callbacks
 {
@@ -31,8 +29,9 @@ namespace Invictus.Core.Invictus.Callbacks
                    Draw.DrawAttackRange(Engine.GetLocalObject(), Color.Cyan);
                 }
 
-                //Draw.DrawCooldown(GameObject.me);
+               // Draw.DrawCooldown(Engine.GetLocalObject());
                Draw.DrawWard();
+               Draw.DrawEnemyCooldowns();
             }
         }
     }
