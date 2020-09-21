@@ -9,54 +9,41 @@ using Invictus.Core.Invictus.Structures.Spell_Structure;
 
 namespace Invictus.Core.Invictus.Modules.Champion_Modules
 {
-    internal class VayneModule : IChampionModule
+    internal class VayneModule : IChampionModule<VayneModule>
     {
-        public SpellBook spellBookInstance { get; set; }
-        public SpellClass qInstance { get; set; }
-        public SpellClass wInstance { get; set; }
-        public SpellClass eInstance { get; set; }
-        public SpellClass rInstance { get; set; }
-        public AiManager aiManager { get; set; }
 
-        private IChampionModule championInterface;
+        private IChampionModule<VayneModule> _championInterface;
 
         internal void Init()
         {
-            this.championInterface = new VayneModule();
-
-            this.spellBookInstance = GameObject.Me.GetSpellBook();
-            this.qInstance = this.spellBookInstance.GetSpellClassInstance(SpellBook.SpellSlotId.Q);
-            this.wInstance = this.spellBookInstance.GetSpellClassInstance(SpellBook.SpellSlotId.W);
-            this.eInstance = this.spellBookInstance.GetSpellClassInstance(SpellBook.SpellSlotId.E);
-            this.rInstance = this.spellBookInstance.GetSpellClassInstance(SpellBook.SpellSlotId.R);
-
-            championInterface.aiManager = GameObject.Me.GetAiManger();
-
+            _championInterface = new VayneModule();
             Load();
         }
 
-        void IChampionModule.QLogic()
+        void IChampionModule<VayneModule>.QLogic()
         {
-            if (this.qInstance.IsSpellReady())
+            if (LocalChampionInfo.QInstance.IsSpellReady())
             {
-                SpellBook.CastSpell(0x10);
 
-                if (championInterface.aiManager.GetNavEnd() == GameObject.Me.GetObj3DPos())
+                if (!Engine.CanAttack())
+                {
                     Orbwalker.ResetAutoAttackTimer();
+                    SpellBook.CastSpell(0x10);
+                }
             }
         }
 
-        void IChampionModule.WLogic()
+        void IChampionModule<VayneModule>.WLogic()
         {
 
         }
 
-        void IChampionModule.ELogic()
+        void IChampionModule<VayneModule>.ELogic()
         {
 
         }
 
-        void IChampionModule.RLogic()
+        void IChampionModule<VayneModule>.RLogic()
         {
 
         }
@@ -69,7 +56,7 @@ namespace Invictus.Core.Invictus.Modules.Champion_Modules
                  {
                      if (Utils.IsKeyPressed(Keys.Space))
                      {
-                         championInterface.QLogic();
+                         _championInterface.QLogic();
 
                      }
 

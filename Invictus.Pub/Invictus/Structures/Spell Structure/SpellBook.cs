@@ -34,6 +34,14 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
             return sClass;
         }
 
+        
+        internal SpellCastInfo GetSpellCastInfo()
+        {
+            var spellCastInfoInstance = Utils.ReadInt(spellbookInstance + Offsets.SpellStructs.SpellCastInfo.SpellInfoInstance);
+
+            return new SpellCastInfo(spellCastInfoInstance);
+        }
+
         public int GetSpellRadius(SpellSlot slot)
         {
             string spellSlotName = Enum.GetName(typeof(SpellSlot), slot);

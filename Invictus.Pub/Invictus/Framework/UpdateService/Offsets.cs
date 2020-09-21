@@ -133,7 +133,7 @@ namespace Invictus.Core.Invictus.Framework.UpdateService
 
             internal static class SpellCastInfo //Or ActiveSpellEntry
             {
-                public const int SpellInfoInstance = 0x134; //Leads to the spellbook structs
+                public const int SpellInfoInstance = 0x134; //Leads to the spellbook structs // or spellbook + 0x20?
 
                 public const int SpellSlot = 0x0C;
                 public const int MissileIndex = 0x14;

@@ -1,4 +1,4 @@
-﻿// <copyright file="AIManager.cs" company="Invictus">
+﻿// <copyright file="AiManager.cs" company="Invictus">
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 

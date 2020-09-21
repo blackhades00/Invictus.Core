@@ -260,6 +260,7 @@
     <Compile Include="Invictus\LogService\DebugConsole.cs" />
     <Compile Include="Invictus\Framework\UpdateService\Offsets.cs" />
     <Compile Include="Invictus\LogService\Logger.cs" />
+    <Compile Include="Invictus\Modules\Champion Modules\LocalChampionInfo.cs" />
     <Compile Include="Invictus\Modules\Champion Modules\GetChampionModule.cs" />
     <Compile Include="Invictus\Modules\Champion Modules\IChampionModule.cs" />
     <Compile Include="Invictus\Modules\Champion Modules\Vayne\AntiGapCloser.cs" />

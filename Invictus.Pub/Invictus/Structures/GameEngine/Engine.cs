@@ -92,6 +92,7 @@ namespace Invictus.Core.Invictus.Structures.GameEngine
 
         public static bool CanAttack()
         {
+
             /*
             if (Player.IsCastingInterruptableSpell())
             {

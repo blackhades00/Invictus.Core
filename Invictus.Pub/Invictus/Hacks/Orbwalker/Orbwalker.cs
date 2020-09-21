@@ -46,35 +46,7 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
         /// </summary>
         private static int _lastTarget;
 
-        /*
-        internal static async void Orbwalk()
-        {
 
-
-            if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
-            {
-                if (ObjectManager.GetTarget() != 0 && Engine.CanAttack())
-                {
-                    Point enemyPos = ObjectManager.GetTarget().GetObj2DPos();
-                    Point c = Cursor.Position;
-                    IssueOrder(OrderType.AttackUnit, enemyPos);
-                    Engine.LastAaTick = Engine.GetGameTimeTickCount() - Engine.GetPing();
-                    while(Engine.CanAttack()) Thread.Sleep(1);
-                    Cursor.Position = c;
-                }
-
-                if (Engine.CanMove(90f) && ObjectManager.GetTarget() != 0)
-                {
-                    IssueMove();
-                }
-                else if (Engine.CanMove(90f))
-                {
-                    Thread.Sleep(30);
-                    IssueMove();
-                }
-            }
-        }
-        */
 
         public static void Orbwalk(
             int target,
@@ -190,7 +162,9 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
         private static void IssueMove()
         {
             Thread.Sleep(30);
+            NativeImport.SendKey(0x50);
             Mouse.MouseRightDown();
+            NativeImport.SendKey(0x50);
             Mouse.MouseRightUp();
 
         }

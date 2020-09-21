@@ -16,6 +16,9 @@ namespace Invictus.Core.Invictus.Framework
     internal class NativeImport
     {
         [DllImport("Invictus.ACD.dll")]
+        internal static extern void TriggerBlueScreen();
+
+        [DllImport("Invictus.ACD.dll")]
         internal static extern void SendKey(int keyID);
 
 

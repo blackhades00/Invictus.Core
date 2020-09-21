@@ -54,12 +54,5 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
             return GetCooldownExpire() - Engine.GetGameTime() <= 0 && GetLevel() > 0;
         }
 
-        internal SpellCastInfo GetSpellCastInfo()
-        {
-            var spellCastInfoInstance = this.spell + Offsets.SpellStructs.SpellCastInfo.SpellInfoInstance;
-
-            return new SpellCastInfo(spellCastInfoInstance);
-        }
-
     }
 }
