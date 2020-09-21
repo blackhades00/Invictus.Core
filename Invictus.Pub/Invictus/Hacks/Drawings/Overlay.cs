@@ -41,11 +41,13 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         {
             RenderLoop.Run(this, () =>
             {
-                DrawFactory.Device.Clear(ClearFlags.Target, new SharpDX.Mathematics.Interop.RawColorBGRA(0, 0, 0, 0), 1.0f, 0);
+                DrawFactory.Device.Clear(ClearFlags.Target, new SharpDX.Mathematics.Interop.RawColorBGRA(0, 0, 0, 0),
+                    1.0f, 0);
                 DrawFactory.Device.SetRenderState(RenderState.ZEnable, false);
                 DrawFactory.Device.SetRenderState(RenderState.Lighting, false);
                 DrawFactory.Device.SetRenderState(RenderState.CullMode, Cull.None);
-                DrawFactory.Device.SetTransform(TransformState.Projection, Matrix.OrthoOffCenterLH(0, Width, Height, 0, 0, 1));
+                DrawFactory.Device.SetTransform(TransformState.Projection,
+                    Matrix.OrthoOffCenterLH(0, Width, Height, 0, 0, 1));
 
                 DrawFactory.Device.BeginScene();
 
@@ -59,18 +61,20 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         internal void OnLoad()
         {
             NativeImport.SetWindowLong(Handle, DrawFactory.GWL_EXSTYLE,
-            (IntPtr)(NativeImport.GetWindowLong(Handle, DrawFactory.GWL_EXSTYLE) ^ DrawFactory.WS_EX_LAYERED ^ DrawFactory.WS_EX_TRANSPARENT));
+                (IntPtr) (NativeImport.GetWindowLong(Handle, DrawFactory.GWL_EXSTYLE) ^ DrawFactory.WS_EX_LAYERED ^
+                          DrawFactory.WS_EX_TRANSPARENT));
 
             NativeImport.SetLayeredWindowAttributes(Handle, 0, 255, DrawFactory.LWA_ALPHA);
 
-            PresentParameters presentParameters = new PresentParameters
+            var presentParameters = new PresentParameters
             {
                 Windowed = true,
                 SwapEffect = SwapEffect.Discard,
-                BackBufferFormat = Format.A8R8G8B8,
+                BackBufferFormat = Format.A8R8G8B8
             };
 
-            DrawFactory.Device = new Device(DrawFactory.D3D, 0, DeviceType.Hardware, Handle, CreateFlags.HardwareVertexProcessing, presentParameters);
+            DrawFactory.Device = new Device(DrawFactory.D3D, 0, DeviceType.Hardware, Handle,
+                CreateFlags.HardwareVertexProcessing, presentParameters);
 
             DrawFactory.DrawLineValue = new Line(DrawFactory.Device);
             DrawFactory.DrawBoxLine = new Line(DrawFactory.Device);
@@ -78,7 +82,7 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
             DrawFactory.DrawFilledBoxLine = new Line(DrawFactory.Device);
             DrawFactory.DrawTriLine = new Line(DrawFactory.Device);
 
-            FontDescription fontDescription = new FontDescription()
+            var fontDescription = new FontDescription()
             {
                 FaceName = "Fixedsys Regular",
                 CharacterSet = FontCharacterSet.Default,
@@ -87,7 +91,7 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
                 MipLevels = 0,
                 OutputPrecision = FontPrecision.Default,
                 PitchAndFamily = FontPitchAndFamily.Default,
-                Quality = FontQuality.ClearType,
+                Quality = FontQuality.ClearType
             };
 
             DrawFactory.Font = new Font(DrawFactory.Device, fontDescription);

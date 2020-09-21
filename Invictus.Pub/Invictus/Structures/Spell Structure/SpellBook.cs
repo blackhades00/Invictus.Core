@@ -7,7 +7,6 @@ using SharpDX;
 
 namespace Invictus.Core.Invictus.Structures.Spell_Structure
 {
-
     internal class SpellBook
     {
         private int spellbookInstance { get; set; }
@@ -20,7 +19,7 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
         /// <param name="obj"></param>
         internal SpellBook(int obj)
         {
-            this.spellbookInstance = obj + Offsets.SpellBook.Instance;
+            spellbookInstance = obj + Offsets.SpellBook.Instance;
         }
 
         /// <summary>
@@ -30,21 +29,22 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
         /// <returns></returns>
         public SpellClass GetSpellClassInstance(SpellSlotId ID)
         {
-            SpellClass sClass = new SpellClass(spellbookInstance, ID);
+            var sClass = new SpellClass(spellbookInstance, ID);
             return sClass;
         }
 
-        
+
         internal SpellCastInfo GetSpellCastInfo()
         {
-            var spellCastInfoInstance = Utils.ReadInt(spellbookInstance + Offsets.SpellStructs.SpellCastInfo.SpellInfoInstance);
+            var spellCastInfoInstance =
+                Utils.ReadInt(spellbookInstance + Offsets.SpellStructs.SpellCastInfo.SpellInfoInstance);
 
             return new SpellCastInfo(spellCastInfoInstance);
         }
 
         public int GetSpellRadius(SpellSlot slot)
         {
-            string spellSlotName = Enum.GetName(typeof(SpellSlot), slot);
+            var spellSlotName = Enum.GetName(typeof(SpellSlot), slot);
 
             return SpellDb[spellSlotName].ToObject<JObject>()["Range"][0].ToObject<int>();
         }
@@ -53,7 +53,6 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
         {
             return Utils.ReadInt(spellbookInstance + 0x24);
         }
-
 
 
         public static void CastSpell(int hardwareScanCode)
@@ -65,16 +64,13 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
         public static void CastSpell(SpellSlot Slot, int X, int Y)
         {
             Mouse.MouseMove(X, Y);
-            Keyboard.SendKey((short)Slot);
-
+            Keyboard.SendKey((short) Slot);
         }
 
         public static void CastSpell(SpellSlot Slot, Point SpellLocation)
         {
-
             Mouse.MouseMove(SpellLocation.X, SpellLocation.Y);
-            Keyboard.SendKey((short)Slot);
-
+            Keyboard.SendKey((short) Slot);
         }
 
         /*
@@ -88,61 +84,46 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
         */
         public static void CastMultiSpells(SpellSlot[] SlotArray, int X, int Y)
         {
-            foreach (SpellSlot Spell in SlotArray)
-            {
-                CastSpell(Spell, X, Y);
-            }
+            foreach (var Spell in SlotArray) CastSpell(Spell, X, Y);
         }
 
         public static void CastMultiSpells(SpellSlot[] SlotArray, Point SpellLocation)
         {
-            foreach (SpellSlot Spell in SlotArray)
-            {
-                CastSpell(Spell, SpellLocation);
-            }
+            foreach (var Spell in SlotArray) CastSpell(Spell, SpellLocation);
         }
 
         public static void CastSummonerSpell(SummonerSpellSlot Slot)
         {
-            Keyboard.SendKey((short)Slot);
+            Keyboard.SendKey((short) Slot);
         }
 
         public static void CastSummonerSpell(SummonerSpellSlot Slot, int X, int Y)
         {
-
             Mouse.MouseMove(X, Y);
-            Keyboard.SendKey((short)Slot);
-
+            Keyboard.SendKey((short) Slot);
         }
 
         public static void CastSummonerSpell(SummonerSpellSlot Slot, Point SpellLocation)
         {
-
             Mouse.MouseMove(SpellLocation.X, SpellLocation.Y);
-            Keyboard.SendKey((short)Slot);
-
+            Keyboard.SendKey((short) Slot);
         }
 
         public static void CastItem(ItemSlot Slot)
         {
-            Keyboard.SendKey((short)Slot);
+            Keyboard.SendKey((short) Slot);
         }
 
         public static void CastItem(ItemSlot Slot, int X, int Y)
         {
-
-
             Mouse.MouseMove(X, Y);
-            Keyboard.SendKey((short)Slot);
-
+            Keyboard.SendKey((short) Slot);
         }
 
         public static void CastItem(ItemSlot Slot, Point SpellLocation)
         {
-
             Mouse.MouseMove(SpellLocation.X, SpellLocation.Y);
-            Keyboard.SendKey((short)Slot);
-
+            Keyboard.SendKey((short) Slot);
         }
 
 
@@ -169,7 +150,7 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
             Item4 = Keyboard.KeyBoardScanCodes.Key5,
             Item5 = Keyboard.KeyBoardScanCodes.Key6,
             Item6 = Keyboard.KeyBoardScanCodes.Key7,
-            Trinket = Keyboard.KeyBoardScanCodes.Key4,
+            Trinket = Keyboard.KeyBoardScanCodes.Key4
         }
 
         public enum SpellSlotId
@@ -191,4 +172,3 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
         }
     }
 }
-

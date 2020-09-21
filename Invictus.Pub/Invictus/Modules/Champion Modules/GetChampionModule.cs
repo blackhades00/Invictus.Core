@@ -6,19 +6,19 @@ namespace Invictus.Core.Invictus.Modules.Champion_Modules
 {
     public class GetChampionModule
     {
-       internal static void LoadChampionModule()
+        internal static void LoadChampionModule()
         {
             var champName = Engine.GetLocalObject().GetChampionName();
 
             switch (champName)
             {
                 case "Vayne":
-                    VayneModule vayneModule = new VayneModule();
+                    var vayneModule = new VayneModule();
                     vayneModule.Init();
                     break;
 
                 default:
-                    Logger.Log("No Champion Module could be loaded.",Logger.eLoggerType.Fatal);
+                    Logger.Log("No Champion Module could be loaded.", Logger.eLoggerType.Fatal);
                     break;
             }
         }

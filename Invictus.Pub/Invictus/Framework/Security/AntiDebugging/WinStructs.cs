@@ -6,7 +6,7 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
 {
     using System;
 
-    class WinStructs
+    internal class WinStructs
     {
         internal enum Processinfoclass : int
         {
@@ -261,7 +261,7 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
             ThreadAmILastThread = 12,
             ThreadIdealProcessor = 13,
             ThreadPriorityBoost = 14,
-            ThreadSetTlsArrayAddress = 15,   // Obsolete
+            ThreadSetTlsArrayAddress = 15, // Obsolete
             ThreadIsIoPending = 16,
             ThreadHideFromDebugger = 17,
             ThreadBreakOnTermination = 18,
@@ -273,32 +273,32 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
             ThreadPagePriority = 24,
             ThreadActualBasePriority = 25,
             ThreadTebInformation = 26,
-            ThreadCSwitchMon = 27,   // Obsolete
+            ThreadCSwitchMon = 27, // Obsolete
             ThreadCSwitchPmu = 28,
             ThreadWow64Context = 29,
             ThreadGroupInformation = 30,
-            ThreadUmsInformation = 31,   // UMS
+            ThreadUmsInformation = 31, // UMS
             ThreadCounterProfiling = 32,
             ThreadIdealProcessorEx = 33,
             ThreadCpuAccountingInformation = 34,
             ThreadSuspendCount = 35,
             ThreadDescription = 38,
             ThreadActualGroupAffinity = 41,
-            ThreadDynamicCodePolicy = 42,
+            ThreadDynamicCodePolicy = 42
         }
 
         [Flags]
         public enum ThreadAccess : int
         {
-            Terminate = (0x0001),
-            SuspendResume = (0x0002),
-            GetContext = (0x0008),
-            SetContext = (0x0010),
-            SetInformation = (0x0020),
-            QueryInformation = (0x0040),
-            SetThreadToken = (0x0080),
-            Impersonate = (0x0100),
-            DirectImpersonation = (0x0200)
+            Terminate = 0x0001,
+            SuspendResume = 0x0002,
+            GetContext = 0x0008,
+            SetContext = 0x0010,
+            SetInformation = 0x0020,
+            QueryInformation = 0x0040,
+            SetThreadToken = 0x0080,
+            Impersonate = 0x0100,
+            DirectImpersonation = 0x0200
         }
 
         [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -312,4 +312,3 @@ namespace Invictus.Core.Invictus.Framework.Security.AntiDebugging
         }
     }
 }
-

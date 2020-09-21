@@ -12,11 +12,11 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
     {
         internal static int GetLasthitTarget()
         {
-            int minionList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
-            int minionList = Utils.ReadInt(minionList_PrePtr + 0x4);
+            var minionList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
+            var minionList = Utils.ReadInt(minionList_PrePtr + 0x4);
 
-            int index = 0x0;
-            int obj = -1;
+            var index = 0x0;
+            var obj = -1;
             while (obj != 0)
             {
                 obj = Utils.ReadInt(minionList + index);
@@ -27,28 +27,16 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
                     case 0x00:
                         continue;
                     default:
-                        {
-                            if (obj.IsInRange())
-                            {
-                                if (obj.IsEnemy() && !obj.IsNoMinion())
-                                {
-                                    if (obj.IsVisible())
-                                    {
+                    {
+                        if (obj.IsInRange())
+                            if (obj.IsEnemy() && !obj.IsNoMinion())
+                                if (obj.IsVisible())
+                                    if (obj.IsAlive() && obj.IsTargetable())
+                                        if (obj.IsLasthitable())
+                                            return obj;
 
-                                        if (obj.IsAlive() && obj.IsTargetable())
-                                        {
-                                            if (obj.IsLasthitable())
-                                            {
-                                                return obj;
-                                            }
-                                        }
-
-                                    }
-                                }
-                            }
-
-                            break;
-                        }
+                        break;
+                    }
                 }
             }
 
@@ -58,11 +46,11 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
 
         internal static int GetWaveclearTarget()
         {
-            int minionList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
-            int minionList = Utils.ReadInt(minionList_PrePtr + 0x4);
+            var minionList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
+            var minionList = Utils.ReadInt(minionList_PrePtr + 0x4);
 
-            int index = 0x0;
-            int obj = -1;
+            var index = 0x0;
+            var obj = -1;
             while (obj != 0)
             {
                 obj = Utils.ReadInt(minionList + index);
@@ -73,25 +61,15 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
                     case 0x00:
                         continue;
                     default:
-                        {
-                            if (obj.IsInRange())
-                            {
-                                if (obj.IsEnemy() && !obj.IsNoMinion())
-                                {
-                                    if (obj.IsVisible())
-                                    {
+                    {
+                        if (obj.IsInRange())
+                            if (obj.IsEnemy() && !obj.IsNoMinion())
+                                if (obj.IsVisible())
+                                    if (obj.IsAlive() && obj.IsTargetable())
+                                        return obj;
 
-                                        if (obj.IsAlive() && obj.IsTargetable())
-                                        {
-                                            return obj;
-                                        }
-
-                                    }
-                                }
-                            }
-
-                            break;
-                        }
+                        break;
+                    }
                 }
             }
 
@@ -99,4 +77,3 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
         }
     }
 }
-

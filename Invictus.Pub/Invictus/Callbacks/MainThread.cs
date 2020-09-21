@@ -11,26 +11,16 @@ namespace Invictus.Core.Invictus.Hacks
 {
     internal class MainThread
     {
-        internal async static void MainLoop()
+        internal static async void MainLoop()
         {
-
             await Task.Run(() =>
             {
                 while (Engine.GetLocalObject() != 0)
                 {
                     Utils.Unload();
-                    if (Utils.IsGameInForeground())
-                    {
-                        Orbwalker.Orbwalker.Orbwalk(ObjectManager.GetTarget());
-                    }
-
-                  
+                    if (Utils.IsGameInForeground()) Orbwalker.Orbwalker.Orbwalk(ObjectManager.GetTarget(), Properties.Settings.Default.Orbwalker_ExtraWindup);
                 }
-
             });
-
-
-
         }
     }
 }

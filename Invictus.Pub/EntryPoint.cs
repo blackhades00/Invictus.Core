@@ -27,12 +27,13 @@ namespace Invictus.Core
 
         public static void LoadCore()
         {
-            AntiDebugService.StartAntiDbgService();
+           // AntiDebugService.StartAntiDbgService();
             if (!Riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6"))
             {
                 Environment.Exit(1);
                 return;
             }
+
             DebugConsole.AllocConsole();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -41,12 +42,12 @@ namespace Invictus.Core
 
         internal static async void InitialiseCore()
         {
-            Logger.Log("Initiating InvictusSharp...",Logger.eLoggerType.Info);
+            Logger.Log("Initiating InvictusSharp...", Logger.eLoggerType.Info);
 
-            
+
             try
             {
-                await Task.Run(() => ActivePlayerData.ParseUnitRadiusData()); 
+                await Task.Run(() => ActivePlayerData.ParseUnitRadiusData());
                 Engine.SetBoundingRadius();
                 ActivePlayerData.ParseSpellDB();
 
@@ -56,7 +57,7 @@ namespace Invictus.Core
 
                 HeroManager.PushHeroList();
                 await Task.Run(() => MainThread.MainLoop());
-                GetChampionModule.LoadChampionModule();
+             //   GetChampionModule.LoadChampionModule();
                 await Task.Run(() => Utils.ShowWelcomeMessage());
                 await Task.Run(() => Overlay.Show());
             }
@@ -65,7 +66,6 @@ namespace Invictus.Core
                 Logger.Log("Error while initializing.", Logger.eLoggerType.Fatal);
                 throw new Exception("InitException");
             }
-           
         }
     }
 }

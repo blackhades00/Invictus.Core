@@ -20,18 +20,15 @@ namespace Invictus.Core.Invictus.Callbacks
         {
             if (Utils.IsGameInForeground())
             {
-               Draw.DrawWatermark();
+                Draw.DrawWatermark();
 
                 Draw.DrawMenu();
 
-                if (TargetSelectorSettings.DrawAttackRange)
-                {
-                   Draw.DrawAttackRange(Engine.GetLocalObject(), Color.Cyan);
-                }
+                if (Properties.Settings.Default.DrawAttackRange) Draw.DrawAttackRange(Engine.GetLocalObject(), Color.Cyan);
 
-               // Draw.DrawCooldown(Engine.GetLocalObject());
-               Draw.DrawWard();
-               Draw.DrawEnemyCooldowns();
+                // Draw.DrawCooldown(Engine.GetLocalObject());
+                Draw.DrawWard();
+                Draw.DrawEnemyCooldowns();
             }
         }
     }

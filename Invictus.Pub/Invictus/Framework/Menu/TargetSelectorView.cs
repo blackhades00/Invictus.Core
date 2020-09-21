@@ -12,16 +12,23 @@ namespace Invictus.Core.Invictus.Framework.Menu
         public TargetSelectorView()
         {
             InitializeComponent();
+
+            this.targetSelectorMode.Text = Properties.Settings.Default.TargetSelector_Mode;
         }
 
         private void UserControl1_Load(object sender, EventArgs e)
         {
-
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void SaveTargetSelectorSettings()
         {
-            TargetSelectorSettings.TsMode = targetSelectorMode.GetItemText(targetSelectorMode.SelectedItem);
+            Properties.Settings.Default.Save();
+        }
+
+        private void foreverComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.TargetSelector_Mode = targetSelectorMode.GetItemText(targetSelectorMode.SelectedItem);
+            SaveTargetSelectorSettings();
         }
     }
 }

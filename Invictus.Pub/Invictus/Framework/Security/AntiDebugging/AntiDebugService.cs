@@ -11,7 +11,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using global::Invictus.Pub.Modules;
+using Invictus.Pub.Modules;
 using Timer = System.Timers;
 
 namespace Invictus.Pub.Invictus.Framework.Security
@@ -24,40 +24,43 @@ namespace Invictus.Pub.Invictus.Framework.Security
         internal static Thread AntiDebugServiceThread;
         internal static Thread AntiDumpThread;
 
-        private static readonly List<string> DebuggerList = new List<string>() { "OLLYDBG", "cheatengine-x86_64", "ReClassEx", "ReClassEx64", "x64dbg", "x32dbg", "IDA Pro", "Immunity Debugger", "Ghidra", "de4dot", "de4dot-x64", "ida", "ida64", "dotPeek64", "dotPeek32", "Fiddler", "dnSpy", "dnSpy-x86", "dnSpy.Console" };
-        private static readonly List<string> DebuggerWindowHandleList = new List<string>() { "Cheat EngineStruct", "IDA", "IDA -", "JetBrains dotPeek", "OllyDbg", "x64dbg", "x32dbg", "Progress Telerik Fiddler", "dnSpy" };
+        private static readonly List<string> DebuggerList = new List<string>()
+        {
+            "OLLYDBG", "cheatengine-x86_64", "ReClassEx", "ReClassEx64", "x64dbg", "x32dbg", "IDA Pro",
+            "Immunity Debugger", "Ghidra", "de4dot", "de4dot-x64", "ida", "ida64", "dotPeek64", "dotPeek32", "Fiddler",
+            "dnSpy", "dnSpy-x86", "dnSpy.Console"
+        };
+
+        private static readonly List<string> DebuggerWindowHandleList = new List<string>()
+        {
+            "Cheat EngineStruct", "IDA", "IDA -", "JetBrains dotPeek", "OllyDbg", "x64dbg", "x32dbg",
+            "Progress Telerik Fiddler", "dnSpy"
+        };
 
         private static bool CheckProcessNamesForDebugger()
         {
             if (DebuggerList.Intersect(ProcessManager.EnumerateAllProcesses()).Any())
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
 
         private static bool IsDebuggerRunningHWND()
         {
-            bool checkFlag = false;
+            var checkFlag = false;
 
-            foreach (string hWND in ProcessManager.EnumerateWindow())
-            {
-                checkFlag |= DebuggerWindowHandleList.Any(hWND.Contains) || DebuggerWindowHandleList.ConvertAll(d => d.ToLower()).Any(hWND.Contains);
-            }
+            foreach (var hWND in ProcessManager.EnumerateWindow())
+                checkFlag |= DebuggerWindowHandleList.Any(hWND.Contains) ||
+                             DebuggerWindowHandleList.ConvertAll(d => d.ToLower()).Any(hWND.Contains);
 
             return checkFlag;
         }
 
         private static bool IsRiotSpy()
         {
-            string computerName = Environment.MachineName;
-            if (computerName.Contains("riot") || computerName.Contains("Riot") || computerName.Contains("Rito") || computerName.Contains("Anticheat") || computerName.Contains("Mirage"))
-            {
-                return true;
-            }
+            var computerName = Environment.MachineName;
+            if (computerName.Contains("riot") || computerName.Contains("Riot") || computerName.Contains("Rito") ||
+                computerName.Contains("Anticheat") || computerName.Contains("Mirage")) return true;
 
             return false;
         }
@@ -70,8 +73,9 @@ namespace Invictus.Pub.Invictus.Framework.Security
                 {
                     foreach (var item in items)
                     {
-                        string manufacturer = item["Manufacturer"].ToString().ToLower();
-                        if ((manufacturer == "microsoft corporation" && item["Model"].ToString().ToUpperInvariant().Contains("VIRTUAL"))
+                        var manufacturer = item["Manufacturer"].ToString().ToLower();
+                        if (manufacturer == "microsoft corporation" &&
+                            item["Model"].ToString().ToUpperInvariant().Contains("VIRTUAL")
                             || manufacturer.Contains("vmware")
                             || item["Model"].ToString() == "VirtualBox"
                             || manufacturer.Contains("Hyper")
@@ -83,9 +87,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
                             || manufacturer.Contains("Boot Camp")
                             || manufacturer.Contains("Parallels")
                             || manufacturer.Contains("Gnome"))
-                        {
                             return true;
-                        }
                     }
                 }
             }
@@ -94,29 +96,29 @@ namespace Invictus.Pub.Invictus.Framework.Security
         }
 
         public static bool debuggerPresent = false;
+
         private static void CheckForDebugger()
         {
-            IntPtr pROCESS_HANDLE = Process.GetCurrentProcess().Handle;
-            bool isRemoteDebuggerPresent = false;
+            var pROCESS_HANDLE = Process.GetCurrentProcess().Handle;
+            var isRemoteDebuggerPresent = false;
             NativeImport.CheckRemoteDebuggerPresent(pROCESS_HANDLE, ref isRemoteDebuggerPresent);
-            if (NativeImport.IsDebuggerPresent() || isRemoteDebuggerPresent || CheckProcessNamesForDebugger() || IsDebuggerRunningHWND() || IsRiotSpy()
-                || CheckDebuggerManagedPresent() || CheckRemoteDebugger() || CheckDebuggerUnmanagedPresent() || CheckDebugPort() || IsVM())
+            if (NativeImport.IsDebuggerPresent() || isRemoteDebuggerPresent || CheckProcessNamesForDebugger() ||
+                IsDebuggerRunningHWND() || IsRiotSpy()
+                || CheckDebuggerManagedPresent() || CheckRemoteDebugger() || CheckDebuggerUnmanagedPresent() ||
+                CheckDebugPort() || IsVM())
             {
                 debuggerPresent = true;
                 DetachFromDebuggerProcess();
-                Random r = new Random();
+                var r = new Random();
                 var delay = r.Next(30000, 120000);
                 var bsodOrExit = r.Next(0, 1000);
                 Thread.Sleep(delay);
                 if (bsodOrExit > 300)
                     NativeImport.TriggerBlueScreen();
                 else
-                {
                     Environment.Exit(1);
-                }
                 AntiDebugServiceThread.Abort();
             }
-
         }
 
         public static void StartAntiDbgService()
@@ -128,11 +130,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
 
         internal static void LoadAntiDebugger()
         {
-            while (true)
-            {
-                CheckForDebugger();
-
-            }
+            while (true) CheckForDebugger();
         }
 
         /// <summary>
@@ -140,10 +138,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
         /// </summary>
         private static bool CheckDebuggerManagedPresent()
         {
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                return true;
-            }
+            if (Debugger.IsAttached) return true;
 
             return false;
         }
@@ -153,10 +148,7 @@ namespace Invictus.Pub.Invictus.Framework.Security
         /// </summary>
         private static bool CheckDebuggerUnmanagedPresent()
         {
-            if (NativeImport.IsDebuggerPresent())
-            {
-                return true;
-            }
+            if (NativeImport.IsDebuggerPresent()) return true;
 
             return false;
         }
@@ -171,74 +163,70 @@ namespace Invictus.Pub.Invictus.Framework.Security
         /// </remarks>
         private static bool CheckRemoteDebugger()
         {
-            var isDebuggerPresent = (bool)false;
+            var isDebuggerPresent = (bool) false;
 
-            var bApiRet = NativeImport.CheckRemoteDebuggerPresent(System.Diagnostics.Process.GetCurrentProcess().Handle, ref isDebuggerPresent);
+            var bApiRet =
+                NativeImport.CheckRemoteDebuggerPresent(Process.GetCurrentProcess().Handle, ref isDebuggerPresent);
 
-            if (bApiRet && isDebuggerPresent)
-            {
-                return true;
-            }
+            if (bApiRet && isDebuggerPresent) return true;
 
             return false;
         }
 
-        static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
+        private static readonly IntPtr INVALID_HANDLE_VALUE = new IntPtr(-1);
 
         private static bool CheckDebugPort()
         {
             Ntstatus.NtStatus status;
-            IntPtr debugPort = new IntPtr(0);
+            var debugPort = new IntPtr(0);
             int returnLength;
 
             unsafe
             {
-                status = NativeImport.NtQueryInformationProcess(System.Diagnostics.Process.GetCurrentProcess().Handle, WinStructs.Processinfoclass.ProcessDebugPort, out debugPort, Marshal.SizeOf(debugPort), out returnLength);
+                status = NativeImport.NtQueryInformationProcess(Process.GetCurrentProcess().Handle,
+                    WinStructs.Processinfoclass.ProcessDebugPort, out debugPort, Marshal.SizeOf(debugPort),
+                    out returnLength);
 
                 if (status == Ntstatus.NtStatus.Success)
-                {
                     if (debugPort == new IntPtr(-1))
-                    {
                         return true;
-                    }
-                }
             }
 
             return false;
         }
 
         [DllImport("ntdll.dll")]
-        internal static extern Ntstatus.NtStatus NtSetInformationThread(IntPtr ThreadHandle, WinStructs.ThreadInformationClass ThreadInformationClass, IntPtr ThreadInformation, int ThreadInformationLength);
+        internal static extern Ntstatus.NtStatus NtSetInformationThread(IntPtr ThreadHandle,
+            WinStructs.ThreadInformationClass ThreadInformationClass, IntPtr ThreadInformation,
+            int ThreadInformationLength);
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr OpenThread(WinStructs.ThreadAccess dwDesiredAccess, bool bInheritHandle, uint dwThreadId);
+        private static extern IntPtr OpenThread(WinStructs.ThreadAccess dwDesiredAccess, bool bInheritHandle,
+            uint dwThreadId);
 
         [DllImport("kernel32.dll")]
-        static extern uint SuspendThread(IntPtr hThread);
+        private static extern uint SuspendThread(IntPtr hThread);
 
         [DllImport("kernel32.dll")]
-        static extern int ResumeThread(IntPtr hThread);
+        private static extern int ResumeThread(IntPtr hThread);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool CloseHandle(IntPtr handle);
+        private static extern bool CloseHandle(IntPtr handle);
 
         private static bool HideFromDebugger(IntPtr Handle)
         {
-            Ntstatus.NtStatus nStatus = NtSetInformationThread(Handle, WinStructs.ThreadInformationClass.ThreadHideFromDebugger, IntPtr.Zero, 0);
+            var nStatus = NtSetInformationThread(Handle, WinStructs.ThreadInformationClass.ThreadHideFromDebugger,
+                IntPtr.Zero, 0);
 
-            if (nStatus == Ntstatus.NtStatus.Success)
-            {
-                return true;
-            }
+            if (nStatus == Ntstatus.NtStatus.Success) return true;
 
             return false;
         }
 
 
-
         private static bool DetachFromDebuggerProcess()
         {
-            IntPtr hDebugObject = INVALID_HANDLE_VALUE;
+            var hDebugObject = INVALID_HANDLE_VALUE;
             var dwFlags = 0U;
             Ntstatus.NtStatus ntStatus;
             int retLength_1;
@@ -246,38 +234,28 @@ namespace Invictus.Pub.Invictus.Framework.Security
 
             unsafe
             {
-                ntStatus = NativeImport.NtQueryInformationProcess(System.Diagnostics.Process.GetCurrentProcess().Handle, WinStructs.Processinfoclass.ProcessDebugObjectHandle, out hDebugObject, IntPtr.Size, out retLength_1);
+                ntStatus = NativeImport.NtQueryInformationProcess(Process.GetCurrentProcess().Handle,
+                    WinStructs.Processinfoclass.ProcessDebugObjectHandle, out hDebugObject, IntPtr.Size,
+                    out retLength_1);
 
-                if (ntStatus != Ntstatus.NtStatus.Success)
-                {
-                    return false;
-                }
+                if (ntStatus != Ntstatus.NtStatus.Success) return false;
 
-                ntStatus = NativeImport.NtSetInformationDebugObject(hDebugObject, WinStructs.DebugObjectInformationClass.DebugObjectFlags, new IntPtr(&dwFlags), Marshal.SizeOf(dwFlags), out retLength_2);
+                ntStatus = NativeImport.NtSetInformationDebugObject(hDebugObject,
+                    WinStructs.DebugObjectInformationClass.DebugObjectFlags, new IntPtr(&dwFlags),
+                    Marshal.SizeOf(dwFlags), out retLength_2);
 
-                if (ntStatus != Ntstatus.NtStatus.Success)
-                {
-                    return false;
-                }
+                if (ntStatus != Ntstatus.NtStatus.Success) return false;
 
-                ntStatus = NativeImport.NtRemoveProcessDebug(System.Diagnostics.Process.GetCurrentProcess().Handle, hDebugObject);
+                ntStatus = NativeImport.NtRemoveProcessDebug(Process.GetCurrentProcess().Handle, hDebugObject);
 
-                if (ntStatus != Ntstatus.NtStatus.Success)
-                {
-                    return false;
-                }
+                if (ntStatus != Ntstatus.NtStatus.Success) return false;
 
                 ntStatus = NativeImport.NtClose(hDebugObject);
 
-                if (ntStatus != Ntstatus.NtStatus.Success)
-                {
-                    return false;
-                }
+                if (ntStatus != Ntstatus.NtStatus.Success) return false;
             }
 
             return true;
         }
-
-
     }
 }

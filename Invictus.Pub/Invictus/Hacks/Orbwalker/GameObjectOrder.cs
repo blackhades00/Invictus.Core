@@ -4,7 +4,6 @@
 
 namespace Invictus.Core.Invictus.Hacks.Orbwalker
 {
-
     public enum OrderType
     {
         HoldPosition,
@@ -13,6 +12,4 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
         AutoAttack,
         Stop
     }
-
-
 }

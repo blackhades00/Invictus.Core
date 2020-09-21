@@ -16,12 +16,10 @@ namespace Invictus.Pub.Modules
     {
         internal static Process GetProcessString(string processName)
         {
-            Process[] processes = Process.GetProcessesByName(processName);
+            var processes = Process.GetProcessesByName(processName);
             if (processes.Length == 0)
-            {
                 // Process Name Could Not Be Found
                 return null;
-            }
 
             return Process.GetProcessesByName(processName).FirstOrDefault();
         }
@@ -30,8 +28,7 @@ namespace Invictus.Pub.Modules
         {
             Process prcs = null;
 
-            foreach (Process process in Process.GetProcesses())
-            {
+            foreach (var process in Process.GetProcesses())
                 try
                 {
                     if (process.MainWindowTitle.Equals(windowName))
@@ -40,74 +37,61 @@ namespace Invictus.Pub.Modules
                         break;
                     }
                 }
-                catch (InvalidOperationException e) { }
-            }
+                catch (InvalidOperationException e)
+                {
+                }
 
             return prcs;
         }
 
         internal static List<string> EnumerateAllProcesses(int limit = 0)
         {
-            List<string> processList = new List<string>();
+            var processList = new List<string>();
 
             if (limit == 0)
-            {
-                foreach (Process prcs1 in Process.GetProcesses())
-                {
+                foreach (var prcs1 in Process.GetProcesses())
                     try
                     {
                         processList.Add(prcs1.ProcessName);
                     }
-                    catch (InvalidOperationException e) { }
-                }
-            }
+                    catch (InvalidOperationException e)
+                    {
+                    }
             else
-            {
-                foreach (Process prcs in Process.GetProcesses().Take(limit))
-                {
+                foreach (var prcs in Process.GetProcesses().Take(limit))
                     try
                     {
                         processList.Add(prcs.ProcessName);
                     }
-                    catch (InvalidOperationException e) { }
-                }
-            }
+                    catch (InvalidOperationException e)
+                    {
+                    }
 
             return processList;
         }
 
         internal static List<string> EnumerateWindow(int limit = 0)
         {
-            List<string> hWNDStorage = new List<string>();
+            var hWNDStorage = new List<string>();
 
             if (limit == 0)
-            {
-                foreach (Process process in Process.GetProcesses())
-                {
+                foreach (var process in Process.GetProcesses())
                     try
                     {
-                        if (process.MainWindowTitle.Length != 0)
-                        {
-                            hWNDStorage.Add(process.MainWindowTitle);
-                        }
+                        if (process.MainWindowTitle.Length != 0) hWNDStorage.Add(process.MainWindowTitle);
                     }
-                    catch (InvalidOperationException e) { }
-                }
-            }
+                    catch (InvalidOperationException e)
+                    {
+                    }
             else
-            {
-                foreach (Process process in Process.GetProcesses().Take(limit))
-                {
+                foreach (var process in Process.GetProcesses().Take(limit))
                     try
                     {
-                        if (process.MainWindowTitle.Length != 0)
-                        {
-                            hWNDStorage.Add(process.MainWindowTitle);
-                        }
+                        if (process.MainWindowTitle.Length != 0) hWNDStorage.Add(process.MainWindowTitle);
                     }
-                    catch (InvalidOperationException e) { }
-                }
-            }
+                    catch (InvalidOperationException e)
+                    {
+                    }
 
             return hWNDStorage;
         }

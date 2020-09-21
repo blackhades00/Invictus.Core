@@ -9,7 +9,7 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
     using System;
     using System.Runtime.InteropServices;
 
-    class ObjectTypeFlag
+    internal class ObjectTypeFlag
     {
         private enum EcObjectTypeFlags
         {
@@ -21,21 +21,23 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             AttackableUnit = 0x200, //0x200, // 2048, 1024 4640
             Ai = 0x400,
             Minion = 0x800,
-            Hero = 4096,//0x1000,
+            Hero = 4096, //0x1000,
             Turret = 0x2000,
             Unknown0 = 0x4000,
             Missile = 0x8000,
             Unknown1 = 0x10000,
             Building = 0x20000,
-            Unknown2 = 0x40000,
+            Unknown2 = 0x40000
         };
 
         [DllImport("Invictus.ACD.dll")]
-        private static extern bool LeagueIsObjectType(IntPtr leagueHandle, int objectPointer, int flags, int iSObjectTypeAddr);
+        private static extern bool LeagueIsObjectType(IntPtr leagueHandle, int objectPointer, int flags,
+            int iSObjectTypeAddr);
 
         private static bool CompareObjectType(int obj, int a2)
         {
-            return LeagueIsObjectType(Offsets.ProcessHandle, obj, a2, Offsets.Base + Offsets.EngineStruct.Functions.OIsObjectType);
+            return LeagueIsObjectType(Offsets.ProcessHandle, obj, a2,
+                Offsets.Base + Offsets.EngineStruct.Functions.OIsObjectType);
         }
 
         internal static bool IsDeadObject(int obj)

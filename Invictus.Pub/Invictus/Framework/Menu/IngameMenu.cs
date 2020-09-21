@@ -16,19 +16,20 @@ namespace Invictus.Core.Invictus.Framework.Menu
         /// </summary>
         internal static void LoadMenuContent()
         {
-            OrbwalkerView orbView = new OrbwalkerView
+            
+            var orbView = new OrbView
             {
-                Dock = DockStyle.Fill,
+                Dock = DockStyle.Fill
+            };
+            
+            var coreView = new DrawingsView
+            {
+                Dock = DockStyle.Fill
             };
 
-            CoreSettingView coreView = new CoreSettingView
+            var targetSelectorView = new TargetSelectorView
             {
-                Dock = DockStyle.Fill,
-            };
-
-            TargetSelectorView targetSelectorView = new TargetSelectorView
-            {
-                Dock = DockStyle.Fill,
+                Dock = DockStyle.Fill
             };
 
             MenuBox.MenuContentPanelExport.Controls.Add(orbView);

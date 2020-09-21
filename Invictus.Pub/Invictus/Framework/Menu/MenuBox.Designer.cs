@@ -28,63 +28,76 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.MenuTopPanel = new System.Windows.Forms.Panel();
-            this.ParadoxLabel = new System.Windows.Forms.Label();
-            this.SideMenuPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.MenuContentPanel = new System.Windows.Forms.Panel();
+            this.nightPanel1 = new ReaLTaiizor.Controls.NightPanel();
+            this.dungeonHeaderLabel1 = new ReaLTaiizor.Controls.DungeonHeaderLabel();
+            this.button1 = new System.Windows.Forms.Button();
             this.OrbwalkerSettingButton = new System.Windows.Forms.Button();
             this.CoreSettingButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.MenuContentPanel = new System.Windows.Forms.Panel();
-            this.MenuTopPanel.SuspendLayout();
+            this.SideMenuPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.nightPanel1.SuspendLayout();
             this.SideMenuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // MenuTopPanel
+            // MenuContentPanel
             // 
-            this.MenuTopPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.MenuContentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.MenuTopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(56)))), ((int)(((byte)(130)))));
-            this.MenuTopPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.MenuTopPanel.Controls.Add(this.ParadoxLabel);
-            this.MenuTopPanel.Location = new System.Drawing.Point(0, 0);
-            this.MenuTopPanel.Name = "MenuTopPanel";
-            this.MenuTopPanel.Size = new System.Drawing.Size(699, 37);
-            this.MenuTopPanel.TabIndex = 0;
-            this.MenuTopPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MenuTopPanel_MouseDown);
+            this.MenuContentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
+            this.MenuContentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.MenuContentPanel.Location = new System.Drawing.Point(145, 39);
+            this.MenuContentPanel.Name = "MenuContentPanel";
+            this.MenuContentPanel.Size = new System.Drawing.Size(189, 347);
+            this.MenuContentPanel.TabIndex = 3;
+            this.MenuContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuContentPanel_Paint);
             // 
-            // ParadoxLabel
+            // nightPanel1
             // 
-            this.ParadoxLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.ParadoxLabel.AutoSize = true;
-            this.ParadoxLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ParadoxLabel.ForeColor = System.Drawing.Color.White;
-            this.ParadoxLabel.Location = new System.Drawing.Point(301, 9);
-            this.ParadoxLabel.Name = "ParadoxLabel";
-            this.ParadoxLabel.Size = new System.Drawing.Size(63, 20);
-            this.ParadoxLabel.TabIndex = 0;
-            this.ParadoxLabel.Text = "Invictus";
+            this.nightPanel1.Controls.Add(this.dungeonHeaderLabel1);
+            this.nightPanel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.nightPanel1.LeftSideColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.nightPanel1.Location = new System.Drawing.Point(3, 2);
+            this.nightPanel1.Name = "nightPanel1";
+            this.nightPanel1.RightSideColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.nightPanel1.Side = ReaLTaiizor.Controls.NightPanel.PanelSide.Left;
+            this.nightPanel1.Size = new System.Drawing.Size(331, 39);
+            this.nightPanel1.TabIndex = 4;
             // 
-            // SideMenuPanel
+            // dungeonHeaderLabel1
             // 
-            this.SideMenuPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.SideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(23)))), ((int)(((byte)(49)))));
-            this.SideMenuPanel.Controls.Add(this.OrbwalkerSettingButton);
-            this.SideMenuPanel.Controls.Add(this.CoreSettingButton);
-            this.SideMenuPanel.Controls.Add(this.button1);
-            this.SideMenuPanel.Location = new System.Drawing.Point(0, 38);
-            this.SideMenuPanel.Name = "SideMenuPanel";
-            this.SideMenuPanel.Size = new System.Drawing.Size(143, 335);
-            this.SideMenuPanel.TabIndex = 2;
+            this.dungeonHeaderLabel1.AutoSize = true;
+            this.dungeonHeaderLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.dungeonHeaderLabel1.Font = new System.Drawing.Font("Mongolian Baiti", 11.25F, System.Drawing.FontStyle.Bold);
+            this.dungeonHeaderLabel1.ForeColor = System.Drawing.Color.White;
+            this.dungeonHeaderLabel1.Location = new System.Drawing.Point(119, 7);
+            this.dungeonHeaderLabel1.Name = "dungeonHeaderLabel1";
+            this.dungeonHeaderLabel1.Size = new System.Drawing.Size(86, 16);
+            this.dungeonHeaderLabel1.TabIndex = 0;
+            this.dungeonHeaderLabel1.Text = "INVICTUS";
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Mongolian Baiti", 11.25F);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(3, 101);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(137, 43);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "TargetSelector";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // OrbwalkerSettingButton
             // 
-            this.OrbwalkerSettingButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OrbwalkerSettingButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.OrbwalkerSettingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OrbwalkerSettingButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrbwalkerSettingButton.Font = new System.Drawing.Font("Mongolian Baiti", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OrbwalkerSettingButton.ForeColor = System.Drawing.Color.White;
-            this.OrbwalkerSettingButton.Location = new System.Drawing.Point(3, 3);
+            this.OrbwalkerSettingButton.Location = new System.Drawing.Point(3, 52);
             this.OrbwalkerSettingButton.Name = "OrbwalkerSettingButton";
             this.OrbwalkerSettingButton.Size = new System.Drawing.Size(137, 43);
             this.OrbwalkerSettingButton.TabIndex = 3;
@@ -97,9 +110,9 @@
             this.CoreSettingButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CoreSettingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CoreSettingButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CoreSettingButton.Font = new System.Drawing.Font("Mongolian Baiti", 11.25F);
             this.CoreSettingButton.ForeColor = System.Drawing.Color.White;
-            this.CoreSettingButton.Location = new System.Drawing.Point(3, 52);
+            this.CoreSettingButton.Location = new System.Drawing.Point(3, 3);
             this.CoreSettingButton.Name = "CoreSettingButton";
             this.CoreSettingButton.Size = new System.Drawing.Size(137, 43);
             this.CoreSettingButton.TabIndex = 4;
@@ -107,42 +120,29 @@
             this.CoreSettingButton.UseVisualStyleBackColor = true;
             this.CoreSettingButton.Click += new System.EventHandler(this.CoreSettingButton_Click);
             // 
-            // button1
+            // SideMenuPanel
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(3, 101);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 43);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "TargetSelector";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // MenuContentPanel
-            // 
-            this.MenuContentPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MenuContentPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.MenuContentPanel.Location = new System.Drawing.Point(145, 39);
-            this.MenuContentPanel.Name = "MenuContentPanel";
-            this.MenuContentPanel.Size = new System.Drawing.Size(554, 334);
-            this.MenuContentPanel.TabIndex = 3;
-            this.MenuContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MenuContentPanel_Paint);
+            this.SideMenuPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.SideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.SideMenuPanel.Controls.Add(this.CoreSettingButton);
+            this.SideMenuPanel.Controls.Add(this.OrbwalkerSettingButton);
+            this.SideMenuPanel.Controls.Add(this.button1);
+            this.SideMenuPanel.Location = new System.Drawing.Point(0, 38);
+            this.SideMenuPanel.Name = "SideMenuPanel";
+            this.SideMenuPanel.Size = new System.Drawing.Size(143, 348);
+            this.SideMenuPanel.TabIndex = 2;
+            this.SideMenuPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SideMenuPanel_Paint);
             // 
             // MenuBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
-            this.ClientSize = new System.Drawing.Size(699, 372);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.ClientSize = new System.Drawing.Size(334, 385);
+            this.Controls.Add(this.nightPanel1);
             this.Controls.Add(this.MenuContentPanel);
             this.Controls.Add(this.SideMenuPanel);
-            this.Controls.Add(this.MenuTopPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MenuBox";
             this.ShowIcon = false;
@@ -150,21 +150,20 @@
             this.Text = "MenuBox";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.MenuBox_Load);
-            this.MenuTopPanel.ResumeLayout(false);
-            this.MenuTopPanel.PerformLayout();
+            this.nightPanel1.ResumeLayout(false);
+            this.nightPanel1.PerformLayout();
             this.SideMenuPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel MenuTopPanel;
-        private System.Windows.Forms.FlowLayoutPanel SideMenuPanel;
-        private System.Windows.Forms.Button OrbwalkerSettingButton;
-        private System.Windows.Forms.Label ParadoxLabel;
         private System.Windows.Forms.Panel MenuContentPanel;
-        private System.Windows.Forms.Button CoreSettingButton;
+        private ReaLTaiizor.Controls.NightPanel nightPanel1;
+        private ReaLTaiizor.Controls.DungeonHeaderLabel dungeonHeaderLabel1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button OrbwalkerSettingButton;
+        private System.Windows.Forms.Button CoreSettingButton;
+        private System.Windows.Forms.FlowLayoutPanel SideMenuPanel;
     }
 }

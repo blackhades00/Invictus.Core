@@ -5,7 +5,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using ReaLTaiizor;
 namespace Invictus.Core.Invictus.Framework.Menu
 {
     public partial class MenuBox : Form
@@ -47,21 +47,34 @@ namespace Invictus.Core.Invictus.Framework.Menu
 
         private void OrbwalkerSettingButton_Click(object sender, EventArgs e)
         {
-            MenuContentPanel.Controls["OrbwalkerView"].BringToFront();
+            MenuContentPanel.Controls["OrbView"].BringToFront();
         }
 
         private void CoreSettingButton_Click(object sender, EventArgs e)
         {
-            MenuContentPanel.Controls["CoreSettingView"].BringToFront();
+            MenuContentPanel.Controls["DrawingsView"].BringToFront();
         }
 
-        private void MenuContentPanel_Paint(object sender, PaintEventArgs e)
-        {
-        }
+
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             MenuContentPanel.Controls["TargetSelectorView"].BringToFront();
+        }
+
+        private void SideMenuPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void MenuContentPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void SaveSettingsButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

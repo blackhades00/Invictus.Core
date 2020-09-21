@@ -7,7 +7,7 @@ namespace Invictus.Core.Invictus.Framework.Input
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    class Mouse
+    internal class Mouse
     {
         private const uint MouseeventfLeftdown = 0x02;
         private const uint MouseeventfLeftup = 0x04;
@@ -18,11 +18,12 @@ namespace Invictus.Core.Invictus.Framework.Input
 
         public static void MoveTo(int x, int y)
         {
-            NativeImport.mouse_event(MouseeventfAbsolute | MouseeventfMove, (uint)x, (uint)y, 0, 0);
+            NativeImport.mouse_event(MouseeventfAbsolute | MouseeventfMove, (uint) x, (uint) y, 0, 0);
         }
 
         [DllImport("Invictus.ACD.dll")]
         private static extern void IssueAttack(int x, int y);
+
         internal static void MouseMove(int x, int y)
         {
             IssueAttack(x, y);
@@ -41,7 +42,6 @@ namespace Invictus.Core.Invictus.Framework.Input
         /// <summary>
         /// Holds down the mouse left button.
         /// </summary>
-
         internal static void MouseLeftDown()
         {
             MouseEvent(MouseeventfLeftdown, (uint) Cursor.Position.X, (uint) Cursor.Position.Y);
@@ -50,7 +50,6 @@ namespace Invictus.Core.Invictus.Framework.Input
         /// <summary>
         /// Releases the mouse left button.
         /// </summary>
-
         internal static void MouseLeftUp()
         {
             MouseEvent(MouseeventfLeftup, (uint) Cursor.Position.X, (uint) Cursor.Position.Y);
@@ -59,7 +58,6 @@ namespace Invictus.Core.Invictus.Framework.Input
         /// <summary>
         /// Performs a mouse left click.
         /// </summary>
-
         internal static void MouseClickLeft()
         {
             MouseLeftDown();
@@ -69,7 +67,6 @@ namespace Invictus.Core.Invictus.Framework.Input
         /// <summary>
         /// Holds down the mouse right button.
         /// </summary>
-
         internal static void MouseRightDown()
         {
             MouseEvent(MouseeventfRightdown, (uint) Cursor.Position.X, (uint) Cursor.Position.Y);
@@ -78,7 +75,6 @@ namespace Invictus.Core.Invictus.Framework.Input
         /// <summary>
         /// Releases the mouse right button.
         /// </summary>
-
         internal static void MouseRightUp()
         {
             MouseEvent(MouseeventfRightup, (uint) Cursor.Position.X, (uint) Cursor.Position.Y);
@@ -87,7 +83,6 @@ namespace Invictus.Core.Invictus.Framework.Input
         /// <summary>
         /// Performs a mouse right click.
         /// </summary>
-
         internal static void MouseClickRight()
         {
             MouseRightDown();

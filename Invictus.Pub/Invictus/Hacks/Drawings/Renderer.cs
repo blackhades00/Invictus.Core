@@ -53,7 +53,7 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         /// <returns></returns>
         internal static Vector2 GetScreenResolution()
         {
-            return new Vector2() { X = Utils.ReadInt(Instance + Width), Y = Utils.ReadInt(Instance + Height) };
+            return new Vector2() {X = Utils.ReadInt(Instance + Width), Y = Utils.ReadInt(Instance + Height)};
         }
 
         /// <summary>
@@ -63,29 +63,26 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         /// <returns></returns>
         public static Vector2 WorldToScreen(Vector3 pos)
         {
-            Vector2 returnVec = Vector2.Zero;
+            var returnVec = Vector2.Zero;
 
-            Vector2 screen = GetScreenResolution();
-            Matrix matrix = GetViewProjectionMatrix();
+            var screen = GetScreenResolution();
+            var matrix = GetViewProjectionMatrix();
 
             Vector4 clipCoords;
-            clipCoords.X = (pos.X * matrix[0]) + (pos.Y * matrix[4]) + (pos.Z * matrix[8]) + matrix[12];
-            clipCoords.Y = (pos.X * matrix[1]) + (pos.Y * matrix[5]) + (pos.Z * matrix[9]) + matrix[13];
-            clipCoords.Z = (pos.X * matrix[2]) + (pos.Y * matrix[6]) + (pos.Z * matrix[10]) + matrix[14];
-            clipCoords.W = (pos.X * matrix[3]) + (pos.Y * matrix[7]) + (pos.Z * matrix[11]) + matrix[15];
+            clipCoords.X = pos.X * matrix[0] + pos.Y * matrix[4] + pos.Z * matrix[8] + matrix[12];
+            clipCoords.Y = pos.X * matrix[1] + pos.Y * matrix[5] + pos.Z * matrix[9] + matrix[13];
+            clipCoords.Z = pos.X * matrix[2] + pos.Y * matrix[6] + pos.Z * matrix[10] + matrix[14];
+            clipCoords.W = pos.X * matrix[3] + pos.Y * matrix[7] + pos.Z * matrix[11] + matrix[15];
 
-            if (clipCoords[3] < 0.1f)
-            {
-                return returnVec;
-            }
+            if (clipCoords[3] < 0.1f) return returnVec;
 
             Vector3 m;
             m.X = clipCoords.X / clipCoords.W;
             m.Y = clipCoords.Y / clipCoords.W;
             m.Z = clipCoords.Z / clipCoords.W;
 
-            returnVec.X = (screen.X / 2 * m.X) + (m.X + (screen.X / 2));
-            returnVec.Y = -(screen.Y / 2 * m.Y) + (m.Y + (screen.Y / 2));
+            returnVec.X = screen.X / 2 * m.X + (m.X + screen.X / 2);
+            returnVec.Y = -(screen.Y / 2 * m.Y) + (m.Y + screen.Y / 2);
 
             return returnVec;
         }

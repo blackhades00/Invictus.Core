@@ -12,7 +12,7 @@ namespace Invictus.Core.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -92,6 +92,66 @@ namespace Invictus.Core.Properties {
             }
             set {
                 this["RememberMe"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DrawAttackRange {
+            get {
+                return ((bool)(this["DrawAttackRange"]));
+            }
+            set {
+                this["DrawAttackRange"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DrawSpellCD {
+            get {
+                return ((bool)(this["DrawSpellCD"]));
+            }
+            set {
+                this["DrawSpellCD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DrawFOWExploit {
+            get {
+                return ((bool)(this["DrawFOWExploit"]));
+            }
+            set {
+                this["DrawFOWExploit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LowestHPTarget")]
+        public string TargetSelector_Mode {
+            get {
+                return ((string)(this["TargetSelector_Mode"]));
+            }
+            set {
+                this["TargetSelector_Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        public float Orbwalker_ExtraWindup {
+            get {
+                return ((float)(this["Orbwalker_ExtraWindup"]));
+            }
+            set {
+                this["Orbwalker_ExtraWindup"] = value;
             }
         }
     }

@@ -2,17 +2,18 @@
 
 namespace Invictus.Core.Invictus.LogService
 {
-    class Logger
+    internal class Logger
     {
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog logger =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-       internal enum eLoggerType
+        internal enum eLoggerType
         {
             Debug,
             Info,
             Warn,
             Error,
-            Fatal,
+            Fatal
         };
 
         internal static void Log(string message, eLoggerType logType)
@@ -42,12 +43,11 @@ namespace Invictus.Core.Invictus.LogService
 
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
-                    logger.Warn(" The Logger was supposed to log here, but no appropriate LogLevel has been found. Contact a Moderator if this issue isn't fixed automatically after restarting the application.");
+                    logger.Warn(
+                        " The Logger was supposed to log here, but no appropriate LogLevel has been found. Contact a Moderator if this issue isn't fixed automatically after restarting the application.");
                     logger.Warn(" If there aren't any issues and Invictus is working fine, no restart is required.");
                     return;
             }
-            }
-
-            
+        }
     }
 }

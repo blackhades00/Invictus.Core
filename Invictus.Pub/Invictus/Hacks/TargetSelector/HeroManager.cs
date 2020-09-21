@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 namespace Invictus.Core.Invictus.Hacks.TargetSelector
 {
-
     /// <summary>
     /// The HeroSelector class contains all TargetSelector functions regarding Heroes.
     /// </summary>
@@ -32,8 +31,8 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
         /// </summary>
         internal static void PushHeroList()
         {
-            int index = 0x4;
-            int obj = -1;
+            var index = 0x4;
+            var obj = -1;
             while (obj != 0)
             {
                 obj = Utils.ReadInt(heroList + index);
@@ -44,13 +43,10 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
                     case 0x00:
                         continue;
                     default:
-                        {
-                            if (obj.IsEnemy())
-                            {
-                                enemyList.Add(obj);
-                            }
-                            break;
-                        }
+                    {
+                        if (obj.IsEnemy()) enemyList.Add(obj);
+                        break;
+                    }
                 }
             }
         }
@@ -62,25 +58,19 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
         /// <returns></returns>
         internal static int GetLowestHPTarget()
         {
-            int lowestHPTarget = 0;
+            var lowestHPTarget = 0;
 
-            for (int i = 0; i < enemyList.Count; i++)
-            {
-               // Logger.Log("HEALTH: " + enemyList[i].GetHealth(), Logger.eLoggerType.Debug);
+            for (var i = 0; i < enemyList.Count; i++)
+                // Logger.Log("HEALTH: " + enemyList[i].GetHealth(), Logger.eLoggerType.Debug);
                 if (enemyList[i].IsInRange())
-                {
                     if (enemyList[i].IsAlive() && enemyList[i].IsVisible() && enemyList[i].IsTargetable())
                     {
-                        if (lowestHPTarget == 0)
-                        {
-                            lowestHPTarget = enemyList[i];
-                        }
+                        if (lowestHPTarget == 0) lowestHPTarget = enemyList[i];
 
                         if (enemyList[i].GetHealth() < lowestHPTarget.GetHealth())
                             lowestHPTarget = enemyList[i];
                     }
-                }
-            }
+
             return lowestHPTarget;
         }
 

@@ -23,11 +23,11 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
 
         public static Vector3 GetObj3DPos(this int obj)
         {
-            float posX = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos);
-            float posY = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos + 0x4);
-            float posZ = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos + 0x8);
+            var posX = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos);
+            var posY = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos + 0x4);
+            var posZ = Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjPos + 0x8);
 
-            return new Vector3() { X = posX, Y = posY, Z = posZ };
+            return new Vector3() {X = posX, Y = posY, Z = posZ};
         }
 
         public static float GetDistance(this int obj1, int obj2)
@@ -40,9 +40,9 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
 
         internal static System.Drawing.Point GetObj2DPos(this int obj)
         {
-            Vector2 enemyVec2 = Renderer.WorldToScreen(obj.GetObj3DPos());
+            var enemyVec2 = Renderer.WorldToScreen(obj.GetObj3DPos());
 
-            System.Drawing.Point enemyPos = new System.Drawing.Point((int)enemyVec2.X, (int)enemyVec2.Y);
+            var enemyPos = new System.Drawing.Point((int) enemyVec2.X, (int) enemyVec2.Y);
 
             return enemyPos;
         }
@@ -156,8 +156,6 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
         internal static SpellBook GetSpellBook(this int obj)
         {
             return new SpellBook(obj);
-
         }
-
     }
 }

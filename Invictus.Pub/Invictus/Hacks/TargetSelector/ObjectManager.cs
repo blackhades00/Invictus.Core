@@ -2,7 +2,7 @@
 
 namespace Invictus.Core.Invictus.Hacks.TargetSelector
 {
-    class ObjectManager
+    internal class ObjectManager
     {
         internal static int GetTarget()
         {
@@ -12,7 +12,7 @@ namespace Invictus.Core.Invictus.Hacks.TargetSelector
             if (Utils.IsKeyPressed(System.Windows.Forms.Keys.V))
                 return MinionManager.GetWaveclearTarget();
 
-            switch (TargetSelectorSettings.TsMode)
+            switch (Properties.Settings.Default.TargetSelector_Mode)
             {
                 case "LowestHPTarget":
                     return HeroManager.GetLowestHPTarget();

@@ -28,41 +28,55 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.targetSelectorMode = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.targetSelectorMode = new ReaLTaiizor.Controls.ForeverComboBox();
+            this.foreverLabel1 = new ReaLTaiizor.Controls.ForeverLabel();
             this.SuspendLayout();
             // 
             // targetSelectorMode
             // 
+            this.targetSelectorMode.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(27)))), ((int)(((byte)(29)))));
+            this.targetSelectorMode.BGColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.targetSelectorMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.targetSelectorMode.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.targetSelectorMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.targetSelectorMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.targetSelectorMode.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.targetSelectorMode.ForeColor = System.Drawing.Color.White;
             this.targetSelectorMode.FormattingEnabled = true;
+            this.targetSelectorMode.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.targetSelectorMode.HoverFontColor = System.Drawing.Color.White;
+            this.targetSelectorMode.ItemHeight = 18;
             this.targetSelectorMode.Items.AddRange(new object[] {
             "LowestHPTarget",
             "ClosestTarget"});
-            this.targetSelectorMode.Location = new System.Drawing.Point(30, 76);
+            this.targetSelectorMode.Location = new System.Drawing.Point(3, 39);
             this.targetSelectorMode.Name = "targetSelectorMode";
-            this.targetSelectorMode.Size = new System.Drawing.Size(121, 21);
-            this.targetSelectorMode.TabIndex = 0;
-            this.targetSelectorMode.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.targetSelectorMode.Size = new System.Drawing.Size(136, 24);
+            this.targetSelectorMode.TabIndex = 2;
+            this.targetSelectorMode.TabStop = false;
+            this.targetSelectorMode.SelectedIndexChanged += new System.EventHandler(this.foreverComboBox1_SelectedIndexChanged);
             // 
-            // label1
+            // foreverLabel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(30, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "TargetSelector Mode";
+            this.foreverLabel1.AutoSize = true;
+            this.foreverLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.foreverLabel1.Font = new System.Drawing.Font("Mongolian Baiti", 10F);
+            this.foreverLabel1.ForeColor = System.Drawing.Color.LightGray;
+            this.foreverLabel1.Location = new System.Drawing.Point(-3, 21);
+            this.foreverLabel1.Name = "foreverLabel1";
+            this.foreverLabel1.Size = new System.Drawing.Size(126, 15);
+            this.foreverLabel1.TabIndex = 3;
+            this.foreverLabel1.Text = "TargetSelector Mode";
             // 
             // TargetSelectorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.foreverLabel1);
             this.Controls.Add(this.targetSelectorMode);
             this.Name = "TargetSelectorView";
-            this.Size = new System.Drawing.Size(692, 472);
+            this.Size = new System.Drawing.Size(189, 347);
             this.Load += new System.EventHandler(this.UserControl1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -70,8 +84,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox targetSelectorMode;
-        private System.Windows.Forms.Label label1;
+        private ReaLTaiizor.Controls.ForeverComboBox targetSelectorMode;
+        private ReaLTaiizor.Controls.ForeverLabel foreverLabel1;
     }
 }

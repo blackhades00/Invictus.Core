@@ -18,7 +18,7 @@ namespace Invictus.Core.Invictus.Structures.AI_Manager
         /// </summary>
         private int aiManagerInstance { get; set; }
 
-       internal AiManager(int aiManagerInstance)
+        internal AiManager(int aiManagerInstance)
         {
             this.aiManagerInstance = aiManagerInstance;
         }
@@ -30,7 +30,7 @@ namespace Invictus.Core.Invictus.Structures.AI_Manager
         /// <returns></returns>
         internal bool IsMoving()
         {
-            return Utils.ReadBool(this.aiManagerInstance + Offsets.AIManager.IsMoving);
+            return Utils.ReadBool(aiManagerInstance + Offsets.AIManager.IsMoving);
         }
 
         /// <summary>
@@ -40,12 +40,12 @@ namespace Invictus.Core.Invictus.Structures.AI_Manager
         /// <returns></returns>
         internal bool IsDashing()
         {
-            return Utils.ReadBool(this.aiManagerInstance + Offsets.AIManager.IsDashing);
+            return Utils.ReadBool(aiManagerInstance + Offsets.AIManager.IsDashing);
         }
 
         internal float Velocity()
         {
-            return Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.OVelocity);
+            return Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.OVelocity);
         }
 
         /// <summary>
@@ -54,11 +54,11 @@ namespace Invictus.Core.Invictus.Structures.AI_Manager
         /// <returns></returns>
         internal Vector3 GetNavBegin()
         {
-            float x = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.NavBegin);
-            float y = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.NavBegin + 4);
-            float z = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.NavBegin + 8);
+            var x = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavBegin);
+            var y = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavBegin + 4);
+            var z = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavBegin + 8);
 
-            return new Vector3(x,y,z);
+            return new Vector3(x, y, z);
         }
 
         /// <summary>
@@ -67,11 +67,11 @@ namespace Invictus.Core.Invictus.Structures.AI_Manager
         /// <returns></returns>
         internal Vector3 GetNavEnd()
         {
-            float x = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.NavEnd);
-            float y = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.NavEnd + 4);
-            float z = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.NavEnd + 8);
+            var x = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavEnd);
+            var y = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavEnd + 4);
+            var z = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavEnd + 8);
 
-            return new Vector3(x,y,z);
+            return new Vector3(x, y, z);
         }
 
         /// <summary>
@@ -89,11 +89,11 @@ namespace Invictus.Core.Invictus.Structures.AI_Manager
         /// <returns></returns>
         internal Vector3 GetTargetPos()
         {
-            float x = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.TargetPos);
-            float y = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.TargetPos + 4);
-            float z = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.TargetPos + 8);
+            var x = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.TargetPos);
+            var y = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.TargetPos + 4);
+            var z = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.TargetPos + 8);
 
-            return new Vector3(x,y,z);
+            return new Vector3(x, y, z);
         }
 
         /// <summary>
@@ -102,11 +102,11 @@ namespace Invictus.Core.Invictus.Structures.AI_Manager
         /// <returns></returns>
         internal Vector3 GetServerPos()
         {
-            float x = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.ServerPosition);
-            float y = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.ServerPosition + 4);
-            float z = Utils.ReadFloat(this.aiManagerInstance + Offsets.AIManager.ServerPosition + 8);
+            var x = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.ServerPosition);
+            var y = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.ServerPosition + 4);
+            var z = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.ServerPosition + 8);
 
-            return new Vector3(x,y,z);
+            return new Vector3(x, y, z);
         }
     }
 }

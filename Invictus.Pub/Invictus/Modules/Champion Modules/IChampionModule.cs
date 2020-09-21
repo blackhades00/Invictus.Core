@@ -6,6 +6,7 @@ namespace Invictus.Core.Invictus.Modules.Champion_Modules
     internal interface IChampionModule<T>
     {
         #region SpellLogics
+
         void QLogic();
 
         void WLogic();
@@ -13,6 +14,7 @@ namespace Invictus.Core.Invictus.Modules.Champion_Modules
         void ELogic();
 
         void RLogic();
+
         #endregion
     }
 }

@@ -26,7 +26,8 @@ namespace Invictus.Core.Invictus.Framework
         {
             if (IsKeyPressed(Keys.F12))
             {
-                var result = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                var result = MessageBox.Show("Do you want to exit?", "Exit", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information);
 
                 if (result == DialogResult.Yes)
                 {
@@ -41,7 +42,7 @@ namespace Invictus.Core.Invictus.Framework
 
         internal static void ShowWelcomeMessage()
         {
-            Logger.Log("InvictusSharp Initiated successfully.",Logger.eLoggerType.Info);
+            Logger.Log("InvictusSharp Initiated successfully.", Logger.eLoggerType.Info);
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Invictus.Core.Invictus.Framework
         /// <returns></returns>
         public static string GetUniqueIdentifier()
         {
-            DeviceIdBuilder deviceId = new DeviceIdBuilder();
+            var deviceId = new DeviceIdBuilder();
             deviceId.AddMacAddress(true, true);
             deviceId.AddMotherboardSerialNumber();
             deviceId.AddProcessorId();
@@ -64,30 +65,27 @@ namespace Invictus.Core.Invictus.Framework
         private static string GetActiveWindowTitle()
         {
             const int nChars = 256;
-            StringBuilder buff = new StringBuilder(nChars);
-            IntPtr handle = NativeImport.GetForegroundWindow();
+            var buff = new StringBuilder(nChars);
+            var handle = NativeImport.GetForegroundWindow();
 
-            if (NativeImport.GetWindowText(handle, buff, nChars) > 0)
-            {
-                return buff.ToString();
-            }
+            if (NativeImport.GetWindowText(handle, buff, nChars) > 0) return buff.ToString();
 
             return string.Empty;
         }
 
         internal static bool IsKeyPressed(Keys keys)
         {
-            return (NativeImport.GetAsyncKeyState((int)keys) & 0x8000) != 0;
+            return (NativeImport.GetAsyncKeyState((int) keys) & 0x8000) != 0;
         }
 
         internal static bool IsControlPressed()
         {
-            return (NativeImport.GetAsyncKeyState((int)0x11) & 0x8000) != 0;
+            return (NativeImport.GetAsyncKeyState((int) 0x11) & 0x8000) != 0;
         }
 
         internal static bool IsShiftPressed()
         {
-            return (NativeImport.GetAsyncKeyState((int)0x10) & 0x8000) != 0;
+            return (NativeImport.GetAsyncKeyState((int) 0x10) & 0x8000) != 0;
         }
 
         internal static bool IsGameInForeground()
@@ -100,7 +98,8 @@ namespace Invictus.Core.Invictus.Framework
         {
             var size = Marshal.SizeOf<T>();
             var buffer = new byte[size];
-            bool result = Offsets.ReadProcessMemory(Offsets.ProcessHandle,(IntPtr)address, buffer, size, out var lpRead);
+            var result =
+                Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, buffer, size, out var lpRead);
             var ptr = Marshal.AllocHGlobal(size);
             Marshal.Copy(buffer, 0, ptr, size);
             var @struct = Marshal.PtrToStructure<T>(ptr);
@@ -110,12 +109,12 @@ namespace Invictus.Core.Invictus.Framework
 
         internal static bool ReadBool(int address)
         {
-           
-            byte[] dataBuffer = new byte[4];
-            IntPtr bytesRead = IntPtr.Zero;
+            var dataBuffer = new byte[4];
+            var bytesRead = IntPtr.Zero;
 
-           
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, dataBuffer, dataBuffer.Length, out bytesRead);
+
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, dataBuffer, dataBuffer.Length,
+                out bytesRead);
 
             return BitConverter.ToBoolean(dataBuffer, 0);
         }
@@ -123,20 +122,20 @@ namespace Invictus.Core.Invictus.Framework
         internal static int ReadInt(int addr)
         {
             var buffer = new byte[4];
-            IntPtr output = IntPtr.Zero;
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)addr, buffer, buffer.Length, out output);
+            var output = IntPtr.Zero;
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) addr, buffer, buffer.Length, out output);
 
             return BitConverter.ToInt32(buffer, 0);
         }
 
         internal static string ReadString(int address, Encoding encoding)
         {
-            byte[] dataBuffer = new byte[512];
-            IntPtr bytesRead = IntPtr.Zero;
+            var dataBuffer = new byte[512];
+            var bytesRead = IntPtr.Zero;
 
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, dataBuffer, dataBuffer.Length, out bytesRead);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, dataBuffer, dataBuffer.Length,
+                out bytesRead);
 
-           
 
             return encoding.GetString(dataBuffer).Split('\0')[0];
         }
@@ -144,8 +143,8 @@ namespace Invictus.Core.Invictus.Framework
         internal static float ReadFloat(int address)
         {
             var buffer = new byte[4];
-            IntPtr output = IntPtr.Zero;
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, buffer, buffer.Length, out output);
+            var output = IntPtr.Zero;
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, buffer, buffer.Length, out output);
 
             return BitConverter.ToSingle(buffer, 0);
         }
@@ -153,7 +152,7 @@ namespace Invictus.Core.Invictus.Framework
         internal static uint ReadUInt(IntPtr addr)
         {
             var buffer = new byte[4];
-            IntPtr output = IntPtr.Zero;
+            var output = IntPtr.Zero;
             Offsets.ReadProcessMemory(Offsets.ProcessHandle, addr, buffer, buffer.Length, out output);
 
             return BitConverter.ToUInt32(buffer, 0);
@@ -161,16 +160,17 @@ namespace Invictus.Core.Invictus.Framework
 
         internal static Matrix ReadMatrix(int address)
         {
-            Matrix tmp = Matrix.Zero;
+            var tmp = Matrix.Zero;
 
-            byte[] buffer = new byte[64];
+            var buffer = new byte[64];
             IntPtr byteRead;
 
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, buffer, 64, out byteRead);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, buffer, 64, out byteRead);
 
             if (byteRead == IntPtr.Zero)
             {
-               Logger.Log($"[ReadMatrix] No bytes has been read at 0x{address.ToString("X")}",Logger.eLoggerType.Warn);
+                Logger.Log($"[ReadMatrix] No bytes has been read at 0x{address.ToString("X")}",
+                    Logger.eLoggerType.Warn);
                 return new Matrix();
             }
 
@@ -208,7 +208,7 @@ namespace Invictus.Core.Invictus.Framework
 
         internal static int DeobfuscateMember(int address)
         {
-           return DeobfuscateMember(Offsets.ProcessHandle, address);
+            return DeobfuscateMember(Offsets.ProcessHandle, address);
         }
     }
 }

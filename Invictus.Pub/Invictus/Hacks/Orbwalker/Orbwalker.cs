@@ -47,18 +47,13 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
         private static int _lastTarget;
 
 
-
         public static void Orbwalk(
             int target,
-            float extraWindup = 90)
+            float extraWindup = 90f)
         {
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
             {
-
-                if (Engine.GetGameTimeTickCount() - LastAttackCommandT < 70 + Math.Min(60, Engine.GetPing()))
-                {
-                    return;
-                }
+                if (Engine.GetGameTimeTickCount() - LastAttackCommandT < 70 + Math.Min(60, Engine.GetPing())) return;
 
                 try
                 {
@@ -67,27 +62,22 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
                         DisableNextAttack = false;
                         //FireBeforeAttack(target);
 
-                        
 
                         if (!DisableNextAttack)
                         {
-                            if (Engine.GetLocalObject().GetChampionName() != "Kalista")
-                            {
-                                _missileLaunched = false;
-                            }
+                            if (Engine.GetLocalObject().GetChampionName() != "Kalista") _missileLaunched = false;
 
-                            Point position = target.GetObj2DPos();
-                            Point c = Cursor.Position;
+                            var position = target.GetObj2DPos();
+                            var c = Cursor.Position;
                             IssueOrder(OrderType.AttackUnit, position);
-                        
+
                             LastAttackCommandT = Engine.GetGameTimeTickCount();
                             _lastTarget = target;
                             Engine.LastAaTick = Engine.GetGameTimeTickCount() + Engine.GetPing();
-                            while(Engine.CanAttack()) Thread.Sleep(1);
+                            while (Engine.CanAttack()) Thread.Sleep(1);
                             Cursor.Position = c;
                             Attack = false;
                             Move = true;
-
                         }
                     }
 
@@ -95,7 +85,6 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
                     {
                         IssueMove();
                         Attack = true;
-                        
                     }
                 }
                 catch (Exception e)
@@ -103,8 +92,6 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
                     Console.WriteLine(e.ToString());
                 }
             }
-
-          
         }
 
         internal static void ResetAutoAttackTimer()
@@ -115,11 +102,10 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
         public static void IssueOrder(OrderType order, Point vector2D = new Point())
         {
             if (Utils.IsGameInForeground())
-            {
                 switch (order)
                 {
                     case OrderType.HoldPosition:
-                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyS);
+                        Keyboard.SendKey((short) Keyboard.KeyBoardScanCodes.KeyS);
                         break;
                     case OrderType.MoveTo:
                         if (vector2D.X == 0 && vector2D.Y == 0)
@@ -150,13 +136,12 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
                         Mouse.MouseClickRight();
                         break;
                     case OrderType.AutoAttack:
-                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyOpeningBrackets);
+                        Keyboard.SendKey((short) Keyboard.KeyBoardScanCodes.KeyOpeningBrackets);
                         break;
                     case OrderType.Stop:
-                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyS);
+                        Keyboard.SendKey((short) Keyboard.KeyBoardScanCodes.KeyS);
                         break;
                 }
-            }
         }
 
         private static void IssueMove()
@@ -166,7 +151,6 @@ namespace Invictus.Core.Invictus.Hacks.Orbwalker
             Mouse.MouseRightDown();
             NativeImport.SendKey(0x50);
             Mouse.MouseRightUp();
-
         }
     }
 }

@@ -15,20 +15,15 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
 {
     internal class Draw
     {
-
         /// <summary>
         /// Draws In-Game Menu.
         /// </summary>
         internal static void DrawMenu()
         {
             if (Utils.IsShiftPressed())
-            {
                 Overlay.MenuBoxView.Show();
-            }
             else
-            {
                 Overlay.MenuBoxView.Hide();
-            }
         }
 
         /// <summary>
@@ -36,7 +31,7 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         /// </summary>
         internal static void DrawWatermark()
         {
-            Point watermarkPoint = new Point();
+            var watermarkPoint = new Point();
             watermarkPoint.X = Screen.PrimaryScreen.WorkingArea.Width / 2;
             watermarkPoint.Y = Screen.PrimaryScreen.WorkingArea.Top + 10;
 
@@ -45,7 +40,7 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
 
         internal static void DrawDebugText(string debugText)
         {
-            Point debugTextPos = new Point();
+            var debugTextPos = new Point();
             debugTextPos.X = Screen.PrimaryScreen.WorkingArea.Width / 2 + 20;
             debugTextPos.Y = Screen.PrimaryScreen.WorkingArea.Top + 10;
         }
@@ -57,45 +52,42 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         internal static void DrawAttackRange(int gameObject, Color rGb)
         {
             if (Utils.IsGameInForeground())
-            {
                 DrawFactory.DrawCircleRange(gameObject.GetObj3DPos(),
                     Engine.BoundingRadius + Engine.GetLocalObject().GetAttackRange(), rGb, 1.5f);
-            }
         }
 
         /// <summary>
         /// Draws wards (not visible ones). The colors are specified for the wardtype.
         /// Control wards have a red circle, while normal wards got a yellow one.
         /// </summary>
-        internal async static void DrawWard()
+        internal static async void DrawWard()
         {
-
-            int minionlist_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
-            int minionList = Utils.ReadInt(minionlist_PrePtr + 0x4);
+            var minionlist_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
+            var minionList = Utils.ReadInt(minionlist_PrePtr + 0x4);
             if (Utils.IsGameInForeground())
             {
-                int index = 0x0;
-                int obj = -1;
+                var index = 0x0;
+                var obj = -1;
                 while (obj != 0)
                 {
                     obj = Utils.ReadInt(minionList + index);
                     index += 0x4;
 
                     if (obj == 0x00)
+                    {
                         continue;
+                    }
                     else
                     {
                         if (obj.IsWard())
-                        {
                             if (obj.IsEnemy())
-                            {
                                 if (obj.IsAlive())
                                 {
                                     DrawFactory.DrawCircleRange(obj.GetObj3DPos(), 60f, Color.Red, 1.5f);
 
                                     var w2SPos = obj.GetObj2DPos();
 
-                                    float objectMaxHp = obj.GetMaxHp();
+                                    var objectMaxHp = obj.GetMaxHp();
 
                                     switch (objectMaxHp)
                                     {
@@ -109,8 +101,6 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
                                             break;
                                     }
                                 }
-                            }
-                        }
                     }
                 }
             }
@@ -123,20 +113,25 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         internal static void DrawCooldown(int obj)
         {
             var spellClassInstance = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q);
-            var cooldownExpiredQ = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 && spellClassInstance.GetLevel() >0;
+            var cooldownExpiredQ = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
+                                   spellClassInstance.GetLevel() > 0;
 
 
             spellClassInstance.SetSpell(SpellBook.SpellSlotId.W);
-            var cooldownExpiredW = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 && spellClassInstance.GetLevel() >0;
+            var cooldownExpiredW = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
+                                   spellClassInstance.GetLevel() > 0;
 
             spellClassInstance.SetSpell(SpellBook.SpellSlotId.E);
-            var cooldownExpiredE = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 && spellClassInstance.GetLevel() >0;
+            var cooldownExpiredE = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
+                                   spellClassInstance.GetLevel() > 0;
 
             spellClassInstance.SetSpell(SpellBook.SpellSlotId.R);
-            var cooldownExpiredR = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 && spellClassInstance.GetLevel() >0;
+            var cooldownExpiredR = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
+                                   spellClassInstance.GetLevel() > 0;
 
 
-            Point position = Point.Zero;;
+            var position = Point.Zero;
+            ;
             if (cooldownExpiredQ)
             {
                 var w2SPos = obj.GetObj2DPos();
@@ -196,13 +191,9 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 60;
-                position.Y = w2SPos.Y; 
+                position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("R", 30, position, Color.Red);
             }
-
-
-
-
         }
 
         /// <summary>
@@ -210,13 +201,9 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         /// </summary>
         internal static void DrawEnemyCooldowns()
         {
-
-            for (int i = 0; i < HeroManager.enemyList.Count; i++)
-            {
+            for (var i = 0; i < HeroManager.enemyList.Count; i++)
                 if (HeroManager.enemyList[i].IsAlive() && HeroManager.enemyList[i].IsVisible())
                     DrawCooldown(HeroManager.enemyList[i]);
-            }
-
         }
     }
 }

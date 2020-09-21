@@ -15,24 +15,24 @@ namespace Invictus.Core.Invictus.Framework.UpdateService
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress,
-    [Out] byte[] lpBuffer,
-    int dwSize,
-    out IntPtr lpNumberOfBytesRead);
+            [Out] byte[] lpBuffer,
+            int dwSize,
+            out IntPtr lpNumberOfBytesRead);
 
-       private static Process[] TargetProcess = Process.GetProcessesByName("League of Legends");
+        private static Process[] TargetProcess = Process.GetProcessesByName("League of Legends");
         internal static int Base { get; set; }
         internal static IntPtr ProcessHandle { get; set; }
 
         internal static int GetBase()
         {
-            int Base = TargetProcess[0].MainModule.BaseAddress.ToInt32();
+            var Base = TargetProcess[0].MainModule.BaseAddress.ToInt32();
 
             return Base;
         }
 
         internal static IntPtr GetLeagueHandle()
         {
-            IntPtr ProcessHandle = TargetProcess[0].Handle;
+            var ProcessHandle = TargetProcess[0].Handle;
 
             return ProcessHandle;
         }
@@ -43,7 +43,6 @@ namespace Invictus.Core.Invictus.Framework.UpdateService
             public static readonly int OHeroList = 0x1C3B63C;
             public static readonly int OMinionList = 0x1C3D790;
             public static readonly int OTurretList = 0x34F412C;
-
         }
 
         internal static class Renderer
@@ -89,7 +88,6 @@ namespace Invictus.Core.Invictus.Framework.UpdateService
                 public static readonly int OGetAttackCastDelay = 0x29D1A0;
                 public static readonly int OIsObjectType = 0x17BA50;
             }
-
         };
 
         internal static class AIManager
@@ -149,6 +147,5 @@ namespace Invictus.Core.Invictus.Framework.UpdateService
                 public const int CastEndTime = 0x528;
             }
         }
-
     }
 }

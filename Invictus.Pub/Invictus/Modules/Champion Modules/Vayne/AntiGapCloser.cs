@@ -8,8 +8,8 @@ namespace Invictus.Core.Invictus.Modules.Champion_Modules
         {
             if (ObjectManager.GetTarget() != 0)
             {
-               // if(ObjectManager.GetTarget().GetDistance(GameObject.Me) <= 50)
-                  //  SpellBook.CastSpell();
+                // if(ObjectManager.GetTarget().GetDistance(GameObject.Me) <= 50)
+                //  SpellBook.CastSpell();
             }
 
             return false;
