@@ -28,34 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ExtraWindupSlider = new ReaLTaiizor.Controls.DungeonTrackBar();
             this.foreverLabel1 = new ReaLTaiizor.Controls.ForeverLabel();
-            this.dreamForm1 = new ReaLTaiizor.Forms.DreamForm();
+            this.OrbwalkerMenu = new ReaLTaiizor.Forms.DreamForm();
+            this.foreverLabel2 = new ReaLTaiizor.Controls.ForeverLabel();
+            this.ExtraWindupSlider = new ReaLTaiizor.Controls.ForeverTrackBar();
+            this.OrbwalkerMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ExtraWindupSlider
-            // 
-            this.ExtraWindupSlider.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ExtraWindupSlider.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ExtraWindupSlider.DrawValueString = false;
-            this.ExtraWindupSlider.EmptyBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
-            this.ExtraWindupSlider.FillBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.ExtraWindupSlider.JumpToMouse = false;
-            this.ExtraWindupSlider.Location = new System.Drawing.Point(3, 51);
-            this.ExtraWindupSlider.Maximum = 120;
-            this.ExtraWindupSlider.Minimum = 0;
-            this.ExtraWindupSlider.MinimumSize = new System.Drawing.Size(47, 22);
-            this.ExtraWindupSlider.Name = "ExtraWindupSlider";
-            this.ExtraWindupSlider.Size = new System.Drawing.Size(106, 22);
-            this.ExtraWindupSlider.TabIndex = 0;
-            this.ExtraWindupSlider.TabStop = false;
-            this.ExtraWindupSlider.Text = "dungeonTrackBar1";
-            this.ExtraWindupSlider.ThumbBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.ExtraWindupSlider.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.ExtraWindupSlider.Value = 0;
-            this.ExtraWindupSlider.ValueDivison = ReaLTaiizor.Controls.DungeonTrackBar.ValueDivisor.By1;
-            this.ExtraWindupSlider.ValueToSet = 0F;
-            this.ExtraWindupSlider.ValueChanged += new ReaLTaiizor.Controls.DungeonTrackBar.ValueChangedEventHandler(this.ExtraWindupSlider_ValueChanged);
             // 
             // foreverLabel1
             // 
@@ -69,42 +47,78 @@
             this.foreverLabel1.TabIndex = 1;
             this.foreverLabel1.Text = "Extra Windup";
             // 
-            // dreamForm1
+            // OrbwalkerMenu
             // 
-            this.dreamForm1.ColorA = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(218)))), ((int)(((byte)(255)))));
-            this.dreamForm1.ColorB = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(63)))));
-            this.dreamForm1.ColorC = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
-            this.dreamForm1.ColorD = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
-            this.dreamForm1.ColorE = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.dreamForm1.ColorF = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dreamForm1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dreamForm1.Location = new System.Drawing.Point(0, 0);
-            this.dreamForm1.Name = "dreamForm1";
-            this.dreamForm1.Size = new System.Drawing.Size(189, 347);
-            this.dreamForm1.TabIndex = 2;
-            this.dreamForm1.TabStop = false;
-            this.dreamForm1.Text = "Invictus";
-            this.dreamForm1.TitleAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.dreamForm1.TitleHeight = 25;
+            this.OrbwalkerMenu.ColorA = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(218)))), ((int)(((byte)(255)))));
+            this.OrbwalkerMenu.ColorB = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(63)))));
+            this.OrbwalkerMenu.ColorC = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
+            this.OrbwalkerMenu.ColorD = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            this.OrbwalkerMenu.ColorE = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.OrbwalkerMenu.ColorF = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.OrbwalkerMenu.Controls.Add(this.foreverLabel2);
+            this.OrbwalkerMenu.Controls.Add(this.ExtraWindupSlider);
+            this.OrbwalkerMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OrbwalkerMenu.Location = new System.Drawing.Point(0, 0);
+            this.OrbwalkerMenu.Name = "OrbwalkerMenu";
+            this.OrbwalkerMenu.Size = new System.Drawing.Size(189, 347);
+            this.OrbwalkerMenu.TabIndex = 2;
+            this.OrbwalkerMenu.TabStop = false;
+            this.OrbwalkerMenu.Text = "Orbwalker Settings";
+            this.OrbwalkerMenu.TitleAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.OrbwalkerMenu.TitleHeight = 25;
+            // 
+            // foreverLabel2
+            // 
+            this.foreverLabel2.AutoSize = true;
+            this.foreverLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.foreverLabel2.Font = new System.Drawing.Font("Mongolian Baiti", 10F);
+            this.foreverLabel2.ForeColor = System.Drawing.Color.LightGray;
+            this.foreverLabel2.Location = new System.Drawing.Point(4, 32);
+            this.foreverLabel2.Name = "foreverLabel2";
+            this.foreverLabel2.Size = new System.Drawing.Size(87, 15);
+            this.foreverLabel2.TabIndex = 1;
+            this.foreverLabel2.Text = "Extra Windup";
+            // 
+            // ExtraWindupSlider
+            // 
+            this.ExtraWindupSlider.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.ExtraWindupSlider.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(49)))));
+            this.ExtraWindupSlider.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ExtraWindupSlider.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.ExtraWindupSlider.ForeColor = System.Drawing.Color.White;
+            this.ExtraWindupSlider.HatchColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(148)))), ((int)(((byte)(92)))));
+            this.ExtraWindupSlider.Location = new System.Drawing.Point(7, 51);
+            this.ExtraWindupSlider.Maximum = 120;
+            this.ExtraWindupSlider.Minimum = 0;
+            this.ExtraWindupSlider.Name = "ExtraWindupSlider";
+            this.ExtraWindupSlider.ShowValue = false;
+            this.ExtraWindupSlider.Size = new System.Drawing.Size(96, 23);
+            this.ExtraWindupSlider.SliderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(27)))), ((int)(((byte)(29)))));
+            this.ExtraWindupSlider.Style = ReaLTaiizor.Controls.ForeverTrackBar._Style.Slider;
+            this.ExtraWindupSlider.TabIndex = 0;
+            this.ExtraWindupSlider.Text = "ExtraWindupSlider";
+            this.ExtraWindupSlider.TrackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(168)))), ((int)(((byte)(109)))));
+            this.ExtraWindupSlider.Value = 0;
             // 
             // OrbView
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
-            this.Controls.Add(this.dreamForm1);
+            this.Controls.Add(this.OrbwalkerMenu);
             this.Controls.Add(this.foreverLabel1);
-            this.Controls.Add(this.ExtraWindupSlider);
             this.Name = "OrbView";
             this.Size = new System.Drawing.Size(189, 347);
             this.Load += new System.EventHandler(this.OrbView_Load);
+            this.OrbwalkerMenu.ResumeLayout(false);
+            this.OrbwalkerMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private ReaLTaiizor.Controls.DungeonTrackBar ExtraWindupSlider;
         private ReaLTaiizor.Controls.ForeverLabel foreverLabel1;
-        private ReaLTaiizor.Forms.DreamForm dreamForm1;
+        private ReaLTaiizor.Forms.DreamForm OrbwalkerMenu;
+        private ReaLTaiizor.Controls.ForeverTrackBar ExtraWindupSlider;
+        private ReaLTaiizor.Controls.ForeverLabel foreverLabel2;
     }
 }

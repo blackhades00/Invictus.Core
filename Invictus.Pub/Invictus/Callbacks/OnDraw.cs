@@ -18,11 +18,12 @@ namespace Invictus.Core.Invictus.Callbacks
         // All drawings here!
         public static void LoadCallback()
         {
+            Draw.DrawMenu();
             if (Utils.IsGameInForeground())
             {
                 Draw.DrawWatermark();
 
-                Draw.DrawMenu();
+               
 
                 if (Properties.Settings.Default.DrawAttackRange) Draw.DrawAttackRange(Engine.GetLocalObject(), Color.Cyan);
 

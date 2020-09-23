@@ -34,6 +34,8 @@
             this.foreverLabel2 = new ReaLTaiizor.Controls.ForeverLabel();
             this.ToggleFOWExploit = new ReaLTaiizor.Controls.HopeToggle();
             this.foreverLabel3 = new ReaLTaiizor.Controls.ForeverLabel();
+            this.DrawingView = new ReaLTaiizor.Forms.DreamForm();
+            this.DrawingView.SuspendLayout();
             this.SuspendLayout();
             // 
             // ToggleAttackRangeDrawings
@@ -49,7 +51,7 @@
             this.ToggleAttackRangeDrawings.HeadColorB = System.Drawing.Color.White;
             this.ToggleAttackRangeDrawings.HeadColorC = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
             this.ToggleAttackRangeDrawings.HeadColorD = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.ToggleAttackRangeDrawings.Location = new System.Drawing.Point(3, 24);
+            this.ToggleAttackRangeDrawings.Location = new System.Drawing.Point(6, 43);
             this.ToggleAttackRangeDrawings.Name = "ToggleAttackRangeDrawings";
             this.ToggleAttackRangeDrawings.Size = new System.Drawing.Size(48, 20);
             this.ToggleAttackRangeDrawings.TabIndex = 1;
@@ -137,20 +139,41 @@
             this.foreverLabel3.TabIndex = 6;
             this.foreverLabel3.Text = "Draw FOW Exploit (WIP/No Function yet)";
             // 
+            // DrawingView
+            // 
+            this.DrawingView.ColorA = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(218)))), ((int)(((byte)(255)))));
+            this.DrawingView.ColorB = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(63)))));
+            this.DrawingView.ColorC = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
+            this.DrawingView.ColorD = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
+            this.DrawingView.ColorE = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.DrawingView.ColorF = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.DrawingView.Controls.Add(this.ToggleAttackRangeDrawings);
+            this.DrawingView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DrawingView.Location = new System.Drawing.Point(0, 0);
+            this.DrawingView.Name = "DrawingView";
+            this.DrawingView.Size = new System.Drawing.Size(286, 412);
+            this.DrawingView.TabIndex = 7;
+            this.DrawingView.TabStop = false;
+            this.DrawingView.Text = "Drawing Settings";
+            this.DrawingView.TitleAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.DrawingView.TitleHeight = 25;
+            // 
             // DrawingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
+            this.Controls.Add(this.DrawingView);
             this.Controls.Add(this.foreverLabel3);
             this.Controls.Add(this.ToggleFOWExploit);
             this.Controls.Add(this.foreverLabel2);
             this.Controls.Add(this.ToggleCooldownTracker);
             this.Controls.Add(this.foreverLabel1);
-            this.Controls.Add(this.ToggleAttackRangeDrawings);
             this.Name = "DrawingsView";
             this.Size = new System.Drawing.Size(286, 412);
             this.Load += new System.EventHandler(this.DrawingsView_Load);
+            this.DrawingView.ResumeLayout(false);
+            this.DrawingView.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,5 +186,6 @@
         private ReaLTaiizor.Controls.ForeverLabel foreverLabel2;
         private ReaLTaiizor.Controls.HopeToggle ToggleFOWExploit;
         private ReaLTaiizor.Controls.ForeverLabel foreverLabel3;
+        private ReaLTaiizor.Forms.DreamForm DrawingView;
     }
 }

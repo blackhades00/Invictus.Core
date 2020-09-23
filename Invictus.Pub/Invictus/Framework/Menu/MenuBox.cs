@@ -32,8 +32,8 @@ namespace Invictus.Core.Invictus.Framework.Menu
             OrbwalkerSettingButton.FlatAppearance.BorderSize = 1;
             OrbwalkerSettingButton.FlatAppearance.BorderColor = Color.FromArgb(142, 95, 197);
 
-            CoreSettingButton.FlatAppearance.BorderSize = 1;
-            CoreSettingButton.FlatAppearance.BorderColor = Color.FromArgb(142, 95, 197);
+            DrawingsButton.FlatAppearance.BorderSize = 1;
+            DrawingsButton.FlatAppearance.BorderColor = Color.FromArgb(142, 95, 197);
         }
 
         private void MenuTopPanel_MouseDown(object sender, MouseEventArgs e)
@@ -45,36 +45,30 @@ namespace Invictus.Core.Invictus.Framework.Menu
             }
         }
 
-        private void OrbwalkerSettingButton_Click(object sender, EventArgs e)
-        {
-            MenuContentPanel.Controls["OrbView"].BringToFront();
-        }
-
-        private void CoreSettingButton_Click(object sender, EventArgs e)
-        {
-            MenuContentPanel.Controls["DrawingsView"].BringToFront();
-        }
-
-
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            MenuContentPanel.Controls["TargetSelectorView"].BringToFront();
-        }
-
         private void SideMenuPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void MenuContentPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void SaveSettingsButton_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
+        }
+
+        private void OrbwalkerSettingButton_Click_1(object sender, EventArgs e)
+        {
+            MenuContentPanel.Controls["OrbView"].BringToFront();
+        }
+
+        private void TargetSelectorButton_Click(object sender, EventArgs e)
+        {
+            MenuContentPanel.Controls["TargetSelectorView"].BringToFront();
+        }
+
+        private void DrawingsButton_Click(object sender, EventArgs e)
+        {
+            MenuContentPanel.Controls["DrawingsView"].BringToFront();
         }
     }
 }
