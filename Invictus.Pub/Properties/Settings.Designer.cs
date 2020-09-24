@@ -122,12 +122,12 @@ namespace Invictus.Core.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DrawFOWExploit {
+        public bool DrawRecallTracker {
             get {
-                return ((bool)(this["DrawFOWExploit"]));
+                return ((bool)(this["DrawRecallTracker"]));
             }
             set {
-                this["DrawFOWExploit"] = value;
+                this["DrawRecallTracker"] = value;
             }
         }
         

@@ -26,7 +26,7 @@
     <Setting Name="DrawSpellCD" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="DrawFOWExploit" Type="System.Boolean" Scope="User">
+    <Setting Name="DrawRecallTracker" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="TargetSelector_Mode" Type="System.String" Scope="User">

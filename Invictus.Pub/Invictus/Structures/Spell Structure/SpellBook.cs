@@ -1,6 +1,5 @@
 ﻿using Invictus.Core.Invictus.Framework.Input;
 using Newtonsoft.Json.Linq;
-using System;
 using Invictus.Core.Invictus.Framework;
 using Invictus.Core.Invictus.Framework.UpdateService;
 using SharpDX;
@@ -37,16 +36,9 @@ namespace Invictus.Core.Invictus.Structures.Spell_Structure
         internal SpellCastInfo GetSpellCastInfo()
         {
             var spellCastInfoInstance =
-                Utils.ReadInt(spellbookInstance + Offsets.SpellStructs.SpellCastInfo.SpellInfoInstance);
+                Utils.ReadInt(spellbookInstance + 0x20);
 
             return new SpellCastInfo(spellCastInfoInstance);
-        }
-
-        public int GetSpellRadius(SpellSlot slot)
-        {
-            var spellSlotName = Enum.GetName(typeof(SpellSlot), slot);
-
-            return SpellDb[spellSlotName].ToObject<JObject>()["Range"][0].ToObject<int>();
         }
 
         public int GetActiveSpell(int obj)

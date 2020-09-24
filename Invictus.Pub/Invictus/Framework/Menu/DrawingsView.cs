@@ -18,7 +18,7 @@ namespace Invictus.Core.Invictus.Framework.Menu
 
             this.ToggleAttackRangeDrawings.Checked = Properties.Settings.Default.DrawAttackRange;
             this.ToggleCooldownTracker.Checked = Properties.Settings.Default.DrawSpellCD;
-            this.ToggleFOWExploit.Checked = Properties.Settings.Default.DrawFOWExploit;
+            this.ToggleRecallTracker.Checked = Properties.Settings.Default.DrawRecallTracker;
 
         }
 
@@ -47,6 +47,15 @@ namespace Invictus.Core.Invictus.Framework.Menu
             else
                 Properties.Settings.Default.DrawSpellCD = false;
         }
-        
+
+        private void ToggleRecallTracker_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ToggleRecallTracker.Checked)
+                Properties.Settings.Default.DrawRecallTracker = true;
+            else
+            {
+                Properties.Settings.Default.DrawRecallTracker = false;
+            }
+        }
     }
 }

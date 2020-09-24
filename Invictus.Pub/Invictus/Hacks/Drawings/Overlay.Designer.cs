@@ -45,8 +45,7 @@
             this.Load += new System.EventHandler(this.Overlay_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Overlay_Paint);
             this.ResumeLayout(false);
-            this.ShowInTaskbar = false;
-            this.ShowIcon = false;
+
         }
 
         #endregion

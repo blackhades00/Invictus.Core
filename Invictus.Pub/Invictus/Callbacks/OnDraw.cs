@@ -23,13 +23,16 @@ namespace Invictus.Core.Invictus.Callbacks
             {
                 Draw.DrawWatermark();
 
-               
 
                 if (Properties.Settings.Default.DrawAttackRange) Draw.DrawAttackRange(Engine.GetLocalObject(), Color.Cyan);
 
-                // Draw.DrawCooldown(Engine.GetLocalObject());
                 Draw.DrawWard();
-                Draw.DrawEnemyCooldowns();
+
+                if (Properties.Settings.Default.DrawSpellCD) Draw.DrawEnemyCooldowns();
+
+                if (Properties.Settings.Default.DrawRecallTracker) Draw.DrawRecallTracker();
+
+                //Draw.DrawObjectNames();
             }
         }
     }

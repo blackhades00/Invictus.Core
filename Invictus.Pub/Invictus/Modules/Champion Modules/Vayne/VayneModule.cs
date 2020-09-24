@@ -2,9 +2,7 @@
 using System.Windows.Forms;
 using Invictus.Core.Invictus.Framework;
 using Invictus.Core.Invictus.Hacks.Orbwalker;
-using Invictus.Core.Invictus.Structures.AI_Manager;
 using Invictus.Core.Invictus.Structures.GameEngine;
-using Invictus.Core.Invictus.Structures.GameObjects;
 using Invictus.Core.Invictus.Structures.Spell_Structure;
 
 namespace Invictus.Core.Invictus.Modules.Champion_Modules

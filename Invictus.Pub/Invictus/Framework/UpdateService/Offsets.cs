@@ -42,13 +42,21 @@ namespace Invictus.Core.Invictus.Framework.UpdateService
         {
             public static readonly int OHeroList = 0x1C3B63C;
             public static readonly int OMinionList = 0x1C3D790;
-            public static readonly int OTurretList = 0x34F412C;
+            public static readonly int OTurretList = 0x34D72F4;
         }
 
         internal static class Renderer
         {
             public static readonly int ORenderer = 0x3507670;
             public static readonly int OViewMatrix = 0x3504990;
+        }
+
+        internal static class ObjectManager
+        {
+            public static readonly int oObjManager = 0x1C3D744;
+
+            public static readonly int oGetFirst = 0x27C3C0;
+            public static readonly int oGetNext = 0x27DF00;
         }
 
         internal static class GameObjectStruct
@@ -65,6 +73,8 @@ namespace Invictus.Core.Invictus.Framework.UpdateService
             public static readonly int OObjChampionName = 0x312C;
             public static readonly int oAttackRange = 0x12CC;
             public static readonly int oIsAlive = 0x218;
+            public static readonly int oRecallState = 0xDA4;
+            public static readonly int oObjTarget = 0x3150;
         };
 
         internal static class CharInfo

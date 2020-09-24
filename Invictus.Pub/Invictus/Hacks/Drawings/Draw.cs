@@ -43,6 +43,8 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
             var debugTextPos = new Point();
             debugTextPos.X = Screen.PrimaryScreen.WorkingArea.Width / 2 + 20;
             debugTextPos.Y = Screen.PrimaryScreen.WorkingArea.Top + 10;
+
+            DrawFactory.DrawFont(debugText, 60, debugTextPos, Color.White);
         }
 
         /// <summary>
@@ -110,7 +112,7 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
         /// Draws spell cooldowns for the given object.
         /// </summary>
         /// <param name="obj"></param>
-        internal static void DrawCooldown(int obj)
+        private static void DrawCooldown(int obj)
         {
             var spellClassInstance = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q);
             var cooldownExpiredQ = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
@@ -204,6 +206,38 @@ namespace Invictus.Core.Invictus.Hacks.Drawings
             for (var i = 0; i < HeroManager.enemyList.Count; i++)
                 if (HeroManager.enemyList[i].IsAlive() && HeroManager.enemyList[i].IsVisible())
                     DrawCooldown(HeroManager.enemyList[i]);
+        }
+
+        internal static void DrawRecallTracker()
+        {
+            for (var i = 0; i < HeroManager.enemyList.Count; i++)
+                if (HeroManager.enemyList[i].IsAlive())
+                {
+                    if (HeroManager.enemyList[i].GetRecallState() == 6)
+                    {
+                        Point pos;
+                        pos.X = Screen.PrimaryScreen.WorkingArea.Width / 2 - 100;
+                        pos.Y = Screen.PrimaryScreen.WorkingArea.Top + 650;
+                        DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName() + " is Recalling", 50, pos, Color.White);
+                    }
+                       
+                }
+
+        }
+
+        internal static void DrawObjectNames()
+        {
+            for (int i = 0; i < HeroManager.enemyList.Count; i++)
+            {
+                if (HeroManager.enemyList[i].IsAlive())
+                {
+                    Point pos;
+                    pos.X = HeroManager.enemyList[i].GetObj2DPos().X;
+                    pos.Y = HeroManager.enemyList[i].GetObj2DPos().Y;
+
+                    DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName(), 50, pos, Color.White);
+                }
+            }
         }
     }
 }

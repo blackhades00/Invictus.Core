@@ -10,9 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
 using Invictus.Pub.Modules;
-using Timer = System.Timers;
 
 namespace Invictus.Pub.Invictus.Framework.Security
 {

@@ -68,6 +68,11 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             return obj.GetDistance(Engine.GetLocalObject()) <= Engine.GetLocalObject().GetAttackRange();
         }
 
+        internal static bool IsAutoAttacking(this int obj)
+        {
+            return obj.GetSpellBook().GetSpellCastInfo().IsAutoAttack();
+        }
+
         internal static float GetHealth(this int obj)
         {
             return Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjHealth);
@@ -113,10 +118,21 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
             return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oAttackRange);
         }
 
-
-        internal static bool IsLasthitable(this int obj)
+        internal static int GetRecallState(this int obj)
         {
-            return obj.GetEffectiveHealth() <= Engine.GetLocalObject().GetTotalAd();
+            return Utils.ReadInt(obj + Offsets.GameObjectStruct.oRecallState);
+        }
+
+
+        internal static int GetTarget(this int obj)
+        {
+            return Utils.ReadInt((obj + Offsets.GameObjectStruct.oObjTarget));
+        }
+
+        //Flag Checks
+        internal static bool IsLasthitable(this int obj, int delay = 0)
+        {
+            return obj.GetEffectiveHealth() <= Engine.GetLocalObject().GetTotalAd() - Engine.GetLocalObject().GetSpellBook().GetSpellCastInfo().GetWindupTime();
         }
 
         internal static bool IsAlive(this int obj)
@@ -157,5 +173,6 @@ namespace Invictus.Core.Invictus.Structures.GameObjects
         {
             return new SpellBook(obj);
         }
+
     }
 }

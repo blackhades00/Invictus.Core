@@ -12,10 +12,8 @@ using Invictus.Core.Invictus.Hacks;
 using Invictus.Core.Invictus.Hacks.Drawings;
 using Invictus.Core.Invictus.Hacks.TargetSelector;
 using Invictus.Core.Invictus.LogService;
-using Invictus.Core.Invictus.Modules.Champion_Modules;
 using Invictus.Core.Invictus.Structures.GameEngine;
 using Invictus.Core.Invictus.Structures.GameObjects;
-using Invictus.Pub.Invictus.Framework.Security;
 
 namespace Invictus.Core
 {
@@ -27,7 +25,7 @@ namespace Invictus.Core
 
         public static void LoadCore()
         {
-           // AntiDebugService.StartAntiDbgService();
+            // AntiDebugService.StartAntiDbgService();
             if (!Riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6"))
             {
                 Environment.Exit(1);
@@ -56,9 +54,11 @@ namespace Invictus.Core
                 GameObject.Me = Engine.GetLocalObject();
 
                 HeroManager.PushHeroList();
+                MinionManager.PushTurretList();
+
                 await Task.Run(() => MainThread.MainLoop());
-             //   GetChampionModule.LoadChampionModule();
-                await Task.Run(() => Utils.ShowWelcomeMessage());
+               // GetChampionModule.LoadChampionModule();
+               await Task.Run(() => Utils.ShowWelcomeMessage());
                 await Task.Run(() => Overlay.Show());
             }
             catch (Exception)

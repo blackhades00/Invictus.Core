@@ -87,7 +87,7 @@ namespace Invictus.Core.Invictus.Structures.AI_Manager
         /// Returns the TargetPos
         /// </summary>
         /// <returns></returns>
-        internal Vector3 GetTargetPos()
+        internal Vector3 GetWayPoint()
         {
             var x = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.TargetPos);
             var y = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.TargetPos + 4);

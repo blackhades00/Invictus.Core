@@ -32,10 +32,8 @@
             this.foreverLabel1 = new ReaLTaiizor.Controls.ForeverLabel();
             this.ToggleCooldownTracker = new ReaLTaiizor.Controls.HopeToggle();
             this.foreverLabel2 = new ReaLTaiizor.Controls.ForeverLabel();
-            this.ToggleFOWExploit = new ReaLTaiizor.Controls.HopeToggle();
-            this.foreverLabel3 = new ReaLTaiizor.Controls.ForeverLabel();
-            this.DrawingView = new ReaLTaiizor.Forms.DreamForm();
-            this.DrawingView.SuspendLayout();
+            this.ToggleRecallTracker = new ReaLTaiizor.Controls.HopeToggle();
+            this.foreverLabel4 = new ReaLTaiizor.Controls.ForeverLabel();
             this.SuspendLayout();
             // 
             // ToggleAttackRangeDrawings
@@ -51,7 +49,7 @@
             this.ToggleAttackRangeDrawings.HeadColorB = System.Drawing.Color.White;
             this.ToggleAttackRangeDrawings.HeadColorC = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
             this.ToggleAttackRangeDrawings.HeadColorD = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.ToggleAttackRangeDrawings.Location = new System.Drawing.Point(6, 43);
+            this.ToggleAttackRangeDrawings.Location = new System.Drawing.Point(3, 23);
             this.ToggleAttackRangeDrawings.Name = "ToggleAttackRangeDrawings";
             this.ToggleAttackRangeDrawings.Size = new System.Drawing.Size(48, 20);
             this.ToggleAttackRangeDrawings.TabIndex = 1;
@@ -64,13 +62,13 @@
             // 
             this.foreverLabel1.AutoSize = true;
             this.foreverLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.foreverLabel1.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.foreverLabel1.Font = new System.Drawing.Font("Mongolian Baiti", 10F);
             this.foreverLabel1.ForeColor = System.Drawing.Color.LightGray;
-            this.foreverLabel1.Location = new System.Drawing.Point(57, 27);
+            this.foreverLabel1.Location = new System.Drawing.Point(57, 28);
             this.foreverLabel1.Name = "foreverLabel1";
-            this.foreverLabel1.Size = new System.Drawing.Size(105, 13);
+            this.foreverLabel1.Size = new System.Drawing.Size(83, 15);
             this.foreverLabel1.TabIndex = 2;
-            this.foreverLabel1.Text = "Draw Attack Range";
+            this.foreverLabel1.Text = "Attack Range";
             // 
             // ToggleCooldownTracker
             // 
@@ -85,7 +83,7 @@
             this.ToggleCooldownTracker.HeadColorB = System.Drawing.Color.White;
             this.ToggleCooldownTracker.HeadColorC = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
             this.ToggleCooldownTracker.HeadColorD = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.ToggleCooldownTracker.Location = new System.Drawing.Point(3, 56);
+            this.ToggleCooldownTracker.Location = new System.Drawing.Point(3, 49);
             this.ToggleCooldownTracker.Name = "ToggleCooldownTracker";
             this.ToggleCooldownTracker.Size = new System.Drawing.Size(48, 20);
             this.ToggleCooldownTracker.TabIndex = 3;
@@ -98,82 +96,62 @@
             // 
             this.foreverLabel2.AutoSize = true;
             this.foreverLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.foreverLabel2.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.foreverLabel2.Font = new System.Drawing.Font("Mongolian Baiti", 10F);
             this.foreverLabel2.ForeColor = System.Drawing.Color.LightGray;
-            this.foreverLabel2.Location = new System.Drawing.Point(57, 59);
+            this.foreverLabel2.Location = new System.Drawing.Point(57, 54);
             this.foreverLabel2.Name = "foreverLabel2";
-            this.foreverLabel2.Size = new System.Drawing.Size(130, 13);
+            this.foreverLabel2.Size = new System.Drawing.Size(113, 15);
             this.foreverLabel2.TabIndex = 4;
-            this.foreverLabel2.Text = "Draw Cooldown Tracker";
+            this.foreverLabel2.Text = "Cooldown Tracker";
             // 
-            // ToggleFOWExploit
+            // ToggleRecallTracker
             // 
-            this.ToggleFOWExploit.AutoSize = true;
-            this.ToggleFOWExploit.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
-            this.ToggleFOWExploit.BaseColorA = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(223)))), ((int)(((byte)(230)))));
-            this.ToggleFOWExploit.BaseColorB = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.ToggleFOWExploit.Checked = true;
-            this.ToggleFOWExploit.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ToggleFOWExploit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ToggleFOWExploit.HeadColorA = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(223)))), ((int)(((byte)(230)))));
-            this.ToggleFOWExploit.HeadColorB = System.Drawing.Color.White;
-            this.ToggleFOWExploit.HeadColorC = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.ToggleFOWExploit.HeadColorD = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
-            this.ToggleFOWExploit.Location = new System.Drawing.Point(3, 86);
-            this.ToggleFOWExploit.Name = "ToggleFOWExploit";
-            this.ToggleFOWExploit.Size = new System.Drawing.Size(48, 20);
-            this.ToggleFOWExploit.TabIndex = 5;
-            this.ToggleFOWExploit.Text = "hopeToggle1";
-            this.ToggleFOWExploit.UseVisualStyleBackColor = true;
-            this.ToggleFOWExploit.Click += new System.EventHandler(this.SaveDrawingSettings);
+            this.ToggleRecallTracker.AutoSize = true;
+            this.ToggleRecallTracker.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
+            this.ToggleRecallTracker.BaseColorA = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(223)))), ((int)(((byte)(230)))));
+            this.ToggleRecallTracker.BaseColorB = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.ToggleRecallTracker.Checked = true;
+            this.ToggleRecallTracker.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ToggleRecallTracker.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ToggleRecallTracker.HeadColorA = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(223)))), ((int)(((byte)(230)))));
+            this.ToggleRecallTracker.HeadColorB = System.Drawing.Color.White;
+            this.ToggleRecallTracker.HeadColorC = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.ToggleRecallTracker.HeadColorD = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.ToggleRecallTracker.Location = new System.Drawing.Point(3, 75);
+            this.ToggleRecallTracker.Name = "ToggleRecallTracker";
+            this.ToggleRecallTracker.Size = new System.Drawing.Size(48, 20);
+            this.ToggleRecallTracker.TabIndex = 7;
+            this.ToggleRecallTracker.Text = "hopeToggle1";
+            this.ToggleRecallTracker.UseVisualStyleBackColor = true;
+            this.ToggleRecallTracker.CheckedChanged += new System.EventHandler(this.ToggleRecallTracker_CheckedChanged);
+            this.ToggleRecallTracker.Click += new System.EventHandler(this.SaveDrawingSettings);
             // 
-            // foreverLabel3
+            // foreverLabel4
             // 
-            this.foreverLabel3.AutoSize = true;
-            this.foreverLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.foreverLabel3.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.foreverLabel3.ForeColor = System.Drawing.Color.LightGray;
-            this.foreverLabel3.Location = new System.Drawing.Point(57, 89);
-            this.foreverLabel3.Name = "foreverLabel3";
-            this.foreverLabel3.Size = new System.Drawing.Size(216, 13);
-            this.foreverLabel3.TabIndex = 6;
-            this.foreverLabel3.Text = "Draw FOW Exploit (WIP/No Function yet)";
-            // 
-            // DrawingView
-            // 
-            this.DrawingView.ColorA = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(218)))), ((int)(((byte)(255)))));
-            this.DrawingView.ColorB = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(63)))), ((int)(((byte)(63)))));
-            this.DrawingView.ColorC = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
-            this.DrawingView.ColorD = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
-            this.DrawingView.ColorE = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.DrawingView.ColorF = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.DrawingView.Controls.Add(this.ToggleAttackRangeDrawings);
-            this.DrawingView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DrawingView.Location = new System.Drawing.Point(0, 0);
-            this.DrawingView.Name = "DrawingView";
-            this.DrawingView.Size = new System.Drawing.Size(286, 412);
-            this.DrawingView.TabIndex = 7;
-            this.DrawingView.TabStop = false;
-            this.DrawingView.Text = "Drawing Settings";
-            this.DrawingView.TitleAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.DrawingView.TitleHeight = 25;
+            this.foreverLabel4.AutoSize = true;
+            this.foreverLabel4.BackColor = System.Drawing.Color.Transparent;
+            this.foreverLabel4.Font = new System.Drawing.Font("Mongolian Baiti", 10F);
+            this.foreverLabel4.ForeColor = System.Drawing.Color.LightGray;
+            this.foreverLabel4.Location = new System.Drawing.Point(57, 80);
+            this.foreverLabel4.Name = "foreverLabel4";
+            this.foreverLabel4.Size = new System.Drawing.Size(90, 15);
+            this.foreverLabel4.TabIndex = 8;
+            this.foreverLabel4.Text = "Recall Tracker";
             // 
             // DrawingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
-            this.Controls.Add(this.DrawingView);
-            this.Controls.Add(this.foreverLabel3);
-            this.Controls.Add(this.ToggleFOWExploit);
+            this.Controls.Add(this.foreverLabel4);
+            this.Controls.Add(this.ToggleRecallTracker);
             this.Controls.Add(this.foreverLabel2);
             this.Controls.Add(this.ToggleCooldownTracker);
             this.Controls.Add(this.foreverLabel1);
+            this.Controls.Add(this.ToggleAttackRangeDrawings);
             this.Name = "DrawingsView";
-            this.Size = new System.Drawing.Size(286, 412);
+            this.Size = new System.Drawing.Size(232, 347);
             this.Load += new System.EventHandler(this.DrawingsView_Load);
-            this.DrawingView.ResumeLayout(false);
-            this.DrawingView.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,8 +162,7 @@
         private ReaLTaiizor.Controls.ForeverLabel foreverLabel1;
         private ReaLTaiizor.Controls.HopeToggle ToggleCooldownTracker;
         private ReaLTaiizor.Controls.ForeverLabel foreverLabel2;
-        private ReaLTaiizor.Controls.HopeToggle ToggleFOWExploit;
-        private ReaLTaiizor.Controls.ForeverLabel foreverLabel3;
-        private ReaLTaiizor.Forms.DreamForm DrawingView;
+        private ReaLTaiizor.Controls.HopeToggle ToggleRecallTracker;
+        private ReaLTaiizor.Controls.ForeverLabel foreverLabel4;
     }
 }

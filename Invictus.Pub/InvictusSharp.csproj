@@ -263,6 +263,7 @@
     <Compile Include="Invictus\Hacks\Prediction\HealthPrediction.cs" />
     <Compile Include="Invictus\Hacks\TargetSelector\HeroManager.cs" />
     <Compile Include="Invictus\Hacks\TargetSelector\MinionManager.cs" />
+    <Compile Include="Invictus\Hacks\TargetSelector\MissileManager.cs" />
     <Compile Include="Invictus\Hacks\TargetSelector\ObjectManager.cs" />
     <Compile Include="Invictus\LogService\DebugConsole.cs" />
     <Compile Include="Invictus\Framework\UpdateService\Offsets.cs" />

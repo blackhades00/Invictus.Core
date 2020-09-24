@@ -12,7 +12,6 @@ using DeviceId.Encoders;
 using DeviceId.Formatters;
 using Invictus.Core.Invictus.Framework.UpdateService;
 using Invictus.Core.Invictus.LogService;
-using Invictus.Core.Invictus.Modules.Champion_Modules;
 using SharpDX;
 
 namespace Invictus.Core.Invictus.Framework
