@@ -129,10 +129,20 @@ namespace InvictusSharp.Structures.GameObjects
             return Utils.ReadInt((obj + Offsets.GameObjectStruct.oObjTarget));
         }
 
+        internal static int GetNetworkID(this int obj)
+        {
+            return Utils.ReadInt(obj + Offsets.GameObjectStruct.oNetworkID);
+        }
+
+        internal static int GetLevel(this int obj)
+        {
+            return Utils.ReadInt(obj + Offsets.GameObjectStruct.oObjLevel);
+        }
+
         //Flag Checks
         internal static bool IsLasthitable(this int obj, int delay = 0)
         {
-            return obj.GetEffectiveHealth() <= Engine.GetLocalObject().GetTotalAd() - Engine.GetLocalObject().GetSpellBook().GetSpellCastInfo().GetWindupTime();
+            return HealthPrediction.PredictHealth(obj,Properties.Settings.Default.Orbwalker_lasthitDelay)<= Engine.GetLocalObject().GetTotalAd();
         }
 
         internal static bool IsAlive(this int obj)
@@ -144,6 +154,11 @@ namespace InvictusSharp.Structures.GameObjects
         internal static bool IsEnemy(this int obj)
         {
             return obj.GetTeam() != Engine.GetLocalObject().GetTeam();
+        }
+
+        internal static bool IsNeutral(this int obj)
+        {
+            return obj.GetTeam() == 300;
         }
 
         internal static bool IsVisible(this int obj)

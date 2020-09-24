@@ -64,17 +64,13 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// <returns></returns>
         internal static int GetLasthitTarget()
         {
-            var lasthitTarget = 0;
             foreach (var minion in GetMinions(true, true).Where(minion => minion.IsLasthitable()))
             {
-                if (lasthitTarget == 0)
-                    lasthitTarget = minion;
+                return minion;
 
-                if (minion.GetHealth() < lasthitTarget.GetHealth())
-                    lasthitTarget = minion;
             }
 
-            return lasthitTarget;
+            return 0;
         }
 
         /// <summary>
@@ -131,13 +127,11 @@ namespace InvictusSharp.Hacks.TargetSelector
             var turretList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OTurretList);
             var turretList = Utils.ReadInt(turretList_PrePtr + 0x4);
 
-            var target = 0;
-
             var index = 0x0;
             var obj = -1;
             while (obj != 0)
             {
-
+                obj = Utils.ReadInt(turretList + index);
                 index += 0x4;
 
                 switch (obj)

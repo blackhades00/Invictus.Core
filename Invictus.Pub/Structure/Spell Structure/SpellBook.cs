@@ -36,20 +36,14 @@ namespace InvictusSharp.Structures.Spell_Structure
         internal SpellCastInfo GetSpellCastInfo()
         {
             var spellCastInfoInstance =
-                Utils.ReadInt(spellbookInstance + 0x20);
+                Utils.ReadInt(spellbookInstance + Offsets.SpellStructs.SpellCastInfo.SpellInfoInstance);
 
             return new SpellCastInfo(spellCastInfoInstance);
-        }
-
-        public int GetActiveSpell(int obj)
-        {
-            return Utils.ReadInt(spellbookInstance + 0x24);
         }
 
 
         public static void CastSpell(int hardwareScanCode)
         {
-            //Keyboard.SendKey((short)Slot);
             NativeImport.SendKey(hardwareScanCode);
         }
 
@@ -62,18 +56,9 @@ namespace InvictusSharp.Structures.Spell_Structure
         public static void CastSpell(SpellSlot Slot, Point SpellLocation)
         {
             Mouse.MouseMove(SpellLocation.X, SpellLocation.Y);
-            Keyboard.SendKey((short) Slot);
+            CastSpell(0x2b);
         }
 
-        /*
-        public static void CastMultiSpells(SpellSlot[] SlotArray)
-        {
-            foreach (SpellSlot Spell in SlotArray)
-            {
-                CastSpell(Spell);
-            }
-        }
-        */
         public static void CastMultiSpells(SpellSlot[] SlotArray, int X, int Y)
         {
             foreach (var Spell in SlotArray) CastSpell(Spell, X, Y);
@@ -124,7 +109,10 @@ namespace InvictusSharp.Structures.Spell_Structure
             Q = Keyboard.KeyBoardScanCodes.KeyQ,
             W = Keyboard.KeyBoardScanCodes.KeyW,
             E = Keyboard.KeyBoardScanCodes.KeyE,
-            R = Keyboard.KeyBoardScanCodes.KeyR
+            R = Keyboard.KeyBoardScanCodes.KeyR,
+
+            D = Keyboard.KeyBoardScanCodes.KeyD,
+            F = Keyboard.KeyBoardScanCodes.KeyF
         }
 
         public enum SummonerSpellSlot

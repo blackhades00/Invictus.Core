@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Invictus.Core.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="InvictusSharp.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="Username" Type="System.String" Scope="User">
@@ -32,8 +32,8 @@
     <Setting Name="TargetSelector_Mode" Type="System.String" Scope="User">
       <Value Profile="(Default)">LowestHPTarget</Value>
     </Setting>
-    <Setting Name="Orbwalker_ExtraWindup" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">90</Value>
+    <Setting Name="Orbwalker_lasthitDelay" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">50</Value>
     </Setting>
   </Settings>
 </SettingsFile>

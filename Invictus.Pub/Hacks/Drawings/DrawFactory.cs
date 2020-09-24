@@ -144,14 +144,14 @@ namespace InvictusSharp.Hacks.Drawings
         {
             var line = new Vector2[100];
 
-            var step = (float) (Math.PI * 2.0 / numSides);
+            var step = (float)(Math.PI * 2.0 / numSides);
             var count = 0;
             for (float a = 0; a < Math.PI * 2.0; a += step)
             {
-                var x1 = (float) (radius * Math.Cos(a) + x);
-                var y1 = (float) (radius * Math.Sin(a) + y);
-                var x2 = (float) (radius * Math.Cos(a + step) + x);
-                var y2 = (float) (radius * Math.Sin(a + step) + y);
+                var x1 = (float)(radius * Math.Cos(a) + x);
+                var y1 = (float)(radius * Math.Sin(a) + y);
+                var x2 = (float)(radius * Math.Cos(a + step) + x);
+                var y2 = (float)(radius * Math.Sin(a + step) + y);
 
                 line[count].X = x1;
                 line[count].Y = y1;
@@ -174,8 +174,8 @@ namespace InvictusSharp.Hacks.Drawings
             for (i = 0; i < 360; i++)
             {
                 var rad = i * 3.14159 / 180.0;
-                line[i].X = x + (float) Math.Cos(rad) * radiusX;
-                line[i].Y = y + (float) Math.Sin(rad) * radiusY;
+                line[i].X = x + (float)Math.Cos(rad) * radiusX;
+                line[i].Y = y + (float)Math.Sin(rad) * radiusY;
             }
 
             DrawCircleLine.Width = width;
@@ -233,8 +233,8 @@ namespace InvictusSharp.Hacks.Drawings
             _effect.BeginPass(0);
             _effect.SetValue("ProjectionMatrix", Matrix.Translation(value) * viewMatrix * projectionMatrix);
             _effect.SetValue("Color",
-                new Vector4((float) color.R / 255f, (float) color.G / 255f, (float) color.B / 255f,
-                    (float) color.A / 255f));
+                new Vector4((float)color.R / 255f, (float)color.G / 255f, (float)color.B / 255f,
+                    (float)color.A / 255f));
             _effect.SetValue("Radius", radius);
             _effect.SetValue("Width", thickness);
             _effect.SetValue("Filled", filled);

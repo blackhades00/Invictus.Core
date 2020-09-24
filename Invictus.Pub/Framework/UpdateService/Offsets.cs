@@ -5,6 +5,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Web.UI.WebControls.WebParts;
 
 namespace InvictusSharp.Framework.UpdateService
 {
@@ -65,7 +66,9 @@ namespace InvictusSharp.Framework.UpdateService
 
             public static readonly int OObjTeam = 0x4C;
             public static readonly int OObjName = 0x6C;
+            public static readonly int oObjLevel = 0x3674;
             public static readonly int OObjPos = 0x1d8;
+            public static readonly int oNetworkID = 0xCC;
             public static readonly int OObjVisibility = 0x270;
             public static readonly int OIsTargetable = 0xD30;
             public static readonly int OObjHealth = 0xDC4;
@@ -136,12 +139,20 @@ namespace InvictusSharp.Framework.UpdateService
 
             internal static class SpellData
             {
-                //Shitton of offsets gotta import
+                public static readonly int SpellDataInstance = 0x44; //SpellCastInfoInstance + SpellDataInstance Offset
+
+                public static readonly int MissileName = 0x58;
+                public static readonly int SpellName = 0x7C;
+                public static readonly int Coefficient = 0x1D4;
+                public static readonly int Coefficient2 = 0x1D8;
+                public static readonly int MaxHighlightTargets = 0x1DC;
+                public static readonly int DelayCastOffsetPercent = 0x26C;
+
             }
 
             internal static class SpellCastInfo //Or ActiveSpellEntry
             {
-                public const int SpellInfoInstance = 0x134; //Leads to the spellbook structs // or spellbook + 0x20?
+                public const int SpellInfoInstance = 0x20; //  spellbook + offset
 
                 public const int SpellSlot = 0x0C;
                 public const int MissileIndex = 0x14;

@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.Input;
+using InvictusSharp.Hacks.Features;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 
@@ -19,6 +20,11 @@ namespace InvictusSharp.Hacks.Orbwalker
         ///     The tick the most recent attack command was sent.
         /// </summary>
         public static int LastAttackCommandT;
+
+        /// <summary>
+        /// The tick the most recent move command was sent.
+        /// </summary>
+        public static int LastMoveCommandT;
 
         /// <summary>
         ///     <c>true</c> if the orbwalker will attack.
@@ -50,6 +56,7 @@ namespace InvictusSharp.Hacks.Orbwalker
             int target,
             float extraWindup = 90f)
         {
+            AutoSmite.Load();
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
             {
                 if (Engine.GetGameTimeTickCount() - LastAttackCommandT < 70 + Math.Min(60, Engine.GetPing())) return;
@@ -58,6 +65,9 @@ namespace InvictusSharp.Hacks.Orbwalker
                 {
                     if (target != 0 && Engine.CanAttack() && Attack)
                     {
+                        if (Engine.GetLocalObject().IsAutoAttacking())
+                            return;
+
                         DisableNextAttack = false;
                         //FireBeforeAttack(target);
 
@@ -69,11 +79,11 @@ namespace InvictusSharp.Hacks.Orbwalker
                             var position = target.GetObj2DPos();
                             var c = Cursor.Position;
                             IssueOrder(OrderType.AttackUnit, position);
-
+                            if (Engine.GetLocalObject().IsAutoAttacking() == false)
+                                Engine.LastAaTick = Engine.GetGameTimeTickCount() + Engine.GetPing();
                             LastAttackCommandT = Engine.GetGameTimeTickCount();
                             _lastTarget = target;
-                            Engine.LastAaTick = Engine.GetGameTimeTickCount() + Engine.GetPing();
-                            while (Engine.CanAttack()) Thread.Sleep(1);
+                            while (Engine.CanAttack()) Thread.Sleep(TimeSpan.MinValue.Milliseconds);
                             Cursor.Position = c;
                             Attack = false;
                             Move = true;

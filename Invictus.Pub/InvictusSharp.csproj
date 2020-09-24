@@ -207,6 +207,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Callbacks\OnProcessSpell.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Callbacks\OnDraw.cs" />
     <Compile Include="Framework\API\ActivePlayerData.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Hacks\TargetSelector\HeroManager.cs" />
     <Compile Include="Hacks\TargetSelector\MinionManager.cs" />
     <Compile Include="Hacks\TargetSelector\ObjectManager.cs" />
+    <Compile Include="Hacks\Utils\AutoSmite.cs" />
     <Compile Include="LogService\DebugConsole.cs" />
     <Compile Include="Framework\UpdateService\Offsets.cs" />
     <Compile Include="LogService\Logger.cs" />
@@ -272,16 +274,17 @@
     <Compile Include="Modules\Champion Modules\IChampionModule.cs" />
     <Compile Include="Modules\Champion Modules\Vayne\AntiGapCloser.cs" />
     <Compile Include="Modules\Champion Modules\Vayne\VayneModule.cs" />
-    <Compile Include="Structures\AI Manager\AIManager.cs" />
-    <Compile Include="Structures\GameEngine\Engine.cs" />
-    <Compile Include="Structures\GameObjects\GameObject.cs" />
+    <Compile Include="Structure\AI Manager\AIManager.cs" />
+    <Compile Include="Structure\GameEngine\Engine.cs" />
+    <Compile Include="Structure\GameObjects\GameObject.cs" />
     <Compile Include="Framework\Utils.cs" />
-    <Compile Include="Structures\GameObjects\ObjectTypeFlag.cs" />
-    <Compile Include="Structures\Spell Structure\SpellBook.cs" />
-    <Compile Include="Structures\Spell Structure\SpellCastInfo.cs" />
-    <Compile Include="Structures\Spell Structure\SpellClass.cs" />
+    <Compile Include="Structure\GameObjects\ObjectTypeFlag.cs" />
+    <Compile Include="Structure\Spell Structure\SpellBook.cs" />
+    <Compile Include="Structure\Spell Structure\SpellCastInfo.cs" />
+    <Compile Include="Structure\Spell Structure\SpellClass.cs" />
     <Compile Include="Framework\NativeImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structure\Spell Structure\SpellData.cs" />
     <EmbeddedResource Include="Framework\Menu\DrawingsView.resx">
       <DependentUpon>DrawingsView.cs</DependentUpon>
     </EmbeddedResource>
@@ -334,15 +337,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\sharp_png.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Sharpü.JPG" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Sharpü1.JPG" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

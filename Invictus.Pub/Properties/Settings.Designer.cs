@@ -145,13 +145,13 @@ namespace InvictusSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("90")]
-        public float Orbwalker_ExtraWindup {
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int Orbwalker_lasthitDelay {
             get {
-                return ((float)(this["Orbwalker_ExtraWindup"]));
+                return ((int)(this["Orbwalker_lasthitDelay"]));
             }
             set {
-                this["Orbwalker_ExtraWindup"] = value;
+                this["Orbwalker_lasthitDelay"] = value;
             }
         }
     }

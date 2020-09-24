@@ -2,9 +2,13 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
+using System.Windows.Forms;
 using InvictusSharp.Framework;
 using InvictusSharp.Hacks.Drawings;
+using InvictusSharp.LogService;
 using InvictusSharp.Structures.GameEngine;
+using InvictusSharp.Structures.GameObjects;
+using log4net;
 using SharpDX;
 
 namespace InvictusSharp.Callbacks
@@ -30,8 +34,6 @@ namespace InvictusSharp.Callbacks
                 if (Properties.Settings.Default.DrawSpellCD) Draw.DrawEnemyCooldowns();
 
                 if (Properties.Settings.Default.DrawRecallTracker) Draw.DrawRecallTracker();
-
-                //Draw.DrawObjectNames();
             }
         }
     }

@@ -107,7 +107,7 @@ namespace InvictusSharp.Structures.GameEngine
             if (GetLocalObject().GetChampionName() == "Graves")
             {
                 var attackDelay = 1.0740296828d * 1000 * GetAttackDelay() - 716.2381256175d;
-                if (GetGameTimeTickCount() + GetPing() / 2 + 25 >= LastAaTick + attackDelay)
+                if (GetGameTimeTickCount() + GetPing() + Engine.GetLocalObject().GetSpellBook().GetSpellCastInfo().GetWindupTime() >= LastAaTick + attackDelay)
                     // && Player.HasBuff("GravesBasicAttackAmmo1"))
                     return true;
 
@@ -117,13 +117,13 @@ namespace InvictusSharp.Structures.GameEngine
             /*
             if (GetLocalObject().GetChampionName() == "Jhin")
             {
-                if (Player.HasBuff("JhinPassiveReload"))
+                if (Player.HasBuff("JhinPassiveReload"))    
                 {
                     return false;
                 }
             }
             */
-            return GetGameTimeTickCount() + GetPing() / 2 + 25 >= LastAaTick + GetAttackDelay();
+            return GetGameTimeTickCount() + GetPing() + Engine.GetLocalObject().GetSpellBook().GetSpellCastInfo().GetWindupTime() >= LastAaTick + GetAttackDelay();
         }
 
         public static bool CanMove(float extraWindup, bool disableMissileCheck = false)

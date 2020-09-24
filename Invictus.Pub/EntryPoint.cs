@@ -54,11 +54,11 @@ namespace InvictusSharp
                 GameObject.Me = Engine.GetLocalObject();
 
                 HeroManager.PushHeroList();
-                MinionManager.PushTurretList();
+                 MinionManager.PushTurretList();
 
                 await Task.Run(() => MainThread.MainLoop());
-               // GetChampionModule.LoadChampionModule();
-               await Task.Run(() => Utils.ShowWelcomeMessage());
+                // GetChampionModule.LoadChampionModule();
+                await Task.Run(() => Utils.ShowWelcomeMessage());
                 await Task.Run(() => Overlay.Show());
             }
             catch (Exception)

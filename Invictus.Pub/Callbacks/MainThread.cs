@@ -19,7 +19,7 @@ namespace InvictusSharp.Callbacks
                 while (Engine.GetLocalObject() != 0)
                 {
                     Utils.Unload();
-                    if (Utils.IsGameInForeground()) Orbwalker.Orbwalk(ObjectManager.GetTarget(), Properties.Settings.Default.Orbwalker_ExtraWindup);
+                    if (Utils.IsGameInForeground()) Orbwalker.Orbwalk(ObjectManager.GetTarget(), Properties.Settings.Default.Orbwalker_lasthitDelay);
                 }
             });
         }

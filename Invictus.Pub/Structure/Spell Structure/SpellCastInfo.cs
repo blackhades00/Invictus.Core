@@ -77,5 +77,14 @@ namespace InvictusSharp.Structures.Spell_Structure
         {
             return Utils.ReadFloat(spellCastInfoInstance + Offsets.SpellStructs.SpellCastInfo.CastEndTime);
         }
+
+        internal SpellData GetSpellData()
+        {
+            var spellDataInstance =
+                Utils.ReadInt(this.spellCastInfoInstance + Offsets.SpellStructs.SpellData.SpellDataInstance);
+
+            return new SpellData(spellDataInstance);
+        }
+
     }
 }

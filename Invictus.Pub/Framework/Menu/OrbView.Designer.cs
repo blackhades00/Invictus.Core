@@ -41,7 +41,7 @@
             this.ExtraWindupSlider.FillBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
             this.ExtraWindupSlider.JumpToMouse = false;
             this.ExtraWindupSlider.Location = new System.Drawing.Point(3, 33);
-            this.ExtraWindupSlider.Maximum = 120;
+            this.ExtraWindupSlider.Maximum = 91;
             this.ExtraWindupSlider.Minimum = 0;
             this.ExtraWindupSlider.MinimumSize = new System.Drawing.Size(47, 22);
             this.ExtraWindupSlider.Name = "ExtraWindupSlider";
@@ -64,9 +64,9 @@
             this.foreverLabel1.ForeColor = System.Drawing.Color.LightGray;
             this.foreverLabel1.Location = new System.Drawing.Point(3, 15);
             this.foreverLabel1.Name = "foreverLabel1";
-            this.foreverLabel1.Size = new System.Drawing.Size(87, 15);
+            this.foreverLabel1.Size = new System.Drawing.Size(75, 15);
             this.foreverLabel1.TabIndex = 1;
-            this.foreverLabel1.Text = "Extra Windup";
+            this.foreverLabel1.Text = "lasthit delay";
             // 
             // OrbView
             // 
