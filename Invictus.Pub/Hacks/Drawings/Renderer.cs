@@ -10,7 +10,7 @@ namespace InvictusSharp.Hacks.Drawings
 {
     internal class Renderer
     {
-        private const int Width = 0x0014;
+        private const int Width = 0x10;
         private const int Height = Width + 0x4;
 
         // B9 ? ? ? ? E8 ? ? ? ? B9 ? ? ? ? E9 ? ? ? ?
@@ -63,10 +63,10 @@ namespace InvictusSharp.Hacks.Drawings
         /// <returns></returns>
         public static Vector2 WorldToScreen(Vector3 pos)
         {
-            var returnVec = Vector2.Zero;
+            Vector2 returnVec = Vector2.Zero;
 
-            var screen = GetScreenResolution();
-            var matrix = GetViewProjectionMatrix();
+            Vector2 screen = GetScreenResolution();
+            Matrix matrix = GetViewProjectionMatrix();
 
             Vector4 clipCoords;
             clipCoords.X = pos.X * matrix[0] + pos.Y * matrix[4] + pos.Z * matrix[8] + matrix[12];
@@ -76,13 +76,13 @@ namespace InvictusSharp.Hacks.Drawings
 
             if (clipCoords[3] < 0.1f) return returnVec;
 
-            Vector3 m;
-            m.X = clipCoords.X / clipCoords.W;
-            m.Y = clipCoords.Y / clipCoords.W;
-            m.Z = clipCoords.Z / clipCoords.W;
+            Vector3 M;
+            M.X = clipCoords.X / clipCoords.W;
+            M.Y = clipCoords.Y / clipCoords.W;
+            M.Z = clipCoords.Z / clipCoords.W;
 
-            returnVec.X = screen.X / 2 * m.X + (m.X + screen.X / 2);
-            returnVec.Y = -(screen.Y / 2 * m.Y) + (m.Y + screen.Y / 2);
+            returnVec.X = (screen.X / 2 * M.X) + (M.X + screen.X / 2);
+            returnVec.Y = -(screen.Y / 2 * M.Y) + (M.Y + screen.Y / 2);
 
             return returnVec;
         }

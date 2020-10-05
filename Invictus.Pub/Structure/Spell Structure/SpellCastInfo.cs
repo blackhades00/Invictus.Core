@@ -9,6 +9,10 @@ namespace InvictusSharp.Structures.Spell_Structure
     {
         private int spellCastInfoInstance { get; set; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="spellCastInfoInstance"></param>
         internal SpellCastInfo(int spellCastInfoInstance)
         {
             this.spellCastInfoInstance = spellCastInfoInstance;
@@ -19,6 +23,10 @@ namespace InvictusSharp.Structures.Spell_Structure
             return Utils.ReadInt(spellCastInfoInstance + Offsets.SpellStructs.SpellCastInfo.SpellSlot);
         }
 
+        /// <summary>
+        /// Gets the Index from the objectManager of the current missile.
+        /// </summary>
+        /// <returns></returns>
         internal int GetMissileIndex()
         {
             return Utils.ReadInt(spellCastInfoInstance + Offsets.SpellStructs.SpellCastInfo.MissileIndex);

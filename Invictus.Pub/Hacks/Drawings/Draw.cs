@@ -261,7 +261,7 @@ namespace InvictusSharp.Hacks.Drawings
                         pos.Y = Screen.PrimaryScreen.WorkingArea.Top + 650;
                         DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName() + " is Recalling", 50, pos, Color.White);
                     }
-                       
+             
                 }
 
         }

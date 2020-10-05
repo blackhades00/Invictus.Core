@@ -56,7 +56,6 @@ namespace InvictusSharp.Hacks.Orbwalker
             int target,
             float extraWindup = 90f)
         {
-            AutoSmite.Load();
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
             {
                 if (Engine.GetGameTimeTickCount() - LastAttackCommandT < 70 + Math.Min(60, Engine.GetPing())) return;

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.UpdateService;
+using InvictusSharp.Hacks.Prediction;
 using InvictusSharp.Structures.GameObjects;
 
 namespace InvictusSharp.Hacks.TargetSelector
@@ -79,18 +80,26 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// <returns></returns>
         internal static int GetWaveclearTarget()
         {
+            var target = 0;
             if (GetEnemyTurretInRange() != 0)
                 return GetEnemyTurretInRange();
 
-            var target = 0;
-
-            foreach (var minion in GetMinions(true, true).Where(minion => !minion.IsNoMinion()))
+            foreach (var minion in GetMinions(true, true))
             {
-                if (target == 0)
-                    target = minion;
 
-                if (minion.GetHealth() < target.GetHealth())
-                    target = minion;
+                if (minion.IsLasthitable())
+                    return minion;
+                else
+                {
+                    if(target == 0)
+                    {
+                        target = minion;
+                    }
+                    else if(minion.GetHealth() < target.GetHealth())
+                    {
+                        target = minion;
+                    }
+                }
             }
 
             return target;

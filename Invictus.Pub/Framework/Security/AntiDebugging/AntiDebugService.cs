@@ -100,7 +100,7 @@ namespace InvictusSharp.Framework.Security.AntiDebugging
             if (NativeImport.IsDebuggerPresent() || isRemoteDebuggerPresent || CheckProcessNamesForDebugger() ||
                 IsDebuggerRunningHWND() || IsRiotSpy()
                 || CheckDebuggerManagedPresent() || CheckRemoteDebugger() || CheckDebuggerUnmanagedPresent() ||
-                CheckDebugPort() || IsVM())
+                CheckDebugPort())
             {
                 debuggerPresent = true;
                 DetachFromDebuggerProcess();

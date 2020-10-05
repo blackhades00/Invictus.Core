@@ -95,12 +95,12 @@ namespace InvictusSharp.Structures.GameObjects
 
         internal static float GetBaseAd(this int obj)
         {
-            return Utils.ReadFloat(obj + Offsets.CharInfo.OBaseAttackDamage);
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oBasicAttack);
         }
 
         internal static float GetBonusAd(this int obj)
         {
-            return Utils.ReadFloat(obj + Offsets.CharInfo.OFlatPhysicalDamageMod);
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oBonusAttack);
         }
 
         internal static float GetTotalAd(this int obj)
@@ -184,6 +184,13 @@ namespace InvictusSharp.Structures.GameObjects
             return new AiManager(aiManagerInstance);
         }
 
+        /// <summary>
+        /// Returns an SpellBook Instance.
+        /// SpellBook returns all infos regarding spells and leads 
+        /// to further structs like <see cref="SpellCastInfo"/> or <see cref="SpellClass"/>.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         internal static SpellBook GetSpellBook(this int obj)
         {
             return new SpellBook(obj);

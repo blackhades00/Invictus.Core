@@ -43,10 +43,10 @@ namespace InvictusSharp.Hacks.TargetSelector
                     case 0x00:
                         continue;
                     default:
-                    {
-                        if (obj.IsEnemy()) enemyList.Add(obj);
-                        break;
-                    }
+                        {
+                            if (obj.IsEnemy()) enemyList.Add(obj);
+                            break;
+                        }
                 }
             }
         }

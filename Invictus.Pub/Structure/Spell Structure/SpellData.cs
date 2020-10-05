@@ -27,7 +27,7 @@ namespace InvictusSharp.Structures.Spell_Structure
 
         internal float GetMissileSpeed()
         {
-            return Utils.ReadFloat(this.SpellDataInstance + 0x410);
+            return Utils.ReadFloat(this.SpellDataInstance + Offsets.SpellStructs.SpellData.SpellSpeed); //or 0x410 idk
         }
 
     }
