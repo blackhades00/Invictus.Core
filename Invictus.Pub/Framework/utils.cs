@@ -1,8 +1,10 @@
-﻿// <copyright file="Utils.cs" company="Invictus">
+// <copyright file="Utils.cs" company="Invictus">
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,6 +14,7 @@ using DeviceId.Encoders;
 using DeviceId.Formatters;
 using InvictusSharp.Framework.UpdateService;
 using InvictusSharp.LogService;
+using LeagueSharp.Common;
 using SharpDX;
 
 namespace InvictusSharp.Framework
@@ -42,6 +45,9 @@ namespace InvictusSharp.Framework
         internal static void ShowWelcomeMessage()
         {
             Logger.Log("InvictusSharp Initiated successfully.", Logger.eLoggerType.Info);
+            Logger.Log("This is NOT something which should be sold!! its a public release by Jiingz(Invictus) on UnknownCheats!!", Logger.eLoggerType.Warn);
+            Logger.Log("If you've bought this, you got scammed!", Logger.eLoggerType.Warn);
+
         }
 
         /// <summary>
@@ -74,36 +80,22 @@ namespace InvictusSharp.Framework
 
         internal static bool IsKeyPressed(Keys keys)
         {
-            return (NativeImport.GetAsyncKeyState((int) keys) & 0x8000) != 0;
+            return (NativeImport.GetAsyncKeyState((int)keys) & 0x8000) != 0;
         }
 
         internal static bool IsControlPressed()
         {
-            return (NativeImport.GetAsyncKeyState((int) 0x11) & 0x8000) != 0;
+            return (NativeImport.GetAsyncKeyState((int)0x11) & 0x8000) != 0;
         }
 
         internal static bool IsShiftPressed()
         {
-            return (NativeImport.GetAsyncKeyState((int) 0x10) & 0x8000) != 0;
+            return (NativeImport.GetAsyncKeyState((int)0x10) & 0x8000) != 0;
         }
 
         internal static bool IsGameInForeground()
         {
             return GetActiveWindowTitle() == "League of Legends (TM) Client";
-        }
-
-
-        internal static T Read<T>(int address)
-        {
-            var size = Marshal.SizeOf<T>();
-            var buffer = new byte[size];
-            var result =
-                Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, buffer, size, out var lpRead);
-            var ptr = Marshal.AllocHGlobal(size);
-            Marshal.Copy(buffer, 0, ptr, size);
-            var @struct = Marshal.PtrToStructure<T>(ptr);
-            Marshal.FreeHGlobal(ptr);
-            return @struct;
         }
 
         internal static bool ReadBool(int address)
@@ -112,7 +104,7 @@ namespace InvictusSharp.Framework
             var bytesRead = IntPtr.Zero;
 
 
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, dataBuffer, dataBuffer.Length,
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, dataBuffer, dataBuffer.Length,
                 out bytesRead);
 
             return BitConverter.ToBoolean(dataBuffer, 0);
@@ -122,7 +114,7 @@ namespace InvictusSharp.Framework
         {
             var buffer = new byte[4];
             var output = IntPtr.Zero;
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) addr, buffer, buffer.Length, out output);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)addr, buffer, buffer.Length, out output);
 
             return BitConverter.ToInt32(buffer, 0);
         }
@@ -132,7 +124,7 @@ namespace InvictusSharp.Framework
             var dataBuffer = new byte[512];
             var bytesRead = IntPtr.Zero;
 
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, dataBuffer, dataBuffer.Length,
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, dataBuffer, dataBuffer.Length,
                 out bytesRead);
 
 
@@ -143,7 +135,7 @@ namespace InvictusSharp.Framework
         {
             var buffer = new byte[4];
             var output = IntPtr.Zero;
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, buffer, buffer.Length, out output);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, buffer, buffer.Length, out output);
 
             return BitConverter.ToSingle(buffer, 0);
         }
@@ -164,7 +156,7 @@ namespace InvictusSharp.Framework
             var buffer = new byte[64];
             IntPtr byteRead;
 
-            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr) address, buffer, 64, out byteRead);
+            Offsets.ReadProcessMemory(Offsets.ProcessHandle, (IntPtr)address, buffer, 64, out byteRead);
 
             if (byteRead == IntPtr.Zero)
             {
@@ -209,5 +201,77 @@ namespace InvictusSharp.Framework
         {
             return DeobfuscateMember(Offsets.ProcessHandle, address);
         }
+        /// <summary>
+        /// Normalze a vector
+        /// </summary>
+        /// <param name="vec"></param>
+        /// <returns></returns>
+        public static Vector3 NormalizeVector(this Vector3 vec)
+        {
+            float length = vec.Length();
+            if (length != 0)
+            {
+                float inv = 1.0f / length;
+                vec.X *= inv;
+                vec.Y *= inv;
+                vec.Z *= inv;
+            }
+            return new Vector3(vec.X, vec.Y, vec.Z);
+        }
+        public static float Length(this Vector3 vec)
+        {
+            return (float)Math.Sqrt((vec.X * vec.X) + (vec.Y * vec.Y) + (vec.Z * vec.Z));
+        }
+
+        public static List<Vector2> CutPath(this List<Vector2> path, float distance)
+        {
+            var result = new List<Vector2>();
+            var Distance = distance;
+            if (distance < 0)
+            {
+                path[0] = path[0] + distance * (path[1] - path[0]).Normalized();
+                return path;
+            }
+
+            for (var i = 0; i < path.Count - 1; i++)
+            {
+                var dist = path[i].Distance(path[i + 1]);
+                if (dist > Distance)
+                {
+                    result.Add(path[i] + Distance * (path[i + 1] - path[i]).Normalized());
+                    for (var j = i + 1; j < path.Count; j++)
+                    {
+                        result.Add(path[j]);
+                    }
+
+                    break;
+                }
+                Distance -= dist;
+            }
+            return result.Count > 0 ? result : new List<Vector2> { path.Last() };
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool WriteProcessMemory(
+            IntPtr hProcess,
+            IntPtr lpBaseAddress,
+            byte[] lpBuffer,
+            Int32 nSize,
+            out IntPtr lpNumberOfBytesWritten);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool WriteProcessMemory(
+            IntPtr hProcess,
+            IntPtr lpBaseAddress,
+            [MarshalAs(UnmanagedType.AsAny)] object lpBuffer,
+            int dwSize,
+            out IntPtr lpNumberOfBytesWritten);
+       public static void Write(int Addr, float value)
+       {
+           var buffer = BitConverter.GetBytes(value);
+            var output = IntPtr.Zero;
+           WriteProcessMemory(Offsets.ProcessHandle, (IntPtr)Addr, buffer, buffer.Length, out output);
+        }
+
     }
 }
