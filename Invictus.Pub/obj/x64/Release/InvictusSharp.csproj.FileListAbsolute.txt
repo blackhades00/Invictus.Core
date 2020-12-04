@@ -46,7 +46,6 @@ C:\Users\Shadow\Desktop\Builds\Releases\Current\Logger.config
 C:\Users\Shadow\Desktop\Builds\Releases\Current\Invictus.Core.dll.config
 C:\Users\Shadow\Desktop\Builds\Releases\Current\Invictus.Core.dll
 C:\Users\Shadow\Desktop\Builds\Releases\Current\Invictus.Core.pdb
-C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\InvictusSharp.csprojAssemblyReference.cache
 C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\InvictusSharp.Framework.Menu.Champ_Settings_Views.VayneView.resources
 C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\InvictusSharp.Framework.Menu.DrawingsView.resources
 C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\InvictusSharp.Framework.Menu.MenuBox.resources
@@ -60,3 +59,4 @@ C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\Invi
 C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\InvictusSharp.csproj.CopyComplete
 C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\Invictus.Core.dll
 C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\Invictus.Core.pdb
+C:\Users\Shadow\Desktop\Projects\Invictus.Core\Invictus.Pub\obj\x64\Release\InvictusSharp.csprojAssemblyReference.cache

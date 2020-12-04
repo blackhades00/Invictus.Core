@@ -97,6 +97,8 @@ namespace InvictusSharp.Framework.UpdateService
             {
                 public static readonly int OGetAttackCastDelay = 0x2A1D50;
                 public static readonly int OIsObjectType = 0x171280; //51 56 57 8B F9 33 D2 0F B6 47 58
+
+                public static readonly int oUnderMouseObject = 0x1C0A160;
             }
         };
 

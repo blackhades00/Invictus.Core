@@ -407,6 +407,7 @@
     <Compile Include="Hacks\TargetSelector\HeroManager.cs" />
     <Compile Include="Hacks\TargetSelector\MinionManager.cs" />
     <Compile Include="Hacks\TargetSelector\ObjectManager.cs" />
+    <Compile Include="Hacks\Utils\AutoIgnite.cs" />
     <Compile Include="Hacks\Utils\AutoSmite.cs" />
     <Compile Include="LogService\DebugConsole.cs" />
     <Compile Include="Framework\UpdateService\Offsets.cs" />
@@ -416,7 +417,6 @@
     <Compile Include="Modules\Champion Modules\IChampionModule.cs" />
     <Compile Include="Modules\Champion Modules\Vayne\AntiGapCloser.cs" />
     <Compile Include="Modules\Champion Modules\Vayne\VayneModule.cs" />
-    <Compile Include="Modules\Utilities\AutoHeal.cs" />
     <Compile Include="Structure\AI Manager\AIManager.cs" />
     <Compile Include="Structure\GameEngine\Engine.cs" />
     <Compile Include="Structure\GameObjects\GameObject.cs" />

@@ -123,32 +123,24 @@ namespace InvictusSharp.Hacks.Drawings
         /// <param name="obj"></param>
         public static void DrawCooldown(int obj)
         {
-            var spellClassInstance = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q);
-            var cooldownExpiredQ = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
-                                   spellClassInstance.GetLevel() > 0;
+            var cooldownExpiredQ = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q).IsSpellReady();
+            var cooldownTimeQ = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q).GetCurrentCooldown();
+
+            var cooldownExpiredW = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.W).IsSpellReady();
+            var cooldownTimeW = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.W).GetCurrentCooldown();
+
+            var cooldownExpiredE = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.E).IsSpellReady();
+            var cooldownTimeE = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.E).GetCurrentCooldown();
+
+            var cooldownExpiredR = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.R).IsSpellReady();
+            var cooldownTimeR = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.R).GetCurrentCooldown();
 
 
-            spellClassInstance.SetSpell(SpellBook.SpellSlotId.W);
-            var cooldownExpiredW = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
-                                   spellClassInstance.GetLevel() > 0;
+            var cooldownSumm1 = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Summoner1).IsSpellReady();
+            var cooldownTimeSumm1 = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Summoner1).GetCurrentCooldown();
 
-            spellClassInstance.SetSpell(SpellBook.SpellSlotId.E);
-            var cooldownExpiredE = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
-                                   spellClassInstance.GetLevel() > 0;
-
-            spellClassInstance.SetSpell(SpellBook.SpellSlotId.R);
-            var cooldownExpiredR = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
-                                   spellClassInstance.GetLevel() > 0;
-
-
-            spellClassInstance.SetSpell(SpellBook.SpellSlotId.Summoner1);
-            var cooldownSumm1 = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
-                                   spellClassInstance.GetLevel() > 0;
-
-            spellClassInstance.SetSpell(SpellBook.SpellSlotId.Summoner2);
-            var cooldownSumm2 = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
-                                spellClassInstance.GetLevel() > 0;
-
+            var cooldownSumm2 = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Summoner2).IsSpellReady();
+            var cooldownTimeSumm2 = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Summoner2).GetCurrentCooldown();
 
             var position = Point.Zero;
             ;
@@ -159,12 +151,12 @@ namespace InvictusSharp.Hacks.Drawings
                 position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("Q", 30, position, Color.Green);
             }
-            else
+            else if(obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q).GetLevel() >= 1)
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X;
                 position.Y = w2SPos.Y;
-                DrawFactory.DrawFont("Q", 30, position, Color.Red);
+                DrawFactory.DrawFont(""+cooldownTimeQ, 30, position, Color.Red);
             }
 
 
@@ -175,12 +167,12 @@ namespace InvictusSharp.Hacks.Drawings
                 position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("W", 30, position, Color.Green);
             }
-            else
+            else if(obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.W).GetLevel() >= 1)
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 20;
                 position.Y = w2SPos.Y;
-                DrawFactory.DrawFont("W", 30, position, Color.Red);
+                DrawFactory.DrawFont(""+cooldownTimeW, 30, position, Color.Red);
             }
 
 
@@ -191,12 +183,12 @@ namespace InvictusSharp.Hacks.Drawings
                 position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("E", 30, position, Color.Green);
             }
-            else
+            else if(obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.E).GetLevel() >= 1)
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 40;
                 position.Y = w2SPos.Y;
-                DrawFactory.DrawFont("E", 30, position, Color.Red);
+                DrawFactory.DrawFont(""+cooldownTimeE, 30, position, Color.Red);
             }
 
 
@@ -207,12 +199,12 @@ namespace InvictusSharp.Hacks.Drawings
                 position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("R", 30, position, Color.Green);
             }
-            else
+            else if(obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.R).GetLevel() >= 1)
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 60;
                 position.Y = w2SPos.Y;
-                DrawFactory.DrawFont("R", 30, position, Color.Red);
+                DrawFactory.DrawFont(""+cooldownTimeR, 30, position, Color.Red);
             }
 
             if (cooldownSumm1)
@@ -227,7 +219,7 @@ namespace InvictusSharp.Hacks.Drawings
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X;
                 position.Y = w2SPos.Y + 20;
-                DrawFactory.DrawFont("D", 30, position, Color.Red);
+                DrawFactory.DrawFont(""+cooldownTimeSumm1/60, 30, position, Color.Red);
             }
 
 
@@ -243,7 +235,7 @@ namespace InvictusSharp.Hacks.Drawings
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 20;
                 position.Y = w2SPos.Y + 20;
-                DrawFactory.DrawFont("F", 30, position, Color.Red);
+                DrawFactory.DrawFont(""+cooldownTimeSumm2/60, 30, position, Color.Red);
             }
 
         }
@@ -267,12 +259,27 @@ namespace InvictusSharp.Hacks.Drawings
                     {
                         Point pos;
                         pos.X = Screen.PrimaryScreen.WorkingArea.Width / 2 - 100;
-                        pos.Y = Screen.PrimaryScreen.WorkingArea.Top + 650;
+                        pos.Y = Screen.PrimaryScreen.WorkingArea.Top + 650 + i * 50;
                         DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName() + " is Recalling", 50, pos, Color.White);
                     }
              
                 }
 
+        }
+
+        internal static void DrawFoWTracker()
+        {
+            for (int i = 0; i < HeroManager.enemyList.Count; i++)
+            {
+                var w2s = Renderer.WorldToScreen(HeroManager.enemyList[i].GetObj3DPos());
+                if (!HeroManager.enemyList[i].IsVisible() && HeroManager.enemyList[i].GetAiManger().IsMoving())
+                {
+                    DrawFactory.DrawBox(w2s.X - 30f, w2s.Y - 60f, 50f, 80f, Color.Aqua);
+                    Draw.DrawCooldown(HeroManager.enemyList[i]);
+                    DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName(), 50, new Point((int)w2s.X, (int)w2s.Y), Color.Aqua);
+                }
+
+            }
         }
 
         internal static void DrawObjectNames()

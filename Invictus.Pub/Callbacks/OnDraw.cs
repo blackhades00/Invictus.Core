@@ -30,29 +30,15 @@ namespace InvictusSharp.Callbacks
                 Draw.DrawWatermark();
 
 
-                if (Properties.Settings.Default.DrawAttackRange) Draw.DrawAttackRange(Engine.GetLocalObject(), Color.Cyan);
+                if (Properties.Settings.Default.DrawAttackRange) Draw.DrawAttackRange(Engine.GetLocalObject(), Color.White);
 
                 Draw.DrawWard();
 
                 if (Properties.Settings.Default.DrawSpellCD) Draw.DrawEnemyCooldowns();
 
                 if (Properties.Settings.Default.DrawRecallTracker) Draw.DrawRecallTracker();
-               
-
-                for (int i = 0; i < HeroManager.enemyList.Count; i++)
-                {
-                    var w2s = Renderer.WorldToScreen(HeroManager.enemyList[i].GetObj3DPos());
-                    if (!HeroManager.enemyList[i].IsVisible() && HeroManager.enemyList[i].GetAiManger().IsMoving())
-                    {
-                        DrawFactory.DrawBox(w2s.X - 30f, w2s.Y - 60f, 50f, 80f, Color.Aqua);
-                        Draw.DrawCooldown(HeroManager.enemyList[i]);
-                        DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName(),50, new Point((int)w2s.X,(int)w2s.Y),Color.Aqua);
-                    }
-                    
-                }
-
                 
-
+                Draw.DrawFoWTracker();;
             }
         }
     }

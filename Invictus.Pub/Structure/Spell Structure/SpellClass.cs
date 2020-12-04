@@ -57,6 +57,11 @@ namespace InvictusSharp.Structures.Spell_Structure
             return GetCooldownExpire() - Engine.GetGameTime() <= 0 && GetLevel() > 0;
         }
 
+        internal int GetCurrentCooldown()
+        {
+            return (int)(GetCooldownExpire() - Engine.GetGameTime());
+        }
+
         internal SpellInfo GetSpellInfo()
         {
             var spellInfo = Utils.ReadInt(spell + 0x134);
