@@ -41,15 +41,17 @@ namespace InvictusSharp.Framework.UpdateService
 
         internal static class StaticLists
         {
-            public static readonly int OHeroList = 0x1C549FC;
-            public static readonly int OMinionList = 0x1C56B50;
-            public static readonly int OTurretList = 0x34EA640;
+            public static readonly int OHeroList = 0x1C6848C;
+            public static readonly int OMinionList = 0x28B6B48;
+            public static readonly int OTurretList = 0x34FE1E0;
+            public static readonly int OInhibList = 0x3507814;
+            public static readonly int OMissileList = 0x3505404;
         }
 
         internal static class Renderer
         {
-            public static readonly int ORenderer = 0x351AAD4;
-            public static readonly int OViewMatrix = 0x3517E08;
+            public static readonly int ORenderer = 0x352FD44;
+            public static readonly int OViewMatrix = 0x352CF48; //0x353DF38;
         }
 
         internal static class ObjectManager
@@ -62,56 +64,50 @@ namespace InvictusSharp.Framework.UpdateService
 
         internal static class GameObjectStruct
         {
-            public static readonly int OLocalPlayer = 0x34F36CC;
+            public static readonly int OLocalPlayer = 0x3507098;
 
             public static readonly int OObjTeam = 0x4C;
             public static readonly int OObjName = 0x6C;
-            public static readonly int oObjLevel = 0x3674;
+            public static readonly int oObjLevel = 0x3694;
             public static readonly int OObjPos = 0x1D8;
             public static readonly int oNetworkID = 0xCC;
             public static readonly int OObjVisibility = 0x270;
             public static readonly int OIsTargetable = 0xD30;
-            public static readonly int OObjHealth = 0xDC4;
-            public static readonly int OObjMaxHealth = 0xDD4;
-            public static readonly int OObjChampionName = 0x3134;
-            public static readonly int oBasicAttack = 0x1284;
-            public static readonly int oBonusAttack = 0x1204;
-            public static readonly int oAttackRange = 0x12CC;
+            public static readonly int OObjHealth = 0xD98;
+            public static readonly int OObjMaxHealth = 0xDA8;
+            public static readonly int oObjArmor = 0x1278;
+            public static readonly int OObjChampionName = 0x3114;
+            public static readonly int oBasicAttack = 0x1250;
+            public static readonly int oMoveSpeed = 0x1290;
+            public static readonly int oBonusAttack = 0x11D0;
+            public static readonly int oAttackRange = 0x1298;
             public static readonly int oIsAlive = 0x218;
-            public static readonly int oRecallState = 0xDA4;
+            public static readonly int oRecallState = 0xD8C;
             public static readonly int oObjTarget = 0x3150;
+            public static readonly int oUnitComponentInfo = 0x2F24;
+            public static readonly int oUCIProperties = 0x1C;
+            public static readonly int oUnitBoundingRadius = 0x454;
         };
-
-        internal static class CharInfo
-        {
-            public static readonly int OCharInfo = 0x168C;
-
-            public static readonly int OBaseAttackDamage = OCharInfo + 304;
-            public static readonly int OFlatPhysicalDamageMod = OCharInfo + 112;
-
-            public static readonly int OArmor = OCharInfo + 448;
-            public static readonly int OBonusArmor = OCharInfo + 464;
-        };
-
 
         internal static class EngineStruct
         {
-            public static readonly int OGameTime = 0x34EB794; //F3 0F 11 05 ? ? ? ? 8B 49
-
+            public static readonly int OGameTime = 0x34FF228; //F3 0F 11 05 ? ? ? ? 8B 49
+            public static readonly int oZoomClass = 0x34FF1CC;
             internal struct Functions
             {
-                public static readonly int OGetAttackCastDelay = 0x29D150;
-                public static readonly int OIsObjectType = 0x17BBB0; //51 56 57 8B F9 33 D2 0F B6 47 58
+                public static readonly int OGetAttackCastDelay = 0x2A1D50;
+                public static readonly int OIsObjectType = 0x171280; //51 56 57 8B F9 33 D2 0F B6 47 58
             }
         };
 
         internal static class AIManager
         {
-            public static readonly int OAiManager = 0x3010;
+            public static readonly int OAiManager = 0x2FF8;//0x16DB60;
 
             public static readonly int OVelocity = 0x2C8;
             public static readonly int NavBegin = 0x1BC;
-            public static readonly int NavEnd = 0x1C0;
+            public static readonly int NavEnd = 0x1c0;
+            public static readonly int oMoveSpeed = 0x194;
             public static readonly int PassedWaypoints = 0x19C;
             public static readonly int IsMoving = 0x198;
             public static readonly int IsDashing = 0x1EC;
@@ -122,7 +118,7 @@ namespace InvictusSharp.Framework.UpdateService
 
         internal static class SpellBook
         {
-            public static readonly int Instance = 0x2708;
+            public static readonly int Instance = 0x26E8;
         }
 
         internal static class SpellStructs
@@ -167,7 +163,7 @@ namespace InvictusSharp.Framework.UpdateService
                 public const int WindupTime = 0x4C0;
                 public const int Cooldown = 0x4d4;
                 public const int oIsSpell = 0x4dc;
-                public const int IsAutoAttack = 0x4E0;
+                public const int IsAutoAttack = 0xBC;
                 public const int IsSpecialAttack = 0x4E1;
                 public const int ManaCost = 0x4f0;
                 public const int CastStartTime = 0x10;

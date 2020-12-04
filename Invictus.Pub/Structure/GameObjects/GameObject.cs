@@ -52,20 +52,18 @@ namespace InvictusSharp.Structures.GameObjects
             return Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjMaxHealth);
         }
 
-        internal static bool IsNoMinion(this int obj)
-        {
-            return obj.GetMaxHp() == 1f || obj.GetMaxHp() == 3f || obj.GetMaxHp() == 4f;
-        }
-
         internal static bool IsWard(this int obj)
         {
-            return obj.GetMaxHp() == 3f || obj.GetMaxHp() == 4f;
+            return obj.GetName().Contains("ward");
         }
 
 
-        internal static bool IsInRange(this int obj)
+        internal static bool IsInRange(this int obj, float range = 0f)
         {
-            return obj.GetDistance(Engine.GetLocalObject()) <= Engine.GetLocalObject().GetAttackRange();
+            if (range == 0f)
+                range = Engine.GetLocalObject().GetAttackRange();
+
+            return obj.GetDistance(Engine.GetLocalObject()) <= range;
         }
 
         internal static bool IsAutoAttacking(this int obj)
@@ -110,12 +108,12 @@ namespace InvictusSharp.Structures.GameObjects
 
         internal static float GetTotalArmor(this int obj)
         {
-            return Utils.ReadFloat(obj + Offsets.CharInfo.OArmor);
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oObjArmor);
         }
 
         internal static float GetAttackRange(this int obj)
         {
-            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oAttackRange);
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oAttackRange) + obj.GetBoundingRadius();
         }
 
         internal static int GetRecallState(this int obj)
@@ -123,11 +121,6 @@ namespace InvictusSharp.Structures.GameObjects
             return Utils.ReadInt(obj + Offsets.GameObjectStruct.oRecallState);
         }
 
-
-        internal static int GetTarget(this int obj)
-        {
-            return Utils.ReadInt((obj + Offsets.GameObjectStruct.oObjTarget));
-        }
 
         internal static int GetNetworkID(this int obj)
         {
@@ -137,6 +130,21 @@ namespace InvictusSharp.Structures.GameObjects
         internal static int GetLevel(this int obj)
         {
             return Utils.ReadInt(obj + Offsets.GameObjectStruct.oObjLevel);
+        }
+
+        internal static float GetMoveSpeed(this int obj)
+        {
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oMoveSpeed);
+        }
+
+        internal static float GetBoundingRadius(this int obj)
+        {
+            var unitComponentInfo = Utils.ReadInt(obj + Offsets.GameObjectStruct.oUnitComponentInfo);
+            var uciProperties = Utils.ReadInt(unitComponentInfo + Offsets.GameObjectStruct.oUCIProperties);
+
+            var boundingRadius = Utils.ReadFloat(uciProperties + Offsets.GameObjectStruct.oUnitBoundingRadius);
+
+            return boundingRadius > 500f ? 65f : boundingRadius;
         }
 
         //Flag Checks

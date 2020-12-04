@@ -154,5 +154,29 @@ namespace InvictusSharp.Properties {
                 this["Orbwalker_lasthitDelay"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DrawZoomHack {
+            get {
+                return ((bool)(this["DrawZoomHack"]));
+            }
+            set {
+                this["DrawZoomHack"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ToggleAutoSmite {
+            get {
+                return ((bool)(this["ToggleAutoSmite"]));
+            }
+            set {
+                this["ToggleAutoSmite"] = value;
+            }
+        }
     }
 }

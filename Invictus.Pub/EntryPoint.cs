@@ -25,40 +25,35 @@ namespace InvictusSharp
 
         public static void LoadCore()
         {
+            MessageBox.Show("TESTSTE");
             // AntiDebugService.StartAntiDbgService();
             if (!Riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6"))
             {
                 Environment.Exit(1);
                 return;
             }
-
             DebugConsole.AllocConsole();
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             InitialiseCore(); // Init the core, start of main functions. Call this in Loader.
         }
 
         internal static async void InitialiseCore()
         {
-            Logger.Log("Initiating InvictusSharp...", Logger.eLoggerType.Info);
+            Logger.Log("Initiating Vault7...", Logger.eLoggerType.Info);
 
 
             try
             {
-                await Task.Run(() => ActivePlayerData.ParseUnitRadiusData());
-                Engine.SetBoundingRadius();
-                ActivePlayerData.ParseSpellDB();
-
                 Offsets.Base = Offsets.GetBase();
                 Offsets.ProcessHandle = Offsets.GetLeagueHandle();
                 GameObject.Me = Engine.GetLocalObject();
 
                 HeroManager.PushHeroList();
-                 MinionManager.PushTurretList();
+                MinionManager.PushStructureLists();
 
                 await Task.Run(() => MainThread.MainLoop());
                 // GetChampionModule.LoadChampionModule();
-                await Task.Run(() => Utils.ShowWelcomeMessage());
+                Logger.Log("Welcome to the Vault", Logger.eLoggerType.Info);
                 await Task.Run(() => Overlay.Show());
             }
             catch (Exception)
@@ -67,5 +62,6 @@ namespace InvictusSharp
                 throw new Exception("InitException");
             }
         }
+
     }
 }

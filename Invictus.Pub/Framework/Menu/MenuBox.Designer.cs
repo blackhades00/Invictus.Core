@@ -35,6 +35,8 @@
             this.OrbwalkerSettingButton = new System.Windows.Forms.Button();
             this.CoreSettingButton = new System.Windows.Forms.Button();
             this.SideMenuPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.ChampSettingsButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.nightPanel1.SuspendLayout();
             this.SideMenuPanel.SuspendLayout();
             this.SuspendLayout();
@@ -72,9 +74,9 @@
             this.dungeonHeaderLabel1.ForeColor = System.Drawing.Color.White;
             this.dungeonHeaderLabel1.Location = new System.Drawing.Point(138, 7);
             this.dungeonHeaderLabel1.Name = "dungeonHeaderLabel1";
-            this.dungeonHeaderLabel1.Size = new System.Drawing.Size(86, 16);
+            this.dungeonHeaderLabel1.Size = new System.Drawing.Size(56, 16);
             this.dungeonHeaderLabel1.TabIndex = 0;
-            this.dungeonHeaderLabel1.Text = "INVICTUS";
+            this.dungeonHeaderLabel1.Text = "Vault7";
             // 
             // button1
             // 
@@ -83,7 +85,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Mongolian Baiti", 11.25F);
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(3, 101);
+            this.button1.Location = new System.Drawing.Point(3, 150);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(137, 43);
             this.button1.TabIndex = 5;
@@ -97,7 +99,7 @@
             this.OrbwalkerSettingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OrbwalkerSettingButton.Font = new System.Drawing.Font("Mongolian Baiti", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OrbwalkerSettingButton.ForeColor = System.Drawing.Color.White;
-            this.OrbwalkerSettingButton.Location = new System.Drawing.Point(3, 52);
+            this.OrbwalkerSettingButton.Location = new System.Drawing.Point(3, 101);
             this.OrbwalkerSettingButton.Name = "OrbwalkerSettingButton";
             this.OrbwalkerSettingButton.Size = new System.Drawing.Size(137, 43);
             this.OrbwalkerSettingButton.TabIndex = 3;
@@ -126,13 +128,45 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.SideMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.SideMenuPanel.Controls.Add(this.CoreSettingButton);
+            this.SideMenuPanel.Controls.Add(this.button2);
             this.SideMenuPanel.Controls.Add(this.OrbwalkerSettingButton);
             this.SideMenuPanel.Controls.Add(this.button1);
+            this.SideMenuPanel.Controls.Add(this.ChampSettingsButton);
             this.SideMenuPanel.Location = new System.Drawing.Point(0, 38);
             this.SideMenuPanel.Name = "SideMenuPanel";
             this.SideMenuPanel.Size = new System.Drawing.Size(143, 348);
             this.SideMenuPanel.TabIndex = 2;
             this.SideMenuPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SideMenuPanel_Paint);
+            // 
+            // ChampSettingsButton
+            // 
+            this.ChampSettingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ChampSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChampSettingsButton.Font = new System.Drawing.Font("Mongolian Baiti", 11.25F);
+            this.ChampSettingsButton.ForeColor = System.Drawing.Color.White;
+            this.ChampSettingsButton.Location = new System.Drawing.Point(3, 199);
+            this.ChampSettingsButton.Name = "ChampSettingsButton";
+            this.ChampSettingsButton.Size = new System.Drawing.Size(137, 43);
+            this.ChampSettingsButton.TabIndex = 6;
+            this.ChampSettingsButton.Text = "Champ Settings";
+            this.ChampSettingsButton.UseVisualStyleBackColor = true;
+            this.ChampSettingsButton.Click += new System.EventHandler(this.ChampSettingsButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Mongolian Baiti", 11.25F);
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(3, 52);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(137, 43);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Utils";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // MenuBox
             // 
@@ -165,5 +199,7 @@
         private System.Windows.Forms.Button OrbwalkerSettingButton;
         private System.Windows.Forms.Button CoreSettingButton;
         private System.Windows.Forms.FlowLayoutPanel SideMenuPanel;
+        private System.Windows.Forms.Button ChampSettingsButton;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -5,6 +5,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using InvictusSharp.Structures.GameEngine;
+using InvictusSharp.Structures.GameObjects;
 
 namespace InvictusSharp.Framework.Menu
 {
@@ -75,6 +77,16 @@ namespace InvictusSharp.Framework.Menu
         private void SaveSettingsButton_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
+        }
+
+        private void ChampSettingsButton_Click(object sender, EventArgs e)
+        {
+            MenuContentPanel.Controls[Engine.GetLocalObject().GetChampionName() + "View"].BringToFront();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MenuContentPanel.Controls["UtilsView"].BringToFront();
         }
     }
 }

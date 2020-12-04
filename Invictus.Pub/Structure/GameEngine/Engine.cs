@@ -54,7 +54,7 @@ namespace InvictusSharp.Structures.GameEngine
         }
 
         [DllImport("Invictus.ACD.dll")]
-        private static extern float GetAttackCastDelay(IntPtr lolHandle, int attackCastDelayAddr, int @object);
+        private static extern float GetAttackCastDelay(IntPtr lolHandle, int attackCastDelayAddr, int obj);
 
         internal static float GetAttackCastDelay()
         {
@@ -107,7 +107,7 @@ namespace InvictusSharp.Structures.GameEngine
             if (GetLocalObject().GetChampionName() == "Graves")
             {
                 var attackDelay = 1.0740296828d * 1000 * GetAttackDelay() - 716.2381256175d;
-                if (GetGameTimeTickCount() + GetPing() + Engine.GetLocalObject().GetSpellBook().GetSpellCastInfo().GetWindupTime() >= LastAaTick + attackDelay)
+                if (GetGameTimeTickCount() + GetPing() >= LastAaTick + attackDelay)
                     // && Player.HasBuff("GravesBasicAttackAmmo1"))
                     return true;
 

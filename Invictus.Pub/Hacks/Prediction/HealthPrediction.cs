@@ -39,7 +39,7 @@ namespace InvictusSharp.Hacks.Prediction
                 if (attack.GetNetworkID() == obj.GetNetworkID())
                 {
                     attackTick = attack.GetSpellBook().GetSpellCastInfo().GetCastStartTime();
-                    var landtime = attackTick + 1000 * Math.Max(0, Vector3.Distance(obj.GetObj3DPos(), attack.GetSpellBook().GetSpellCastInfo().GetSpellStartPos()) - 65)+ delay;
+                    var landtime = attackTick + 1000 * Math.Max(0, Vector3.Distance(obj.GetObj3DPos(), attack.GetSpellBook().GetSpellCastInfo().GetSpellStartPos()) - obj.GetBoundingRadius())+ delay;
                     if (landtime < Engine.GetGameTimeTickCount() + t)
                     {
                         attackDamage = attack.GetTotalAd();

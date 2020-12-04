@@ -14,7 +14,7 @@ using DeviceId.Encoders;
 using DeviceId.Formatters;
 using InvictusSharp.Framework.UpdateService;
 using InvictusSharp.LogService;
-using LeagueSharp.Common;
+
 using SharpDX;
 
 namespace InvictusSharp.Framework
@@ -42,12 +42,10 @@ namespace InvictusSharp.Framework
             }
         }
 
-        internal static void ShowWelcomeMessage()
+        public static void SetZoom()
         {
-            Logger.Log("InvictusSharp Initiated successfully.", Logger.eLoggerType.Info);
-            Logger.Log("This is NOT something which should be sold!! its a public release by Jiingz(Invictus) on UnknownCheats!!", Logger.eLoggerType.Warn);
-            Logger.Log("If you've bought this, you got scammed!", Logger.eLoggerType.Warn);
-
+            int zoomclass = Utils.ReadInt(Offsets.Base + Offsets.EngineStruct.oZoomClass);
+            Utils.Write(zoomclass + 0x28, 4500f);
         }
 
         /// <summary>
@@ -221,34 +219,6 @@ namespace InvictusSharp.Framework
         public static float Length(this Vector3 vec)
         {
             return (float)Math.Sqrt((vec.X * vec.X) + (vec.Y * vec.Y) + (vec.Z * vec.Z));
-        }
-
-        public static List<Vector2> CutPath(this List<Vector2> path, float distance)
-        {
-            var result = new List<Vector2>();
-            var Distance = distance;
-            if (distance < 0)
-            {
-                path[0] = path[0] + distance * (path[1] - path[0]).Normalized();
-                return path;
-            }
-
-            for (var i = 0; i < path.Count - 1; i++)
-            {
-                var dist = path[i].Distance(path[i + 1]);
-                if (dist > Distance)
-                {
-                    result.Add(path[i] + Distance * (path[i + 1] - path[i]).Normalized());
-                    for (var j = i + 1; j < path.Count; j++)
-                    {
-                        result.Add(path[j]);
-                    }
-
-                    break;
-                }
-                Distance -= dist;
-            }
-            return result.Count > 0 ? result : new List<Vector2> { path.Last() };
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]

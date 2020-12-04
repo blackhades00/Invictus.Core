@@ -19,6 +19,7 @@ namespace InvictusSharp.Framework.Menu
             this.ToggleAttackRangeDrawings.Checked = Properties.Settings.Default.DrawAttackRange;
             this.ToggleCooldownTracker.Checked = Properties.Settings.Default.DrawSpellCD;
             this.ToggleRecallTracker.Checked = Properties.Settings.Default.DrawRecallTracker;
+            this.ToggleZoomhack.Checked = Properties.Settings.Default.DrawZoomHack;
 
         }
 
@@ -56,6 +57,14 @@ namespace InvictusSharp.Framework.Menu
             {
                 Properties.Settings.Default.DrawRecallTracker = false;
             }
+        }
+
+        private void hopeToggle1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (ToggleZoomhack.Checked)
+                Properties.Settings.Default.DrawZoomHack = true;
+            else
+                Properties.Settings.Default.DrawZoomHack = false;
         }
     }
 }

@@ -34,6 +34,8 @@
             this.foreverLabel2 = new ReaLTaiizor.Controls.ForeverLabel();
             this.ToggleRecallTracker = new ReaLTaiizor.Controls.HopeToggle();
             this.foreverLabel4 = new ReaLTaiizor.Controls.ForeverLabel();
+            this.ToggleZoomhack = new ReaLTaiizor.Controls.HopeToggle();
+            this.foreverLabel3 = new ReaLTaiizor.Controls.ForeverLabel();
             this.SuspendLayout();
             // 
             // ToggleAttackRangeDrawings
@@ -138,11 +140,47 @@
             this.foreverLabel4.TabIndex = 8;
             this.foreverLabel4.Text = "Recall Tracker";
             // 
+            // ToggleZoomhack
+            // 
+            this.ToggleZoomhack.AutoSize = true;
+            this.ToggleZoomhack.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
+            this.ToggleZoomhack.BaseColorA = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(223)))), ((int)(((byte)(230)))));
+            this.ToggleZoomhack.BaseColorB = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.ToggleZoomhack.Checked = true;
+            this.ToggleZoomhack.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ToggleZoomhack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ToggleZoomhack.HeadColorA = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(223)))), ((int)(((byte)(230)))));
+            this.ToggleZoomhack.HeadColorB = System.Drawing.Color.White;
+            this.ToggleZoomhack.HeadColorC = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.ToggleZoomhack.HeadColorD = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(158)))), ((int)(((byte)(255)))));
+            this.ToggleZoomhack.Location = new System.Drawing.Point(3, 142);
+            this.ToggleZoomhack.Name = "ToggleZoomhack";
+            this.ToggleZoomhack.Size = new System.Drawing.Size(48, 20);
+            this.ToggleZoomhack.TabIndex = 9;
+            this.ToggleZoomhack.Text = "hopeToggle1";
+            this.ToggleZoomhack.UseVisualStyleBackColor = true;
+            this.ToggleZoomhack.CheckedChanged += new System.EventHandler(this.hopeToggle1_CheckedChanged_1);
+            this.ToggleZoomhack.Click += new System.EventHandler(this.SaveDrawingSettings);
+            // 
+            // foreverLabel3
+            // 
+            this.foreverLabel3.AutoSize = true;
+            this.foreverLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.foreverLabel3.Font = new System.Drawing.Font("Mongolian Baiti", 10F);
+            this.foreverLabel3.ForeColor = System.Drawing.Color.LightGray;
+            this.foreverLabel3.Location = new System.Drawing.Point(3, 124);
+            this.foreverLabel3.Name = "foreverLabel3";
+            this.foreverLabel3.Size = new System.Drawing.Size(204, 15);
+            this.foreverLabel3.TabIndex = 10;
+            this.foreverLabel3.Text = "Zoomhack [USE AT OWN RISK]";
+            // 
             // DrawingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(40)))), ((int)(((byte)(85)))));
+            this.Controls.Add(this.foreverLabel3);
+            this.Controls.Add(this.ToggleZoomhack);
             this.Controls.Add(this.foreverLabel4);
             this.Controls.Add(this.ToggleRecallTracker);
             this.Controls.Add(this.foreverLabel2);
@@ -164,5 +202,7 @@
         private ReaLTaiizor.Controls.ForeverLabel foreverLabel2;
         private ReaLTaiizor.Controls.HopeToggle ToggleRecallTracker;
         private ReaLTaiizor.Controls.ForeverLabel foreverLabel4;
+        private ReaLTaiizor.Controls.HopeToggle ToggleZoomhack;
+        private ReaLTaiizor.Controls.ForeverLabel foreverLabel3;
     }
 }

@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.UpdateService;
+using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 
 namespace InvictusSharp.Hacks.TargetSelector
@@ -21,6 +22,8 @@ namespace InvictusSharp.Hacks.TargetSelector
 
         private static readonly int heroList = Utils.ReadInt(heroList_pretPtr + 0x4);
 
+        private static readonly int heroList_size = Utils.ReadInt(heroList_pretPtr + 0x8);
+
         /// <summary>
         /// Static list which contains all enemys.
         /// </summary>
@@ -31,23 +34,12 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// </summary>
         internal static void PushHeroList()
         {
-            var index = 0x4;
-            var obj = -1;
-            while (obj != 0)
+            for (int i = 0; i < heroList_size; i++)
             {
-                obj = Utils.ReadInt(heroList + index);
-                index += 0x4;
+                int obj = Utils.ReadInt(heroList + i * 0x4);
 
-                switch (obj)
-                {
-                    case 0x00:
-                        continue;
-                    default:
-                        {
-                            if (obj.IsEnemy()) enemyList.Add(obj);
-                            break;
-                        }
-                }
+                if(obj.IsEnemy())
+                    enemyList.Add(obj);
             }
         }
 
@@ -56,13 +48,16 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// The Object is valid for a attack, which means its in range and a valid target/succeeded on a validation check.
         /// </summary>
         /// <returns></returns>
-        internal static int GetLowestHPTarget()
+        internal static int GetLowestHPTarget(float range = 0f)
         {
+            if (range == 0f)
+                range = Engine.GetLocalObject().GetAttackRange();
+
             var lowestHPTarget = 0;
 
             for (var i = 0; i < enemyList.Count; i++)
                 // Logger.Log("HEALTH: " + enemyList[i].GetHealth(), Logger.eLoggerType.Debug);
-                if (enemyList[i].IsInRange())
+                if (enemyList[i].IsInRange(range))
                     if (enemyList[i].IsAlive() && enemyList[i].IsVisible() && enemyList[i].IsTargetable())
                     {
                         if (lowestHPTarget == 0) lowestHPTarget = enemyList[i];

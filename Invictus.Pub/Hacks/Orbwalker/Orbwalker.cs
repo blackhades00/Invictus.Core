@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.Input;
 using InvictusSharp.Hacks.Features;
+using InvictusSharp.LogService;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 
@@ -64,13 +65,10 @@ namespace InvictusSharp.Hacks.Orbwalker
                 {
                     if (target != 0 && Engine.CanAttack() && Attack)
                     {
-                        if (Engine.GetLocalObject().IsAutoAttacking())
-                            return;
+                        var health = target.GetHealth();
 
                         DisableNextAttack = false;
-                        //FireBeforeAttack(target);
-
-
+                        
                         if (!DisableNextAttack)
                         {
                             if (Engine.GetLocalObject().GetChampionName() != "Kalista") _missileLaunched = false;
@@ -82,7 +80,7 @@ namespace InvictusSharp.Hacks.Orbwalker
                                 Engine.LastAaTick = Engine.GetGameTimeTickCount() + Engine.GetPing();
                             LastAttackCommandT = Engine.GetGameTimeTickCount();
                             _lastTarget = target;
-                            while (Engine.CanAttack()) Thread.Sleep(TimeSpan.MinValue.Milliseconds);
+                           Thread.Sleep(20);
                             Cursor.Position = c;
                             Attack = false;
                             Move = true;
@@ -136,12 +134,12 @@ namespace InvictusSharp.Hacks.Orbwalker
                         if (vector2D.X == 0 && vector2D.Y == 0)
                         {
                             Cursor.Position = vector2D;
-                            Mouse.MouseClickRight();
+                            NativeImport.SendKey(0x16);
                             break;
                         }
 
                         Cursor.Position = vector2D;
-                        Mouse.MouseClickRight();
+                        NativeImport.SendKey(0x16);
                         break;
                     case OrderType.AutoAttack:
                         Keyboard.SendKey((short) Keyboard.KeyBoardScanCodes.KeyOpeningBrackets);

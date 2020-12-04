@@ -14,10 +14,10 @@ namespace InvictusSharp.Hacks.TargetSelector
     internal class MinionManager
     {
 
-        /// <summary>
-        /// List containing all Turrets.
-        /// </summary>
+        #region Minions
         internal static List<int> TurretList = new List<int>();
+
+        internal static List<int> InhibList = new List<int>();
 
         /// <summary>
         /// Gets all minions depending on the given parameter.
@@ -27,35 +27,30 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// <returns></returns>
         internal static List<int> GetMinions(bool isEnemy, bool inRange)
         {
+            int minionList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
+
+            int minionList = Utils.ReadInt(minionList_PrePtr + 0x4);
+
+            int minionList_size = Utils.ReadInt(minionList_PrePtr + 0x8);
             List<int> minions = new List<int>();
 
-            var minionList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
-            var minionList = Utils.ReadInt(minionList_PrePtr + 0x4);
-
-            var index = 0x0;
-            var obj = -1;
-
-            while (obj != 0)
+            for (int i = 0; i < minionList_size; i++)
             {
-                obj = Utils.ReadInt(minionList + index);
-                index += 0x4;
+                int obj = Utils.ReadInt(minionList + i * 0x4);
 
-                if (obj == 0x00)
-                    continue;
-                else
+                if (obj.IsAlive())
                 {
                     if (obj.IsInRange() == inRange)
                     {
                         if (obj.IsEnemy() == isEnemy)
                         {
-                            if (obj.IsAlive() && obj.IsVisible() && obj.IsTargetable() == isEnemy)
+                            if (obj.IsVisible() && obj.IsTargetable() == isEnemy)
                                 minions.Add(obj);
                         }
                     }
-
                 }
-            }
 
+            }
             return minions;
         }
 
@@ -65,9 +60,10 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// <returns></returns>
         internal static int GetLasthitTarget()
         {
-            foreach (var minion in GetMinions(true, true).Where(minion => minion.IsLasthitable()))
+            foreach (var minion in GetMinions(true, true))
             {
-                return minion;
+                if (minion.IsLasthitable())
+                    return minion;
 
             }
 
@@ -81,8 +77,8 @@ namespace InvictusSharp.Hacks.TargetSelector
         internal static int GetWaveclearTarget()
         {
             var target = 0;
-            if (GetEnemyTurretInRange() != 0)
-                return GetEnemyTurretInRange();
+            if (GetEnemyStructuresInRange() != 0)
+                return GetEnemyStructuresInRange();
 
             foreach (var minion in GetMinions(true, true))
             {
@@ -91,11 +87,11 @@ namespace InvictusSharp.Hacks.TargetSelector
                     return minion;
                 else
                 {
-                    if(target == 0)
+                    if (target == 0)
                     {
                         target = minion;
                     }
-                    else if(minion.GetHealth() < target.GetHealth())
+                    else if (minion.GetHealth() < target.GetHealth())
                     {
                         target = minion;
                     }
@@ -105,11 +101,24 @@ namespace InvictusSharp.Hacks.TargetSelector
             return target;
         }
 
+        #endregion
+
+        #region Turret
+
+        private static readonly int turretList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OTurretList);
+        private static readonly int turretList = Utils.ReadInt(turretList_PrePtr + 0x4);
+        private static readonly int turretList_size = Utils.ReadInt(turretList_PrePtr + 0x8);
+
+        private static readonly int inhibList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OInhibList);
+        private static readonly int inhibList = Utils.ReadInt(inhibList_PrePtr + 0x4);
+        private static readonly int inhibList_size = Utils.ReadInt(inhibList_PrePtr + 0x8);
+
+
         /// <summary>
         /// Gets all Enemy Turrets in attack range. Turrets are targetable.
         /// </summary>
         /// <returns></returns>
-        internal static int GetEnemyTurretInRange()
+        internal static int GetEnemyStructuresInRange()
         {
             foreach (var Turret in TurretList)
             {
@@ -125,40 +134,45 @@ namespace InvictusSharp.Hacks.TargetSelector
                 }
             }
 
+            foreach (var Inhib in InhibList)
+            {
+                if (Inhib.IsInRange())
+                {
+                    if (Inhib.IsVisible())
+                        if (Inhib.IsEnemy())
+                        {
+                            if (Inhib.IsAlive() && Inhib.IsTargetable())
+                                return Inhib;
+
+                        }
+                }
+            }
+
             return 0;
         }
 
         /// <summary>
         /// Pushes all Turrets into the <see cref="TurretList"/>.
         /// </summary>
-        internal static void PushTurretList()
+        internal static void PushStructureLists()
         {
-            var turretList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OTurretList);
-            var turretList = Utils.ReadInt(turretList_PrePtr + 0x4);
 
-            var index = 0x0;
-            var obj = -1;
-            while (obj != 0)
+            for (int i = 0; i < turretList_size; i++)
             {
-                obj = Utils.ReadInt(turretList + index);
-                index += 0x4;
+                int obj = Utils.ReadInt(turretList + i * 0x4);
+                TurretList.Add(obj);
 
-                switch (obj)
-                {
-                    case 0x00:
-                        continue;
-                    default:
-                        {
+            }
 
-                            if (obj.IsAlive())
-                            {
-                                TurretList.Add(obj);
-                            }
-                            break;
-                        }
-                }
+            for (int i = 0; i < inhibList_size; i++)
+            {
+                int obj = Utils.ReadInt(inhibList + i * 0x4);
+                InhibList.Add(obj);
             }
         }
+
+        #endregion
+
 
     }
 }

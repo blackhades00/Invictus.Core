@@ -3,6 +3,9 @@
 // </copyright>
 
 using System.Windows.Forms;
+using InvictusSharp.Framework.Menu.Champ_Settings_Views;
+using InvictusSharp.Structures.GameEngine;
+using InvictusSharp.Structures.GameObjects;
 
 namespace InvictusSharp.Framework.Menu
 {
@@ -31,6 +34,17 @@ namespace InvictusSharp.Framework.Menu
             {
                 Dock = DockStyle.Fill
             };
+
+            switch (Engine.GetLocalObject().GetChampionName())
+            {
+                case "Vayne":
+                    var vayneView = new VayneView
+                    {
+                        Dock = DockStyle.Fill
+                    };
+                    MenuBox.MenuContentPanelExport.Controls.Add(vayneView);
+                    break;
+            }
 
             MenuBox.MenuContentPanelExport.Controls.Add(orbView);
             MenuBox.MenuContentPanelExport.Controls.Add(coreView);

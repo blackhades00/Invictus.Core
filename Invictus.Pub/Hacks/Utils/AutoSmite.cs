@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using InvictusSharp.Framework;
 using InvictusSharp.Framework.UpdateService;
+using InvictusSharp.Hacks.Drawings;
 using InvictusSharp.Hacks.TargetSelector;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
@@ -10,44 +14,69 @@ namespace InvictusSharp.Hacks.Features
 {
     public class AutoSmite
     {
+        private static int smiteKey = 0x0;
         internal static void Load()
         {
-            int[] smiteDmgArray =
-            {
-                390,
-                410,
-                430,
-                450,
-                480,
-                510,
-                540,
-                570,
-                600,
-                640,
-                680,
-                720,
-                760,
-                800,
-                850,
-                900,
-                950,
-                1000
-            };
+            if (!Engine.GetLocalObject().GetSpellBook()
+                .GetSpellClassInstance(SpellBook.SpellSlotId.Summoner2).GetSpellInfo().GetSpellName().Contains("Smite") && !Engine.GetLocalObject().GetSpellBook()
+                .GetSpellClassInstance(SpellBook.SpellSlotId.Summoner1).GetSpellInfo().GetSpellName().Contains("Smite"))
+                return;
 
-            var smiteDmg = smiteDmgArray[Engine.GetLocalObject().GetLevel()-1];
-
-            foreach (var minion in MinionManager.GetMinions(true,true).Where(minion => minion.IsNeutral()))
+            if (smiteKey == 0x0)
             {
-                if (minion.GetHealth() < smiteDmg)
-                {
-                    Point pos;
-                    var w2sPos = minion.GetObj2DPos();
-                    pos.X = w2sPos.X;
-                    pos.Y = w2sPos.Y;
-                    SpellBook.CastSpell(SpellBook.SpellSlot.F,pos);
-                }
-                    
+                if (Engine.GetLocalObject().GetSpellBook()
+                    .GetSpellClassInstance(SpellBook.SpellSlotId.Summoner1).GetSpellInfo().GetSpellName().Contains("Smite"))
+                    smiteKey = 0x20;
+                else if (Engine.GetLocalObject().GetSpellBook()
+                    .GetSpellClassInstance(SpellBook.SpellSlotId.Summoner2).GetSpellInfo().GetSpellName().Contains("Smite"))
+                    smiteKey = 0x21;
             }
+           
+
+            while (true)
+            {
+                if (Engine.GetLocalObject().GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Summoner2)
+                    .GetCharges() > 0)
+                {
+                    int[] smiteDmgArray =
+                    {
+                        390,
+                        410,
+                        430,
+                        450,
+                        480,
+                        510,
+                        540,
+                        570,
+                        600,
+                        640,
+                        680,
+                        720,
+                        760,
+                        800,
+                        850,
+                        900,
+                        950,
+                        1000
+                    };
+
+                    var smiteDmg = smiteDmgArray[Engine.GetLocalObject().GetLevel() - 1];
+
+                    foreach (var minion in MinionManager.GetMinions(true, true).Where(minion => minion.IsNeutral() && minion.GetMaxHp() > 500f))
+                    {
+                        if (minion.GetHealth() < smiteDmg)
+                        {
+                            var w2s = Renderer.WorldToScreen(minion.GetObj3DPos());
+                            var p = Cursor.Position;
+                            Cursor.Position = new System.Drawing.Point((int)w2s.X, (int)w2s.Y);
+                            NativeImport.SendKey(smiteKey);
+                            Cursor.Position = p;
+                        }
+
+                    }
+                }
+            }
+
         }
     }
 }

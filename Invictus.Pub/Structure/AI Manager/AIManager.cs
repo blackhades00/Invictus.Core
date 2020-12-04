@@ -67,9 +67,9 @@ namespace InvictusSharp.Structures.AI_Manager
         /// <returns></returns>
         internal Vector3 GetNavEnd()
         {
-            var x = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavEnd);
-            var y = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavEnd + 4);
-            var z = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.NavEnd + 8);
+            var x = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.OVelocity);
+            var y = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.OVelocity + 4);
+            var z = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.OVelocity + 8);
 
             return new Vector3(x, y, z);
         }
@@ -107,6 +107,16 @@ namespace InvictusSharp.Structures.AI_Manager
             var z = Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.ServerPosition + 8);
 
             return new Vector3(x, y, z);
+        }
+
+        internal float GetVelocity()
+        {
+            return Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.OVelocity);
+        }
+
+        internal float GetMoveSpeed()
+        {
+            return Utils.ReadFloat(aiManagerInstance + Offsets.AIManager.oMoveSpeed);
         }
     }
 }

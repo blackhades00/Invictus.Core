@@ -53,7 +53,7 @@ namespace InvictusSharp.Hacks.Drawings
         /// <returns></returns>
         internal static Vector2 GetScreenResolution()
         {
-            return new Vector2() {X = Utils.ReadInt(Instance + Width), Y = Utils.ReadInt(Instance + Height)};
+            return new Vector2() { X = Utils.ReadInt(Instance + Width), Y = Utils.ReadInt(Instance + Height) };
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace InvictusSharp.Hacks.Drawings
             M.Y = clipCoords.Y / clipCoords.W;
             M.Z = clipCoords.Z / clipCoords.W;
 
-            returnVec.X = (screen.X / 2 * M.X) + (M.X + screen.X / 2);
-            returnVec.Y = -(screen.Y / 2 * M.Y) + (M.Y + screen.Y / 2);
+            returnVec.X = (1920 / 2 * M.X) + (M.X + 1920 / 2);
+            returnVec.Y = -(1080 / 2 * M.Y) + (M.Y + 1080 / 2);
 
             return returnVec;
         }

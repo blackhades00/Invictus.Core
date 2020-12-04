@@ -2,6 +2,7 @@
 // Copyright (c) Invictus. All rights reserved.
 // </copyright>
 
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.UpdateService;
@@ -26,6 +27,14 @@ namespace InvictusSharp.Hacks.Drawings
                 Overlay.MenuBoxView.Hide();
         }
 
+        [DllImport("Vault7.Overlay.dll", SetLastError = true)]
+        public static extern void main();
+
+        internal static void InitVisuals()
+        {
+            main();
+        }
+
         /// <summary>
         /// Draws Watermark.
         /// </summary>
@@ -35,7 +44,7 @@ namespace InvictusSharp.Hacks.Drawings
             watermarkPoint.X = Screen.PrimaryScreen.WorkingArea.Width / 2;
             watermarkPoint.Y = Screen.PrimaryScreen.WorkingArea.Top + 10;
 
-            DrawFactory.DrawFont("InvictusSharp", 60, watermarkPoint, Color.Red);
+            DrawFactory.DrawFont("Vault7", 60, watermarkPoint, Color.Red);
         }
 
         internal static void DrawDebugText(string debugText)
@@ -55,14 +64,14 @@ namespace InvictusSharp.Hacks.Drawings
         {
             if (Utils.IsGameInForeground())
                 DrawFactory.DrawCircleRange(gameObject.GetObj3DPos(),
-                    Engine.BoundingRadius + Engine.GetLocalObject().GetAttackRange(), rGb, 1.5f);
+                     Engine.GetLocalObject().GetAttackRange(), rGb, 1.5f);
         }
 
         /// <summary>
         /// Draws wards (not visible ones). The colors are specified for the wardtype.
         /// Control wards have a red circle, while normal wards got a yellow one.
         /// </summary>
-        internal static async void DrawWard()
+        internal static void DrawWard()
         {
             var minionlist_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
             var minionList = Utils.ReadInt(minionlist_PrePtr + 0x4);
@@ -112,7 +121,7 @@ namespace InvictusSharp.Hacks.Drawings
         /// Draws spell cooldowns for the given object.
         /// </summary>
         /// <param name="obj"></param>
-        private static void DrawCooldown(int obj)
+        public static void DrawCooldown(int obj)
         {
             var spellClassInstance = obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q);
             var cooldownExpiredQ = spellClassInstance.GetCooldownExpire() - Engine.GetGameTime() <= 0 &&
