@@ -4,14 +4,10 @@
 
 using System.Windows.Forms;
 using InvictusSharp.Framework;
-using InvictusSharp.Framework.Input;
 using InvictusSharp.Hacks.Drawings;
-using InvictusSharp.Hacks.Orbwalker;
-using InvictusSharp.Hacks.TargetSelector;
-using InvictusSharp.LogService;
+using InvictusSharp.Hacks.Features;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
-using log4net;
 using SharpDX;
 
 namespace InvictusSharp.Callbacks
@@ -29,7 +25,6 @@ namespace InvictusSharp.Callbacks
             {
                 Draw.DrawWatermark();
 
-
                 if (Properties.Settings.Default.DrawAttackRange) Draw.DrawAttackRange(Engine.GetLocalObject(), Color.White);
 
                 Draw.DrawWard();
@@ -37,8 +32,12 @@ namespace InvictusSharp.Callbacks
                 if (Properties.Settings.Default.DrawSpellCD) Draw.DrawEnemyCooldowns();
 
                 if (Properties.Settings.Default.DrawRecallTracker) Draw.DrawRecallTracker();
-                
-                Draw.DrawFoWTracker();;
+
+                Draw.DrawFoWTracker();
+
+                if (AutoSmite.Loaded && Utils.IsKeyPressed(Keys.Y))
+                    Draw.DrawSmite();
+
             }
         }
     }

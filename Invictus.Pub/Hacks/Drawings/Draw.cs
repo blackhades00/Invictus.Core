@@ -250,6 +250,11 @@ namespace InvictusSharp.Hacks.Drawings
                     DrawCooldown(HeroManager.enemyList[i]);
         }
 
+        internal static void DrawSmite()
+        {
+            DrawFactory.DrawCircleRange(Engine.GetLocalObject().GetObj3DPos(), 500f, Color.Orange, 1.5f, false);
+        }
+
         internal static void DrawRecallTracker()
         {
             for (var i = 0; i < HeroManager.enemyList.Count; i++)
@@ -259,7 +264,7 @@ namespace InvictusSharp.Hacks.Drawings
                     {
                         Point pos;
                         pos.X = Screen.PrimaryScreen.WorkingArea.Width / 2 - 100;
-                        pos.Y = Screen.PrimaryScreen.WorkingArea.Top + 650 + i * 50;
+                        pos.Y = Screen.PrimaryScreen.WorkingArea.Top + 650 + i * 10;
                         DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName() + " is Recalling", 50, pos, Color.White);
                     }
              
@@ -272,7 +277,7 @@ namespace InvictusSharp.Hacks.Drawings
             for (int i = 0; i < HeroManager.enemyList.Count; i++)
             {
                 var w2s = Renderer.WorldToScreen(HeroManager.enemyList[i].GetObj3DPos());
-                if (!HeroManager.enemyList[i].IsVisible() && HeroManager.enemyList[i].GetAiManger().IsMoving())
+                if (!HeroManager.enemyList[i].IsVisible())
                 {
                     DrawFactory.DrawBox(w2s.X - 30f, w2s.Y - 60f, 50f, 80f, Color.Aqua);
                     Draw.DrawCooldown(HeroManager.enemyList[i]);

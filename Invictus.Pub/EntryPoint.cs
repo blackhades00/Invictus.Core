@@ -11,6 +11,7 @@ using InvictusSharp.Framework.API;
 using InvictusSharp.Framework.UpdateService;
 using InvictusSharp.Hacks.Drawings;
 using InvictusSharp.Hacks.Features;
+using InvictusSharp.Hacks.Orbwalker;
 using InvictusSharp.Hacks.TargetSelector;
 using InvictusSharp.LogService;
 using InvictusSharp.Modules.Champion_Modules;
@@ -52,6 +53,7 @@ namespace InvictusSharp
                 GameObject.Me = Engine.GetLocalObject();
 
                 HeroManager.PushHeroList();
+                Orbwalker.Windup = Windup.windupDict[Engine.GetLocalObject().GetChampionName()];
                 MinionManager.PushStructureLists();
 
                 await Task.Run(() => MainThread.MainLoop());
@@ -68,9 +70,9 @@ namespace InvictusSharp
 
                 if (Engine.GetLocalObject().GetSpellBook()
                     .GetSpellClassInstance(SpellBook.SpellSlotId.Summoner2).GetSpellInfo().GetSpellName()
-                    .Contains("Ignite") || Engine.GetLocalObject().GetSpellBook()
+                    .Contains("SummonerDot") || Engine.GetLocalObject().GetSpellBook()
                     .GetSpellClassInstance(SpellBook.SpellSlotId.Summoner1).GetSpellInfo().GetSpellName()
-                    .Contains("Ignite"))
+                    .Contains("SummonerDot"))
                 {
                     await Task.Run(() => AutoIgnite.Load());
                 }

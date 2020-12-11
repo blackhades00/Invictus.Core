@@ -19,12 +19,8 @@ namespace InvictusSharp.Modules.Champion_Modules.Vayne
 
         void IChampionModule<VayneModule>.QLogic()
         {
-            if (LocalChampionInfo.QInstance.IsSpellReady())
-                if (!Engine.CanAttack())
-                {
-                    Orbwalker.ResetAutoAttackTimer();
-                    SpellBook.CastSpell(0x10);
-                }
+          
+              
         }
 
         void IChampionModule<VayneModule>.WLogic()

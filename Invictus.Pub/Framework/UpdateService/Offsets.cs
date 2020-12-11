@@ -41,17 +41,17 @@ namespace InvictusSharp.Framework.UpdateService
 
         internal static class StaticLists
         {
-            public static readonly int OHeroList = 0x1C6848C;
-            public static readonly int OMinionList = 0x28B6B48;
-            public static readonly int OTurretList = 0x34FE1E0;
-            public static readonly int OInhibList = 0x3507814;
-            public static readonly int OMissileList = 0x3505404;
+            public static readonly int OHeroList = 0x1C5B580;
+            public static readonly int OMinionList = 0x28A9C24;
+            public static readonly int OTurretList = 0x34F12B8;
+            public static readonly int OInhibList = 0x34FA89C;
+            public static readonly int OMissileList = 0x34F848C;
         }
 
         internal static class Renderer
         {
-            public static readonly int ORenderer = 0x352FD44;
-            public static readonly int OViewMatrix = 0x352CF48; //0x353DF38;
+            public static readonly int ORenderer = 0x3522E34;
+            public static readonly int OViewMatrix = 0x3520038; //0x353DF38;
         }
 
         internal static class ObjectManager
@@ -64,7 +64,7 @@ namespace InvictusSharp.Framework.UpdateService
 
         internal static class GameObjectStruct
         {
-            public static readonly int OLocalPlayer = 0x3507098;
+            public static readonly int OLocalPlayer = 0x34FA11C;
 
             public static readonly int OObjTeam = 0x4C;
             public static readonly int OObjName = 0x6C;
@@ -72,11 +72,11 @@ namespace InvictusSharp.Framework.UpdateService
             public static readonly int OObjPos = 0x1D8;
             public static readonly int oNetworkID = 0xCC;
             public static readonly int OObjVisibility = 0x270;
-            public static readonly int OIsTargetable = 0xD30;
+            public static readonly int OIsTargetable = 0xD00;
             public static readonly int OObjHealth = 0xD98;
             public static readonly int OObjMaxHealth = 0xDA8;
             public static readonly int oObjArmor = 0x1278;
-            public static readonly int OObjChampionName = 0x3114;
+            public static readonly int OObjChampionName = 0x310C;
             public static readonly int oBasicAttack = 0x1250;
             public static readonly int oMoveSpeed = 0x1290;
             public static readonly int oBonusAttack = 0x11D0;
@@ -84,18 +84,18 @@ namespace InvictusSharp.Framework.UpdateService
             public static readonly int oIsAlive = 0x218;
             public static readonly int oRecallState = 0xD8C;
             public static readonly int oObjTarget = 0x3150;
-            public static readonly int oUnitComponentInfo = 0x2F24;
+            public static readonly int oUnitComponentInfo = 0x2F1C;
             public static readonly int oUCIProperties = 0x1C;
             public static readonly int oUnitBoundingRadius = 0x454;
         };
 
         internal static class EngineStruct
         {
-            public static readonly int OGameTime = 0x34FF228; //F3 0F 11 05 ? ? ? ? 8B 49
-            public static readonly int oZoomClass = 0x34FF1CC;
+            public static readonly int OGameTime = 0x34F22F0; //F3 0F 11 05 ? ? ? ? 8B 49
+            public static readonly int oZoomClass = 0x34F21F0;
             internal struct Functions
             {
-                public static readonly int OGetAttackCastDelay = 0x2A1D50;
+                public static readonly int OGetAttackCastDelay = 0x002a6090;
                 public static readonly int OIsObjectType = 0x171280; //51 56 57 8B F9 33 D2 0F B6 47 58
 
                 public static readonly int oUnderMouseObject = 0x1C0A160;
@@ -120,7 +120,7 @@ namespace InvictusSharp.Framework.UpdateService
 
         internal static class SpellBook
         {
-            public static readonly int Instance = 0x26E8;
+            public static readonly int Instance = 0x2B60;
         }
 
         internal static class SpellStructs
@@ -153,7 +153,7 @@ namespace InvictusSharp.Framework.UpdateService
 
             internal static class SpellCastInfo //Or ActiveSpellEntry
             {
-                public const int SpellInfoInstance = 0x20; //  spellbook + offset
+                public const int SpellInfoInstance = 0x458; // 0x20  spellbook + offset
 
                 public const int SpellSlot = 0x0C;
                 public const int MissileIndex = 0x14;

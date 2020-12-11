@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.UpdateService;
 using InvictusSharp.Structures.GameEngine;
@@ -54,17 +55,27 @@ namespace InvictusSharp.Hacks.TargetSelector
                 range = Engine.GetLocalObject().GetAttackRange();
 
             var lowestHPTarget = 0;
-
-            for (var i = 0; i < enemyList.Count; i++)
-                // Logger.Log("HEALTH: " + enemyList[i].GetHealth(), Logger.eLoggerType.Debug);
-                if (enemyList[i].IsInRange(range))
-                    if (enemyList[i].IsAlive() && enemyList[i].IsVisible() && enemyList[i].IsTargetable())
+            foreach (var enemy in enemyList)
+            {
+                if (enemy.IsInRange(range))
+                {
+                    if (enemy.IsAlive())
                     {
-                        if (lowestHPTarget == 0) lowestHPTarget = enemyList[i];
-
-                        if (enemyList[i].GetHealth() < lowestHPTarget.GetHealth())
-                            lowestHPTarget = enemyList[i];
+                        if (enemy.IsVisible())
+                        {
+                            if (enemy.IsTargetable())
+                            {
+                                if (lowestHPTarget == 0)
+                                    lowestHPTarget = enemy;
+                                else if(lowestHPTarget.GetHealth() < enemy.GetHealth())
+                                {
+                                    lowestHPTarget = enemy;
+                                }
+                            }
+                        }
                     }
+                }
+            } 
 
             return lowestHPTarget;
         }

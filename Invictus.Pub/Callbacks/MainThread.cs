@@ -11,6 +11,7 @@ using InvictusSharp.Hacks.Orbwalker;
 using InvictusSharp.Hacks.Prediction.Prediction;
 using InvictusSharp.Hacks.TargetSelector;
 using InvictusSharp.LogService;
+using InvictusSharp.Modules.Champion_Modules;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 using InvictusSharp.Structures.Spell_Structure;
@@ -28,13 +29,10 @@ namespace InvictusSharp.Callbacks
             {
                 while (Engine.GetLocalObject() != 0)
                 {
-                   
-                   
                     Utils.Unload();
                     if (Utils.IsGameInForeground())
                     {
                         Orbwalker.Orbwalk(ObjectManager.GetTarget(), Properties.Settings.Default.Orbwalker_lasthitDelay);
-                       
                         if (Utils.IsKeyPressed(Keys.Space))
                         {/*
                             if (Engine.GetLocalObject().GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.W)

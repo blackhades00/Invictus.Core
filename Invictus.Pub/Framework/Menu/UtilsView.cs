@@ -17,6 +17,7 @@ namespace InvictusSharp.Framework.Menu
             InitializeComponent();
 
             this.ToggleAutoSmite.Checked = Properties.Settings.Default.ToggleAutoSmite;
+            this.ToggleAutoIgnite.Checked = Properties.Settings.Default.ToggleAutoIgnite;
         }
 
         private void ToggleAutoSmite_CheckedChanged(object sender, EventArgs e)
@@ -30,6 +31,19 @@ namespace InvictusSharp.Framework.Menu
         private void UtilsView_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void SaveSettings(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void ToggleAutoIgnite_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ToggleAutoIgnite.Checked)
+                Properties.Settings.Default.ToggleAutoIgnite = true;
+            else
+                Properties.Settings.Default.ToggleAutoIgnite = false;
         }
     }
 }

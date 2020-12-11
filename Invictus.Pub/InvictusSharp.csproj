@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>InvictusSharp</RootNamespace>
     <AssemblyName>Invictus.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -146,14 +146,21 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cryptolens.Licensing, Version=4.0.29.1, Culture=neutral, PublicKeyToken=30182975912ff1ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Cryptolens.Licensing.4.0.29\lib\net46\Cryptolens.Licensing.dll</HintPath>
+    <Reference Include="Cryptolens.Licensing, Version=4.0.30.1, Culture=neutral, PublicKeyToken=30182975912ff1ef, processorArchitecture=MSIL">
+      <HintPath>..\packages\Cryptolens.Licensing.4.0.30\lib\net45\Cryptolens.Licensing.dll</HintPath>
     </Reference>
     <Reference Include="DeviceId, Version=5.2.0.0, Culture=neutral, PublicKeyToken=f755c371b5c59c52, processorArchitecture=MSIL">
       <HintPath>..\packages\DeviceId.5.2.0\lib\net40\DeviceId.dll</HintPath>
     </Reference>
+    <Reference Include="EZInput, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EZInput.1.3.2\lib\netstandard2.0\EZInput.dll</HintPath>
+    </Reference>
     <Reference Include="FSharp.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\FSharp.Core.5.0.0\lib\netstandard2.0\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="InputInjectorNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Builds\Releases\Current\InputInjectorNet.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
@@ -422,6 +429,7 @@
     <Compile Include="Structure\GameObjects\GameObject.cs" />
     <Compile Include="Framework\Utils.cs" />
     <Compile Include="Structure\GameObjects\ObjectTypeFlag.cs" />
+    <Compile Include="Structure\GameObjects\Windup.cs" />
     <Compile Include="Structure\Spell Structure\SpellBook.cs" />
     <Compile Include="Structure\Spell Structure\SpellCastInfo.cs" />
     <Compile Include="Structure\Spell Structure\SpellClass.cs" />

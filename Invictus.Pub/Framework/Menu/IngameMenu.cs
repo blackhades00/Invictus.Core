@@ -35,6 +35,11 @@ namespace InvictusSharp.Framework.Menu
                 Dock = DockStyle.Fill
             };
 
+            var utilsView = new UtilsView()
+            {
+                Dock = DockStyle.Fill
+            };
+
             switch (Engine.GetLocalObject().GetChampionName())
             {
                 case "Vayne":
@@ -49,6 +54,7 @@ namespace InvictusSharp.Framework.Menu
             MenuBox.MenuContentPanelExport.Controls.Add(orbView);
             MenuBox.MenuContentPanelExport.Controls.Add(coreView);
             MenuBox.MenuContentPanelExport.Controls.Add(targetSelectorView);
+            MenuBox.MenuContentPanelExport.Controls.Add(utilsView);
         }
     }
 }

@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.API;
@@ -51,7 +52,15 @@ namespace InvictusSharp.Structures.GameEngine
         internal static float GetAttackDelay()
         {
             return (int) (1000.0f / GetLocalObjectAttackSpeed());
+           // return 1 / GetLocalObjectAttackSpeed() * 1000 ;
         }
+
+        internal static float GetWindupTime()
+        {
+            return (1 / GetLocalObjectAttackSpeed() * 1000) * Orbwalker.Windup;
+        }
+
+
 
         [DllImport("Invictus.ACD.dll")]
         private static extern float GetAttackCastDelay(IntPtr lolHandle, int attackCastDelayAddr, int obj);
@@ -88,55 +97,6 @@ namespace InvictusSharp.Structures.GameEngine
                 Logger.Log("Couldn't parse Bounding Radius " + e.Message, Logger.eLoggerType.Fatal);
                 throw;
             }
-        }
-
-        public static bool CanAttack()
-        {
-            /*
-            if (Player.IsCastingInterruptableSpell())
-            {
-                return false;
-            }
-            */
-            /*
-            if (Player.HasBuffOfType(BuffType.Blind) && Player.CharData.BaseSkinName != "Kalista")
-            {
-                return false;
-            }
-*/
-            if (GetLocalObject().GetChampionName() == "Graves")
-            {
-                var attackDelay = 1.0740296828d * 1000 * GetAttackDelay() - 716.2381256175d;
-                if (GetGameTimeTickCount() + GetPing() >= LastAaTick + attackDelay)
-                    // && Player.HasBuff("GravesBasicAttackAmmo1"))
-                    return true;
-
-                return false;
-            }
-
-            /*
-            if (GetLocalObject().GetChampionName() == "Jhin")
-            {
-                if (Player.HasBuff("JhinPassiveReload"))    
-                {
-                    return false;
-                }
-            }
-            */
-            return GetGameTimeTickCount() + GetPing() + Engine.GetLocalObject().GetSpellBook().GetSpellCastInfo().GetWindupTime() >= LastAaTick + GetAttackDelay();
-        }
-
-        public static bool CanMove(float extraWindup, bool disableMissileCheck = false)
-        {
-            if (Orbwalker._missileLaunched && !disableMissileCheck) return true;
-
-            var localExtraWindup = 0;
-            if (GetLocalObject().GetChampionName() ==
-                "Rengar" /*&& (Player.HasBuff("rengarqbase") || Player.HasBuff("rengarqemp"))*/) localExtraWindup = 200;
-
-            return GetLocalObject().GetChampionName().Equals("Kalista")
-                   || GetGameTimeTickCount() + GetPing() / 2
-                   >= LastAaTick + GetAttackCastDelay() * 1000 + extraWindup + localExtraWindup;
         }
     }
 }

@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -12,11 +13,16 @@ using InvictusSharp.Hacks.Features;
 using InvictusSharp.LogService;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
+using InputInjectorNet;
 
 namespace InvictusSharp.Hacks.Orbwalker
 {
+
     internal class Orbwalker
     {
+
+        public static float Windup;
+
         /// <summary>
         ///     The tick the most recent attack command was sent.
         /// </summary>
@@ -25,17 +31,7 @@ namespace InvictusSharp.Hacks.Orbwalker
         /// <summary>
         /// The tick the most recent move command was sent.
         /// </summary>
-        public static int LastMoveCommandT;
-
-        /// <summary>
-        ///     <c>true</c> if the orbwalker will attack.
-        /// </summary>
-        public static bool Attack = true;
-
-        /// <summary>
-        ///     <c>true</c> if the orbwalker will move.
-        /// </summary>
-        public static bool Move = true;
+        public static float LastMoveCommandT;
 
         /// <summary>
         ///     <c>true</c> if the orbwalker will disable the next attack.
@@ -52,51 +48,70 @@ namespace InvictusSharp.Hacks.Orbwalker
         /// </summary>
         private static int _lastTarget;
 
+        private static bool Attack = true;
+
+        private static bool Move = true;
+
+        private static Random rnd = new Random();
 
         public static void Orbwalk(
             int target,
-            float extraWindup = 90f)
+            float extraWindup = 0f)
         {
+           
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
             {
-                if (Engine.GetGameTimeTickCount() - LastAttackCommandT < 70 + Math.Min(60, Engine.GetPing())) return;
+                if (Engine.GetGameTimeTickCount() - LastAttackCommandT < 70 + Math.Min(60, Engine.GetPing())) return; //check if it works with last aa tick
 
-                try
+
+
+                if (target != 0 && CanAttack() )
                 {
-                    if (target != 0 && Engine.CanAttack() && Attack)
+
+                    if (Engine.GetLocalObject().GetChampionName() != "Kalista") _missileLaunched = false;
+
+                    var position = target.GetObj2DPos();
+                    var c = Cursor.Position;
+
+                    InjectedInputMouseInfo input = new InjectedInputMouseInfo
                     {
-                        var health = target.GetHealth();
+                        DeltaX = position.X - c.X,
+                        DeltaY = position.Y - c.Y,
+                        MouseOptions = InjectedInputMouseOptions.Move,
+                    };
 
-                        DisableNextAttack = false;
-                        
-                        if (!DisableNextAttack)
-                        {
-                            if (Engine.GetLocalObject().GetChampionName() != "Kalista") _missileLaunched = false;
 
-                            var position = target.GetObj2DPos();
-                            var c = Cursor.Position;
-                            IssueOrder(OrderType.AttackUnit, position);
-                            if (Engine.GetLocalObject().IsAutoAttacking() == false)
-                                Engine.LastAaTick = Engine.GetGameTimeTickCount() + Engine.GetPing();
-                            LastAttackCommandT = Engine.GetGameTimeTickCount();
-                            _lastTarget = target;
-                           Thread.Sleep(20);
-                            Cursor.Position = c;
-                            Attack = false;
-                            Move = true;
-                        }
-                    }
-
-                    if (Engine.CanMove(extraWindup) && Move)
+                    InputInjector.InjectMouseInput(input);
+                    InjectedInputMouseInfo input2 = new InjectedInputMouseInfo
                     {
-                        IssueMove();
-                        Attack = true;
-                    }
+                        MouseOptions = InjectedInputMouseOptions.RightDown,
+                    };
+                    InjectedInputMouseInfo input3 = new InjectedInputMouseInfo
+                    {
+                        MouseOptions = InjectedInputMouseOptions.RightUp,
+                    };
+                    InputInjector.InjectMouseInput(input2);
+                    Thread.Sleep(20);
+                    InputInjector.InjectMouseInput(input3);
+                    input.DeltaX = c.X - position.X;
+                    input.DeltaY = c.Y - position.Y;
+                    InputInjector.InjectMouseInput(input);
+
+
+                    Engine.LastAaTick = Environment.TickCount;
+                    LastMoveCommandT = Environment.TickCount + Engine.GetWindupTime();
+                    _lastTarget = target;
+
                 }
-                catch (Exception e)
+
+                if (CanMove(extraWindup))
                 {
-                    Console.WriteLine(e.ToString());
+                    IssueMove();
+                    LastMoveCommandT = Environment.TickCount + rnd.Next(50, 80);
+                    Thread.Sleep(rnd.Next(20, 50));
                 }
+
+
             }
         }
 
@@ -105,13 +120,30 @@ namespace InvictusSharp.Hacks.Orbwalker
             Engine.LastAaTick = 0;
         }
 
+
+        public static bool CanAttack()
+        {
+            return Engine.LastAaTick + Engine.GetAttackDelay() < Environment.TickCount;
+        }
+
+        public static bool CanMove(float extraWindup, bool disableMissileCheck = false)
+        {
+            if (Orbwalker._missileLaunched && !disableMissileCheck) return true;
+
+            var localExtraWindup = 0;
+            if (Engine.GetLocalObject().GetChampionName() ==
+                "Rengar" /*&& (Player.HasBuff("rengarqbase") || Player.HasBuff("rengarqemp"))*/) localExtraWindup = 200;
+
+            return LastMoveCommandT < Environment.TickCount;
+        }
+
         public static void IssueOrder(OrderType order, Point vector2D = new Point())
         {
             if (Utils.IsGameInForeground())
                 switch (order)
                 {
                     case OrderType.HoldPosition:
-                        Keyboard.SendKey((short) Keyboard.KeyBoardScanCodes.KeyS);
+                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyS);
                         break;
                     case OrderType.MoveTo:
                         if (vector2D.X == 0 && vector2D.Y == 0)
@@ -133,7 +165,9 @@ namespace InvictusSharp.Hacks.Orbwalker
                     case OrderType.AttackUnit:
                         if (vector2D.X == 0 && vector2D.Y == 0)
                         {
-                            Cursor.Position = vector2D;
+                            Mouse.MoveTo(vector2D.X, vector2D.Y);
+                            Mouse.MoveTo(vector2D.X, vector2D.Y);
+                            Mouse.MoveTo(vector2D.X, vector2D.Y);
                             NativeImport.SendKey(0x16);
                             break;
                         }
@@ -142,20 +176,18 @@ namespace InvictusSharp.Hacks.Orbwalker
                         NativeImport.SendKey(0x16);
                         break;
                     case OrderType.AutoAttack:
-                        Keyboard.SendKey((short) Keyboard.KeyBoardScanCodes.KeyOpeningBrackets);
+                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyOpeningBrackets);
                         break;
                     case OrderType.Stop:
-                        Keyboard.SendKey((short) Keyboard.KeyBoardScanCodes.KeyS);
+                        Keyboard.SendKey((short)Keyboard.KeyBoardScanCodes.KeyS);
                         break;
                 }
         }
 
         private static void IssueMove()
         {
-            Thread.Sleep(30);
-            NativeImport.SendKey(0x50);
             Mouse.MouseRightDown();
-            NativeImport.SendKey(0x50);
+
             Mouse.MouseRightUp();
         }
     }

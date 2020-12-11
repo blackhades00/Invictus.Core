@@ -11,16 +11,19 @@ using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 using InvictusSharp.Structures.Spell_Structure;
 using SharpDX;
+using Color = SharpDX.Color;
 
 namespace InvictusSharp.Hacks.Features
 {
     public class AutoSmite
     {
+        public static bool Loaded = false;
+
         private static int smiteKey = 0x0;
         private static SpellBook.SpellSlotId smiteSlot = SpellBook.SpellSlotId.Summoner2;
         internal static async void Load()
         {
-
+            Loaded = true;
 
             if (smiteKey == 0x0)
             {
@@ -67,7 +70,7 @@ namespace InvictusSharp.Hacks.Features
                                 1000
                             };
 
-                            var smiteDmg = smiteDmgArray[Engine.GetLocalObject().GetLevel() - 1];
+                            var smiteDmg = smiteDmgArray[Engine.GetLocalObject().GetLevel() + 1];
 
                             foreach (var minion in MinionManager.GetMinions(true, true).Where(minion => minion.IsNeutral() && minion.GetMaxHp() > 500f))
                             {
@@ -75,6 +78,7 @@ namespace InvictusSharp.Hacks.Features
                                 {
                                     var w2s = Renderer.WorldToScreen(minion.GetObj3DPos());
                                     var p = Cursor.Position;
+                                    DrawFactory.DrawCircleRange(minion.GetObj3DPos(), minion.GetBoundingRadius(), Color.Orange, 1.5f);
                                     Cursor.Position = new System.Drawing.Point((int)w2s.X, (int)w2s.Y);
                                     NativeImport.SendKey(smiteKey);
                                     Cursor.Position = p;

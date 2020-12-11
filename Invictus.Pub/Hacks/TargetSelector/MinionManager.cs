@@ -127,7 +127,7 @@ namespace InvictusSharp.Hacks.TargetSelector
                     if (Turret.IsVisible())
                         if (Turret.IsEnemy())
                         {
-                            if (Turret.IsAlive() && Turret.IsTargetable())
+                            if ( Turret.IsTargetable())
                                 return Turret;
 
                         }

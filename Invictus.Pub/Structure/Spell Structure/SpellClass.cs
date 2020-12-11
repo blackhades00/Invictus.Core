@@ -18,7 +18,7 @@ namespace InvictusSharp.Structures.Spell_Structure
         {
             currentSpellbookInstance = spellBookInstance;
             spell = Utils.ReadInt(
-                currentSpellbookInstance + Offsets.SpellStructs.SpellClass.SpellArray + 0x4 * (int) ID);
+                currentSpellbookInstance + 0x4 * (int) ID);
         }
 
         internal void SetSpell(SpellBook.SpellSlotId ID)

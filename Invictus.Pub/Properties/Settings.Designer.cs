@@ -121,7 +121,7 @@ namespace InvictusSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DrawRecallTracker {
             get {
                 return ((bool)(this["DrawRecallTracker"]));
@@ -157,7 +157,7 @@ namespace InvictusSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool DrawZoomHack {
             get {
                 return ((bool)(this["DrawZoomHack"]));
@@ -169,13 +169,25 @@ namespace InvictusSharp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool ToggleAutoSmite {
             get {
                 return ((bool)(this["ToggleAutoSmite"]));
             }
             set {
                 this["ToggleAutoSmite"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ToggleAutoIgnite {
+            get {
+                return ((bool)(this["ToggleAutoIgnite"]));
+            }
+            set {
+                this["ToggleAutoIgnite"] = value;
             }
         }
     }
