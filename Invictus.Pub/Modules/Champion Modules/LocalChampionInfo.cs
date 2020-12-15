@@ -1,6 +1,9 @@
-﻿using InvictusSharp.Structures.AI_Manager;
+﻿using InvictusSharp.Hacks.Drawings;
+using InvictusSharp.Structures.AI_Manager;
+using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 using InvictusSharp.Structures.Spell_Structure;
+using SharpDX;
 
 namespace InvictusSharp.Modules.Champion_Modules
 {
@@ -35,5 +38,22 @@ namespace InvictusSharp.Modules.Champion_Modules
         /// AI Manager Instance of LocalPlayer.
         /// </summary>
         internal static AiManager AiManager = GameObject.Me.GetAiManger();
+
+        /// <summary>
+        /// Returns the LocalPlayer 3D Position.
+        /// </summary>
+        internal static Vector3 GamePosition = Engine.GetLocalObject().GetObj3DPos();
+
+        /// <summary>
+        /// Returns the LocalPlayers 2D Position.
+        /// </summary>
+        internal static SharpDX.Point Position
+        {
+            get
+            {
+                var w2s = Renderer.WorldToScreen(Engine.GetLocalObject().GetObj3DPos());
+                return new Point((int)w2s.X, (int)w2s.Y);
+            }
+        }
     }
 }

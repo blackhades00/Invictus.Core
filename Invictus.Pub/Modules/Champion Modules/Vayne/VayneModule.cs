@@ -1,48 +1,50 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
+using InvictusSharp.Callbacks;
 using InvictusSharp.Framework;
+using InvictusSharp.Hacks.Drawings;
 using InvictusSharp.Hacks.Orbwalker;
+using InvictusSharp.LogService;
 using InvictusSharp.Structures.GameEngine;
+using InvictusSharp.Structures.GameObjects;
 using InvictusSharp.Structures.Spell_Structure;
+using SharpDX;
+using Color = SharpDX.Color;
 
 namespace InvictusSharp.Modules.Champion_Modules.Vayne
 {
-    internal class VayneModule : IChampionModule<VayneModule>
+    internal class VayneModule : IChampionModule
     {
-        private IChampionModule<VayneModule> _championInterface;
-
-        internal void Init()
+        private static IChampionModule module;
+        void IChampionModule.Init()
         {
-            _championInterface = new VayneModule();
-            Load();
+            module = new VayneModule();
+            module.OnDraw();
         }
 
-        void IChampionModule<VayneModule>.QLogic()
+
+        void IChampionModule.Combo()
         {
-          
-              
+
         }
 
-        void IChampionModule<VayneModule>.WLogic()
-        {
-        }
-
-        void IChampionModule<VayneModule>.ELogic()
+        void IChampionModule.Farm()
         {
         }
 
-        void IChampionModule<VayneModule>.RLogic()
+        void IChampionModule.JungleClear()
         {
         }
 
-        internal async void Load()
+        void IChampionModule.OnDraw()
         {
-            await Task.Run(() =>
-            {
-                while (true)
-                    if (Utils.IsKeyPressed(Keys.Space))
-                        _championInterface.QLogic();
-            });
+            DrawFactory.DrawCircleRange(Engine.GetLocalObject().GetObj3DPos(), Engine.GetLocalObject().GetBoundingRadius(), Color.Orange, 1.5f);
+        }
+
+        void IChampionModule.OnTick()
+        {
+
         }
     }
 }

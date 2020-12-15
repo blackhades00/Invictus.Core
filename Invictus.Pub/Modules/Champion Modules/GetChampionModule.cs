@@ -7,15 +7,16 @@ namespace InvictusSharp.Modules.Champion_Modules
 {
     public class GetChampionModule
     {
+        internal static IChampionModule champModule = null;
+
         internal static void LoadChampionModule()
         {
             var champName = Engine.GetLocalObject().GetChampionName();
-
             switch (champName)
             {
                 case "Vayne":
-                    var vayneModule = new VayneModule();
-                    vayneModule.Init();
+                    champModule = new VayneModule();
+                    champModule.Init();
                     break;
 
                 default:

@@ -29,7 +29,6 @@ namespace InvictusSharp
 
         public static void LoadCore()
         {
-            MessageBox.Show("TESTSTE");
             // AntiDebugService.StartAntiDbgService();
             if (!Riot.Equals("Wv*'B-H~00Xr{x_IYfIaXv4;PD{!~%_v-(M.UKgYcbKf&O8vT8kT_IG<ELoRt6"))
             {
@@ -56,8 +55,8 @@ namespace InvictusSharp
                 Orbwalker.Windup = Windup.windupDict[Engine.GetLocalObject().GetChampionName()];
                 MinionManager.PushStructureLists();
 
+                GetChampionModule.LoadChampionModule();
                 await Task.Run(() => MainThread.MainLoop());
-                // GetChampionModule.LoadChampionModule();
 
                 if (Engine.GetLocalObject().GetSpellBook()
                     .GetSpellClassInstance(SpellBook.SpellSlotId.Summoner2).GetSpellInfo().GetSpellName()

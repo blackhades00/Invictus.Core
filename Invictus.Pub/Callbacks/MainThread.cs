@@ -52,6 +52,10 @@ namespace InvictusSharp.Callbacks
                               
                             }
                           */
+                            if (GetChampionModule.champModule != null)
+                            {
+                                GetChampionModule.champModule.OnTick();
+                            }
                         }
                         
 

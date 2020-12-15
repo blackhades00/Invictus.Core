@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using InvictusSharp.Framework;
 using InvictusSharp.Hacks.Drawings;
 using InvictusSharp.Hacks.Features;
+using InvictusSharp.Modules.Champion_Modules;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 using SharpDX;
@@ -38,6 +39,8 @@ namespace InvictusSharp.Callbacks
                 if (AutoSmite.Loaded && Utils.IsKeyPressed(Keys.Y))
                     Draw.DrawSmite();
 
+                if(GetChampionModule.champModule != null)
+                    GetChampionModule.champModule.OnDraw();
             }
         }
     }
