@@ -3,9 +3,11 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.UpdateService;
+using InvictusSharp.LogService;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 
@@ -31,16 +33,23 @@ namespace InvictusSharp.Hacks.TargetSelector
         internal static readonly List<int> enemyList = new List<int>();
 
         /// <summary>
+        /// Static list which contains all allys.
+        /// </summary>
+        internal static readonly List<int> allyList = new List<int>();
+
+        /// <summary>
         /// Pushes all Heroes in their specified collection. Function should be called upon gamestart.
         /// </summary>
-        internal static void PushHeroList()
+        internal void PushHeroList()
         {
             for (int i = 0; i < heroList_size; i++)
             {
                 int obj = Utils.ReadInt(heroList + i * 0x4);
 
-                if(obj.IsEnemy())
+                if (obj.IsEnemy())
                     enemyList.Add(obj);
+                else if (obj != Engine.GetLocalObject())
+                    allyList.Add(obj);
             }
         }
 
@@ -49,7 +58,7 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// The Object is valid for a attack, which means its in range and a valid target/succeeded on a validation check.
         /// </summary>
         /// <returns></returns>
-        internal static int GetLowestHPTarget(float range = 0f)
+        internal int GetLowestHPTarget(float range = 0f)
         {
             if (range == 0f)
                 range = Engine.GetLocalObject().GetAttackRange();
@@ -67,7 +76,7 @@ namespace InvictusSharp.Hacks.TargetSelector
                             {
                                 if (lowestHPTarget == 0)
                                     lowestHPTarget = enemy;
-                                else if(lowestHPTarget.GetHealth() < enemy.GetHealth())
+                                else if (lowestHPTarget.GetHealth() < enemy.GetHealth())
                                 {
                                     lowestHPTarget = enemy;
                                 }
@@ -75,12 +84,33 @@ namespace InvictusSharp.Hacks.TargetSelector
                         }
                     }
                 }
-            } 
+            }
 
             return lowestHPTarget;
         }
 
-        internal static int GetClosestTarget()
+        /// <summary>
+        /// Returns all allies in range.
+        /// </summary>
+        /// <returns></returns>
+        internal List<int> GetAlliesInRange(float range)
+        {
+            List<int> alliesInRange = new List<int>();
+            foreach (var ally in allyList.Where(ally => ally.IsAlive()))
+            {
+                if (ally.IsInRange(range))
+                {
+                    alliesInRange.Add(ally);
+                }
+                   
+            }
+
+            return alliesInRange;
+        }
+
+
+
+        internal int GetClosestTarget()
         {
             var closestTarget = 0;
 

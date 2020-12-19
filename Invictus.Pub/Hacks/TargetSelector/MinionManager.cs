@@ -7,6 +7,7 @@ using System.Linq;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.UpdateService;
 using InvictusSharp.Hacks.Prediction;
+using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 
 namespace InvictusSharp.Hacks.TargetSelector
@@ -25,8 +26,11 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// <param name="isEnemy"> set to true if only enemy minions should be filtered.</param>
         /// <param name="inRange"> set to true if only minions in range should be filtered.</param>
         /// <returns></returns>
-        internal static List<int> GetMinions(bool isEnemy, bool inRange)
+        internal List<int> GetMinions(bool isEnemy, bool inRange, float range = 0f)
         {
+            if (range == 0f)
+                range = Engine.GetLocalObject().GetAttackRange();
+
             int minionList_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
 
             int minionList = Utils.ReadInt(minionList_PrePtr + 0x4);
@@ -58,7 +62,7 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// Gets the lasthit target using the <see cref="GetMinions"/> function.
         /// </summary>
         /// <returns></returns>
-        internal static int GetLasthitTarget()
+        internal int GetLasthitTarget()
         {
             foreach (var minion in GetMinions(true, true))
             {
@@ -74,13 +78,13 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// Gets the waveclear target using the <see cref="GetMinions"/> function.
         /// </summary>
         /// <returns></returns>
-        internal static int GetWaveclearTarget()
+        internal int GetWaveclearTarget(float range = 0f)
         {
             var target = 0;
             if (GetEnemyStructuresInRange() != 0)
                 return GetEnemyStructuresInRange();
 
-            foreach (var minion in GetMinions(true, true))
+            foreach (var minion in GetMinions(true, true, range).Where(minion => minion.GetMaxHp() > 5f))
             {
 
                 if (minion.IsLasthitable())
@@ -118,19 +122,17 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// Gets all Enemy Turrets in attack range. Turrets are targetable.
         /// </summary>
         /// <returns></returns>
-        internal static int GetEnemyStructuresInRange()
+        internal int GetEnemyStructuresInRange()
         {
             foreach (var Turret in TurretList)
             {
                 if (Turret.IsInRange())
                 {
-                    if (Turret.IsVisible())
-                        if (Turret.IsEnemy())
-                        {
-                            if ( Turret.IsTargetable())
-                                return Turret;
-
-                        }
+                    if (Turret.IsEnemy() && Turret.GetHealth() > 0.0f)
+                    {
+                        if (Turret.IsTargetable())
+                            return Turret;
+                    }
                 }
             }
 
@@ -138,13 +140,12 @@ namespace InvictusSharp.Hacks.TargetSelector
             {
                 if (Inhib.IsInRange())
                 {
-                    if (Inhib.IsVisible())
-                        if (Inhib.IsEnemy())
-                        {
-                            if (Inhib.IsAlive() && Inhib.IsTargetable())
-                                return Inhib;
+                    if (Inhib.IsEnemy())
+                    {
+                        if (Inhib.GetHealth() > 0.0f && Inhib.IsTargetable())
+                            return Inhib;
 
-                        }
+                    }
                 }
             }
 
@@ -154,7 +155,7 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// <summary>
         /// Pushes all Turrets into the <see cref="TurretList"/>.
         /// </summary>
-        internal static void PushStructureLists()
+        internal void PushStructureLists()
         {
 
             for (int i = 0; i < turretList_size; i++)

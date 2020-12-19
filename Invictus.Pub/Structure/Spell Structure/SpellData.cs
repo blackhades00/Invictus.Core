@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using InvictusSharp.Framework;
 using InvictusSharp.Framework.UpdateService;
+using SharpDX;
 
 namespace InvictusSharp.Structures.Spell_Structure
 {
@@ -17,7 +18,8 @@ namespace InvictusSharp.Structures.Spell_Structure
 
         internal String GetSpellName()
         {
-            return Utils.ReadString(this.SpellDataInstance + Offsets.SpellStructs.SpellData.MissileName, Encoding.ASCII);
+            var spellname = Utils.ReadInt(this.SpellDataInstance + Offsets.SpellStructs.SpellData.SpellName);
+            return Utils.ReadString(spellname, Encoding.ASCII);
         }
 
         internal float GetCoefficient1()
@@ -28,6 +30,11 @@ namespace InvictusSharp.Structures.Spell_Structure
         internal float GetMissileSpeed()
         {
             return Utils.ReadFloat(this.SpellDataInstance + Offsets.SpellStructs.SpellData.SpellSpeed); //or 0x410 idk
+        }
+
+        internal float GetSpellWidth()
+        {
+            return Utils.ReadFloat(this.SpellDataInstance + Offsets.SpellStructs.SpellData.SpellWidth);
         }
 
     }

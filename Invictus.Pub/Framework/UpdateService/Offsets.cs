@@ -74,6 +74,8 @@ namespace InvictusSharp.Framework.UpdateService
             public static readonly int OObjVisibility = 0x270;
             public static readonly int OIsTargetable = 0xD00;
             public static readonly int OObjHealth = 0xD98;
+            public static readonly int oObjMana = 0x298;
+            public static readonly int oObjMaxMana = 0x2A8;
             public static readonly int OObjMaxHealth = 0xDA8;
             public static readonly int oObjArmor = 0x1278;
             public static readonly int OObjChampionName = 0x310C;
@@ -104,7 +106,7 @@ namespace InvictusSharp.Framework.UpdateService
 
         internal static class AIManager
         {
-            public static readonly int OAiManager = 0x2FF8;//0x16DB60;
+            public static readonly int OAiManager = 0x16E220;//0x2FF8;//0x16DB60;
 
             public static readonly int OVelocity = 0x2C8;
             public static readonly int NavBegin = 0x1BC;
@@ -127,8 +129,6 @@ namespace InvictusSharp.Framework.UpdateService
         {
             internal static class SpellClass
             {
-                public const int SpellArray = 0x478;
-
                 public const int Level = 0x20;
                 public const int Cooldown = 0x78;
                 public const int CooldownExpire = 0x28;
@@ -139,6 +139,7 @@ namespace InvictusSharp.Framework.UpdateService
 
             internal static class SpellData
             {
+
                 public static readonly int SpellDataInstance = 0x44; //SpellCastInfoInstance + SpellDataInstance Offset
 
                 public static readonly int MissileName = 0x58;
@@ -147,18 +148,22 @@ namespace InvictusSharp.Framework.UpdateService
                 public static readonly int Coefficient2 = 0x1D8;
                 public static readonly int MaxHighlightTargets = 0x1DC;
                 public static readonly int DelayCastOffsetPercent = 0x26C;
-                public static readonly int SpellSpeed = 0x424;
+                public static readonly int SpellSpeed = 0x428;
+                public static readonly int SpellWidth = 0x45C;
 
             }
 
             internal static class SpellCastInfo //Or ActiveSpellEntry
             {
-                public const int SpellInfoInstance = 0x458; // 0x20  spellbook + offset
+                public static readonly int SpellInfoPtr = 0x8;
+                public const int ActiveSpellEntryPtr = 0x2708; // 0x20  spellbook + offset
 
-                public const int SpellSlot = 0x0C;
+                public const int SpellSlot = 0xC;
                 public const int MissileIndex = 0x14;
                 public const int CasterName = 0x20;
+                public const int CasterIndex = 0x6C;
                 public const int SpellStartPos = 0x80;
+                public const int SpellCastPos = 0x98;
                 public const int SpellEndPos = 0x8c;
 
                 public const int oActiveSpellTargetIndex = 0xc0;
@@ -168,8 +173,8 @@ namespace InvictusSharp.Framework.UpdateService
                 public const int IsAutoAttack = 0xBC;
                 public const int IsSpecialAttack = 0x4E1;
                 public const int ManaCost = 0x4f0;
-                public const int CastStartTime = 0x10;
-                public const int CastEndTime = 0x528;
+                public const int CastStartTime = 0x544;
+                public const int CastEndTime = 0x530;
             }
 
             internal static class MissileClient

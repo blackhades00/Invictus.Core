@@ -33,20 +33,6 @@ namespace InvictusSharp.Structures.Spell_Structure
         }
 
 
-        /// <summary>
-        /// Returns a SpellCastInfo instance of the current SpellBook instance.
-        /// SpellCastInfo contains all the data of the CURRENTLY casting spell/missile.
-        /// </summary>
-        /// <returns></returns>
-        internal SpellCastInfo GetSpellCastInfo()
-        {
-            var spellCastInfoInstance =
-                Utils.ReadInt(spellbookInstance + Offsets.SpellStructs.SpellCastInfo.SpellInfoInstance);
-
-            return new SpellCastInfo(spellCastInfoInstance);
-        }
-
-
         public static void CastSpell(int hardwareScanCode)
         {
             NativeImport.SendKey(hardwareScanCode);

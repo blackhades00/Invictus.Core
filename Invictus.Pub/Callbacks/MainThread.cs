@@ -15,6 +15,7 @@ using InvictusSharp.Modules.Champion_Modules;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 using InvictusSharp.Structures.Spell_Structure;
+using Microsoft.VisualBasic.Logging;
 using SharpDX;
 
 namespace InvictusSharp.Callbacks
@@ -27,37 +28,26 @@ namespace InvictusSharp.Callbacks
             Utils.SetZoom();
             await Task.Run(() =>
             {
+                Orbwalker orbwalker = new Orbwalker();
+                ObjectManager objManager = new ObjectManager();
+
                 while (Engine.GetLocalObject() != 0)
                 {
                     Utils.Unload();
                     if (Utils.IsGameInForeground())
                     {
-                        Orbwalker.Orbwalk(ObjectManager.GetTarget(), Properties.Settings.Default.Orbwalker_lasthitDelay);
-                        if (Utils.IsKeyPressed(Keys.Space))
-                        {/*
-                            if (Engine.GetLocalObject().GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.W)
-                                .IsSpellReady())
-                            {
-                                var target = HeroManager.GetLowestHPTarget(3300f);
-                                Logger.Log("" + target.GetChampionName(), Logger.eLoggerType.Debug);
-                                var predict = SkillPrediction.GetLinePrediction(target, 3300f, 1750f, 0.4f);
-                                if (predict != Vector2.Zero && target != 0)
-                                {
-                                    var p = Cursor.Position;
-                                    Cursor.Position = new System.Drawing.Point((int)predict.X, (int)predict.Y);
-                                    NativeImport.SendKey(0x11);
-                                    Cursor.Position = p;
-                                }
+                        // var test = Engine.GetLocalObject().GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q).GetCharges();//
+                        // Logger.Log(""+test,Logger.eLoggerType.Debug);
 
-                              
-                            }
-                          */
-                            if (GetChampionModule.champModule != null)
-                            {
-                                GetChampionModule.champModule.OnTick();
-                            }
-                        }
                         
+                        orbwalker.Orbwalk(objManager.GetTarget(), Properties.Settings.Default.Orbwalker_lasthitDelay);
+
+                        if (GetChampionModule.champModule != null)
+                        {
+                            GetChampionModule.champModule.OnTick();
+                        }
+
+
 
                     }
 

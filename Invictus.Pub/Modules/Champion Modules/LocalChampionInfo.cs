@@ -37,17 +37,17 @@ namespace InvictusSharp.Modules.Champion_Modules
         /// <summary>
         /// AI Manager Instance of LocalPlayer.
         /// </summary>
-        internal static AiManager AiManager = GameObject.Me.GetAiManger();
+        internal AiManager AiManager = GameObject.Me.GetAiManger();
 
         /// <summary>
         /// Returns the LocalPlayer 3D Position.
         /// </summary>
-        internal static Vector3 GamePosition = Engine.GetLocalObject().GetObj3DPos();
+        internal Vector3 GamePosition = Engine.GetLocalObject().GetObj3DPos();
 
         /// <summary>
         /// Returns the LocalPlayers 2D Position.
         /// </summary>
-        internal static SharpDX.Point Position
+        internal SharpDX.Point Position
         {
             get
             {
@@ -55,5 +55,16 @@ namespace InvictusSharp.Modules.Champion_Modules
                 return new Point((int)w2s.X, (int)w2s.Y);
             }
         }
+
+        /// <summary>
+        /// Returns current Mana of LocalPlayer.
+        /// </summary>
+        internal float CurrentMana = Engine.GetLocalObject().GetMana();
+
+        /// <summary>
+        /// Returns max mana of LocalPlayer.
+        /// </summary>
+        internal float MaxMana = Engine.GetLocalObject().GetMaxMana();
+
     }
 }

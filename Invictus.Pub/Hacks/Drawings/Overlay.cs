@@ -51,7 +51,8 @@ namespace InvictusSharp.Hacks.Drawings
 
                 DrawFactory.Device.BeginScene();
 
-                OnDraw.LoadCallback();
+                OnDraw ondraw_callback = new OnDraw();
+                ondraw_callback.LoadCallback();
 
                 DrawFactory.Device.EndScene();
                 DrawFactory.Device.Present();
@@ -61,7 +62,7 @@ namespace InvictusSharp.Hacks.Drawings
         internal void OnLoad()
         {
             NativeImport.SetWindowLong(Handle, DrawFactory.GWL_EXSTYLE,
-                (IntPtr) (NativeImport.GetWindowLong(Handle, DrawFactory.GWL_EXSTYLE) ^ DrawFactory.WS_EX_LAYERED ^
+                (IntPtr)(NativeImport.GetWindowLong(Handle, DrawFactory.GWL_EXSTYLE) ^ DrawFactory.WS_EX_LAYERED ^
                           DrawFactory.WS_EX_TRANSPARENT));
 
             NativeImport.SetLayeredWindowAttributes(Handle, 0, 255, DrawFactory.LWA_ALPHA);

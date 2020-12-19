@@ -7,21 +7,24 @@ namespace InvictusSharp.Hacks.TargetSelector
     {
         private static int ObjManager = Utils.ReadInt(Offsets.Base + Offsets.ObjectManager.oObjManager);
 
-        internal static int GetTarget()
+        internal int GetTarget()
         {
+            HeroManager heroManager = new HeroManager();
+            MinionManager minionManager = new MinionManager();
+
             if (Utils.IsKeyPressed(System.Windows.Forms.Keys.X))
-                return MinionManager.GetLasthitTarget();
+                return minionManager.GetLasthitTarget();
 
             if (Utils.IsKeyPressed(System.Windows.Forms.Keys.V))
-                return MinionManager.GetWaveclearTarget();
+                return minionManager.GetWaveclearTarget();
 
             switch (Properties.Settings.Default.TargetSelector_Mode)
             {
                 case "LowestHPTarget":
-                    return HeroManager.GetLowestHPTarget();
+                    return heroManager.GetLowestHPTarget();
 
                 case "ClosestTarget":
-                    return HeroManager.GetClosestTarget();
+                    return heroManager.GetClosestTarget();
             }
 
 

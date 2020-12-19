@@ -419,10 +419,12 @@
     <Compile Include="LogService\DebugConsole.cs" />
     <Compile Include="Framework\UpdateService\Offsets.cs" />
     <Compile Include="LogService\Logger.cs" />
+    <Compile Include="Modules\Champion Modules\KogMaw\KogMawModule.cs" />
     <Compile Include="Modules\Champion Modules\LocalChampionInfo.cs" />
     <Compile Include="Modules\Champion Modules\GetChampionModule.cs" />
     <Compile Include="Modules\Champion Modules\IChampionModule.cs" />
-    <Compile Include="Modules\Champion Modules\Vayne\AntiGapCloser.cs" />
+    <Compile Include="Modules\Champion Modules\Sona\SonaModule.cs" />
+    <Compile Include="Modules\Champion Modules\Twitch\TwitchModule.cs" />
     <Compile Include="Modules\Champion Modules\Vayne\VayneModule.cs" />
     <Compile Include="Structure\AI Manager\AIManager.cs" />
     <Compile Include="Structure\GameEngine\Engine.cs" />

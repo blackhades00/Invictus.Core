@@ -20,21 +20,14 @@ namespace InvictusSharp.Modules.Champion_Modules.Vayne
         void IChampionModule.Init()
         {
             module = new VayneModule();
+            module.OnStart();
+            module.OnUpdate();
             module.OnDraw();
         }
 
-
-        void IChampionModule.Combo()
+        void IChampionModule.OnStart()
         {
-
-        }
-
-        void IChampionModule.Farm()
-        {
-        }
-
-        void IChampionModule.JungleClear()
-        {
+            Logger.Log("Vayne Loaded",Logger.eLoggerType.Info);
         }
 
         void IChampionModule.OnDraw()
@@ -44,7 +37,20 @@ namespace InvictusSharp.Modules.Champion_Modules.Vayne
 
         void IChampionModule.OnTick()
         {
+        }
 
+        async void IChampionModule.OnUpdate()
+        {
+            await Task.Run(() =>
+            {
+                while (true)
+                {
+                   if(LocalChampionInfo.QInstance.GetCharges() == 0)
+                       Logger.Log("TEST",Logger.eLoggerType.Debug);
+                      
+                }
+            });
+           
         }
     }
 }

@@ -41,7 +41,7 @@ namespace InvictusSharp.Hacks.Features
                     {
                         int igniteDmg = 50 + 20 * Engine.GetLocalObject().GetLevel();
 
-                        foreach (var enemy in HeroManager.enemyList.Where(enemy => enemy.IsInRange(600f) && enemy.IsAlive() && enemy.IsTargetable()))
+                        foreach (var enemy in HeroManager.enemyList.Where(enemy => enemy.IsInRange(600f) && enemy.IsAlive() && enemy.IsTargetable() && enemy.IsVisible() ))
                         {
                             if (enemy.GetHealth() < igniteDmg)
                             {

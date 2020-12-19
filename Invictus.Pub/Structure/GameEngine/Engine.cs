@@ -49,19 +49,6 @@ namespace InvictusSharp.Structures.GameEngine
         }
 
 
-        internal static float GetAttackDelay()
-        {
-            return (int) (1000.0f / GetLocalObjectAttackSpeed());
-           // return 1 / GetLocalObjectAttackSpeed() * 1000 ;
-        }
-
-        internal static float GetWindupTime()
-        {
-            return (1 / GetLocalObjectAttackSpeed() * 1000) * Orbwalker.Windup;
-        }
-
-
-
         [DllImport("Invictus.ACD.dll")]
         private static extern float GetAttackCastDelay(IntPtr lolHandle, int attackCastDelayAddr, int obj);
 

@@ -54,7 +54,8 @@ namespace InvictusSharp.Structures.GameObjects
 
         internal static bool IsWard(this int obj)
         {
-            return obj.GetName().Contains("ward");
+            return obj.GetName().Contains("SightWard") || obj.GetName().Contains("JammerDevice") || obj.GetName().Contains("Ward") || obj.GetName().Contains("Perks_GhostPoro_VisionRing") 
+                || obj.GetName().Contains("FiddleSticksEffigy");
         }
 
 
@@ -68,12 +69,22 @@ namespace InvictusSharp.Structures.GameObjects
 
         internal static bool IsAutoAttacking(this int obj)
         {
-            return obj.GetSpellBook().GetSpellCastInfo().IsAutoAttack();
+            return obj.GetSpellCastInfo().IsAutoAttack();
         }
 
         internal static float GetHealth(this int obj)
         {
             return Utils.ReadFloat(obj + Offsets.GameObjectStruct.OObjHealth);
+        }
+
+        internal static float GetMana(this int obj)
+        {
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oObjMana);
+        }
+
+        internal static float GetMaxMana(this int obj)
+        {
+            return Utils.ReadFloat(obj + Offsets.GameObjectStruct.oObjMaxMana);
         }
 
         private static int GetTeam(this int obj)
@@ -202,6 +213,19 @@ namespace InvictusSharp.Structures.GameObjects
         internal static SpellBook GetSpellBook(this int obj)
         {
             return new SpellBook(obj);
+        }
+
+        /// <summary>
+        /// Returns a SpellCastInfo instance.
+        /// SpellCastInfo contains all the data of the CURRENTLY casting spell/missile.
+        /// </summary>
+        /// <returns></returns>
+        internal static SpellCastInfo GetSpellCastInfo(this int obj)
+        {
+            var spellCastInfoInstance =
+                Utils.ReadInt(obj + Offsets.SpellStructs.SpellCastInfo.ActiveSpellEntryPtr);
+
+            return new SpellCastInfo(spellCastInfoInstance);
         }
 
     }

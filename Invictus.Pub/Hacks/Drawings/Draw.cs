@@ -75,44 +75,21 @@ namespace InvictusSharp.Hacks.Drawings
         {
             var minionlist_PrePtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OMinionList);
             var minionList = Utils.ReadInt(minionlist_PrePtr + 0x4);
+            var minionlist_size = Utils.ReadInt(minionlist_PrePtr + 0x8);
             if (Utils.IsGameInForeground())
             {
-                var index = 0x0;
-                var obj = -1;
-                while (obj != 0)
+                for (int i = 0; i < minionlist_size; i++)
                 {
-                    obj = Utils.ReadInt(minionList + index);
-                    index += 0x4;
-
-                    if (obj == 0x00)
+                    int obj = Utils.ReadInt(minionList + i * 0x4);
+                    if (obj.IsEnemy())
                     {
-                        continue;
+                        if (obj.IsWard() && obj.GetMaxHp() < 5f)
+                        {
+                            var pos = obj.GetObj3DPos();
+                            DrawFactory.DrawCircleRange(pos, 50f, Color.Yellow, 5f, false);
+                        }
                     }
-                    else
-                    {
-                        if (obj.IsWard())
-                            if (obj.IsEnemy())
-                                if (obj.IsAlive())
-                                {
-                                    DrawFactory.DrawCircleRange(obj.GetObj3DPos(), 60f, Color.Red, 1.5f);
 
-                                    var w2SPos = obj.GetObj2DPos();
-
-                                    var objectMaxHp = obj.GetMaxHp();
-
-                                    switch (objectMaxHp)
-                                    {
-                                        case 3f:
-                                            DrawFactory.DrawFont("Ward", 30, new Point(w2SPos.X, w2SPos.Y),
-                                                Color.Yellow);
-                                            break;
-                                        case 4f:
-                                            DrawFactory.DrawFont("Control Ward", 30, new Point(w2SPos.X, w2SPos.Y),
-                                                Color.Red);
-                                            break;
-                                    }
-                                }
-                    }
                 }
             }
         }
@@ -151,12 +128,12 @@ namespace InvictusSharp.Hacks.Drawings
                 position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("Q", 30, position, Color.Green);
             }
-            else if(obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q).GetLevel() >= 1)
+            else if (obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.Q).GetLevel() >= 1)
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X;
                 position.Y = w2SPos.Y;
-                DrawFactory.DrawFont(""+cooldownTimeQ, 30, position, Color.Red);
+                DrawFactory.DrawFont("" + cooldownTimeQ, 30, position, Color.Red);
             }
 
 
@@ -167,12 +144,12 @@ namespace InvictusSharp.Hacks.Drawings
                 position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("W", 30, position, Color.Green);
             }
-            else if(obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.W).GetLevel() >= 1)
+            else if (obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.W).GetLevel() >= 1)
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 20;
                 position.Y = w2SPos.Y;
-                DrawFactory.DrawFont(""+cooldownTimeW, 30, position, Color.Red);
+                DrawFactory.DrawFont("" + cooldownTimeW, 30, position, Color.Red);
             }
 
 
@@ -183,12 +160,12 @@ namespace InvictusSharp.Hacks.Drawings
                 position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("E", 30, position, Color.Green);
             }
-            else if(obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.E).GetLevel() >= 1)
+            else if (obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.E).GetLevel() >= 1)
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 40;
                 position.Y = w2SPos.Y;
-                DrawFactory.DrawFont(""+cooldownTimeE, 30, position, Color.Red);
+                DrawFactory.DrawFont("" + cooldownTimeE, 30, position, Color.Red);
             }
 
 
@@ -199,12 +176,12 @@ namespace InvictusSharp.Hacks.Drawings
                 position.Y = w2SPos.Y;
                 DrawFactory.DrawFont("R", 30, position, Color.Green);
             }
-            else if(obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.R).GetLevel() >= 1)
+            else if (obj.GetSpellBook().GetSpellClassInstance(SpellBook.SpellSlotId.R).GetLevel() >= 1)
             {
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 60;
                 position.Y = w2SPos.Y;
-                DrawFactory.DrawFont(""+cooldownTimeR, 30, position, Color.Red);
+                DrawFactory.DrawFont("" + cooldownTimeR, 30, position, Color.Red);
             }
 
             if (cooldownSumm1)
@@ -219,7 +196,7 @@ namespace InvictusSharp.Hacks.Drawings
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X;
                 position.Y = w2SPos.Y + 20;
-                DrawFactory.DrawFont(""+cooldownTimeSumm1/60, 30, position, Color.Red);
+                DrawFactory.DrawFont("" + cooldownTimeSumm1 / 60, 30, position, Color.Red);
             }
 
 
@@ -235,7 +212,7 @@ namespace InvictusSharp.Hacks.Drawings
                 var w2SPos = obj.GetObj2DPos();
                 position.X = w2SPos.X + 20;
                 position.Y = w2SPos.Y + 20;
-                DrawFactory.DrawFont(""+cooldownTimeSumm2/60, 30, position, Color.Red);
+                DrawFactory.DrawFont("" + cooldownTimeSumm2 / 60, 30, position, Color.Red);
             }
 
         }
@@ -267,7 +244,7 @@ namespace InvictusSharp.Hacks.Drawings
                         pos.Y = Screen.PrimaryScreen.WorkingArea.Top + 650 + i * 10;
                         DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName() + " is Recalling", 50, pos, Color.White);
                     }
-             
+
                 }
 
         }
@@ -279,9 +256,15 @@ namespace InvictusSharp.Hacks.Drawings
                 var w2s = Renderer.WorldToScreen(HeroManager.enemyList[i].GetObj3DPos());
                 if (!HeroManager.enemyList[i].IsVisible())
                 {
-                    DrawFactory.DrawBox(w2s.X - 30f, w2s.Y - 60f, 50f, 80f, Color.Aqua);
-                    Draw.DrawCooldown(HeroManager.enemyList[i]);
-                    DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName(), 50, new Point((int)w2s.X, (int)w2s.Y), Color.Aqua);
+                    int obj = HeroManager.enemyList[i];
+                    DrawFactory.DrawBox(w2s.X - 30f, w2s.Y - 60f, 50f, 80f, Color.Orange);
+                    Draw.DrawCooldown(obj);
+                    DrawFactory.DrawFont(HeroManager.enemyList[i].GetChampionName(), 10, new Point((int)w2s.X, (int)w2s.Y - 30), Color.White);
+
+                    int currHp = (int)obj.GetHealth();
+                    int maxHp = (int)obj.GetMaxHp();
+                    DrawFactory.DrawFont("" + currHp + "/" + maxHp, 50, new Point((int)w2s.X, (int)w2s.Y - 50), Color.Green);
+
                 }
 
             }

@@ -50,6 +50,7 @@ namespace InvictusSharp.Hacks.Features
                         {
                             int[] smiteDmgArray =
                             {
+                                0,
                                 390,
                                 410,
                                 430,
@@ -70,9 +71,11 @@ namespace InvictusSharp.Hacks.Features
                                 1000
                             };
 
-                            var smiteDmg = smiteDmgArray[Engine.GetLocalObject().GetLevel() + 1];
+                            var smiteDmg = smiteDmgArray[Engine.GetLocalObject().GetLevel()];
 
-                            foreach (var minion in MinionManager.GetMinions(true, true).Where(minion => minion.IsNeutral() && minion.GetMaxHp() > 500f))
+                            MinionManager minionManager = new MinionManager();
+
+                            foreach (var minion in minionManager.GetMinions(true, true).Where(minion => minion.IsNeutral() && minion.GetMaxHp() > 500f))
                             {
                                 if (minion.GetHealth() < smiteDmg)
                                 {

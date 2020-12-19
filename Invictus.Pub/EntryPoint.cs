@@ -47,13 +47,15 @@ namespace InvictusSharp
 
             try
             {
+                HeroManager heroManager = new HeroManager();
+                MinionManager minionManager = new MinionManager();
+
                 Offsets.Base = Offsets.GetBase();
                 Offsets.ProcessHandle = Offsets.GetLeagueHandle();
                 GameObject.Me = Engine.GetLocalObject();
+                heroManager.PushHeroList();
 
-                HeroManager.PushHeroList();
-                Orbwalker.Windup = Windup.windupDict[Engine.GetLocalObject().GetChampionName()];
-                MinionManager.PushStructureLists();
+                minionManager.PushStructureLists();
 
                 GetChampionModule.LoadChampionModule();
                 await Task.Run(() => MainThread.MainLoop());

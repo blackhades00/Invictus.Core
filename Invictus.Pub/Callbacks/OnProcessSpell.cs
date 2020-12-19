@@ -8,6 +8,7 @@ using InvictusSharp.Hacks.TargetSelector;
 using InvictusSharp.LogService;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
+using InvictusSharp.Structures.Spell_Structure;
 
 namespace InvictusSharp.Callbacks
 {
@@ -17,12 +18,25 @@ namespace InvictusSharp.Callbacks
         /// All current active Minion Missiles.
         /// </summary>
         /// <returns></returns>
-        internal static List<int> GetActiveMinionAttacks()
+        internal static List<SpellCastInfo> GetActiveMinionAttacks()
         {
-            List<int> activeAttacks = new List<int>();
-            foreach (var minion in MinionManager.GetMinions(false,true).Where(minion => minion.IsAutoAttacking()))
+            MinionManager minionManager = new MinionManager();
+            List<SpellCastInfo> activeAttacks = new List<SpellCastInfo>();
+            foreach (var minion in minionManager.GetMinions(false,true).Where(minion => minion.IsAutoAttacking()))
             {
-                activeAttacks.Add(minion.GetSpellBook().GetSpellCastInfo().GetMissileIndex());
+                activeAttacks.Add(minion.GetSpellCastInfo());
+            }
+
+            return activeAttacks;
+        }
+
+        internal static List<SpellCastInfo> GetActiveSpells()
+        {
+            List<SpellCastInfo> activeAttacks = new List<SpellCastInfo>();
+            foreach (var enemy in HeroManager.enemyList)
+            {
+                if(!enemy.IsAutoAttacking())
+                activeAttacks.Add(enemy.GetSpellCastInfo());
             }
 
             return activeAttacks;

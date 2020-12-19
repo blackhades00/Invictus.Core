@@ -36,13 +36,13 @@ namespace InvictusSharp.Hacks.Prediction
             {
                 var attackDamage = 0f;
                 var attackTick = 0f;
-                if (attack.GetNetworkID() == obj.GetNetworkID())
+                if (attack.GetMissileIndex().GetNetworkID() == obj.GetNetworkID())
                 {
-                    attackTick = attack.GetSpellBook().GetSpellCastInfo().GetCastStartTime();
-                    var landtime = attackTick + 1000 * Math.Max(0, Vector3.Distance(obj.GetObj3DPos(), attack.GetSpellBook().GetSpellCastInfo().GetSpellStartPos()) - obj.GetBoundingRadius())+ delay;
+                    attackTick = attack.GetCastStartTime();
+                    var landtime = attackTick + 1000 * Math.Max(0, Vector3.Distance(obj.GetObj3DPos(), attack.GetSpellStartPos()) - obj.GetBoundingRadius()) / attack.GetSpellInfo().GetSpellData().GetMissileSpeed() + delay;
                     if (landtime < Engine.GetGameTimeTickCount() + t)
                     {
-                        attackDamage = attack.GetTotalAd();
+                        attackDamage = attack.GetMissileIndex().GetTotalAd();
                     }
 
                 }
@@ -63,22 +63,23 @@ namespace InvictusSharp.Hacks.Prediction
                 // Add this stuff https://github.com/LeagueSharp/LeagueSharp.Common/blob/master/Orbwalking.cs#L1361
                 var n = 0;
                 var startTick = Environment.TickCount;
-                if(Engine.GetGameTimeTickCount() - 100 <= startTick + attack.GetSpellBook().GetSpellCastInfo().GetWindupTime() && attack.GetNetworkID() == unit.GetNetworkID())
+                if(Engine.GetGameTimeTickCount() - 100 <= startTick + attack.GetWindupTime() && attack.GetMissileIndex().GetNetworkID() == unit.GetNetworkID())
                 {
                     var fromT = Environment.TickCount;
                     var toT = Engine.GetGameTimeTickCount() + time;
 
                     while(fromT < toT)
                     {
-                        if(fromT >= Engine.GetGameTimeTickCount() && (fromT + attack.GetSpellBook().GetSpellCastInfo().GetWindupTime()
-                            + Math.Max(0, Vector3.Distance(unit.GetObj3DPos(), attack.GetSpellBook().GetSpellCastInfo().GetSpellStartPos()) - 65) <toT))
+                        if(fromT >= Engine.GetGameTimeTickCount() && (fromT + attack.GetWindupTime()
+                            + Math.Max(0, Vector3.Distance(unit.GetObj3DPos(), attack.GetSpellStartPos()) - 65) <toT))
                         {
                             n++;
                         }
-                        fromT += (int)attack.GetSpellBook().GetSpellCastInfo().GetWindupTime();
+                        fromT += (int)attack.GetWindupTime();
                     }
                 }
-                predictedDmg += n * attack.GetTotalAd();
+
+                predictedDmg += n * attack.GetMissileIndex().GetTotalAd();
             }
 
             return unit.GetHealth() - predictedDmg;
