@@ -18,14 +18,6 @@ namespace InvictusSharp.Hacks.TargetSelector
     /// </summary>
     internal class HeroManager
     {
-        /// <summary>
-        /// Returns the static heroList_firstPtr. Contains all active Heroes within a game. Objects must be checked for invalidity or deletion though.
-        /// </summary>
-        private static readonly int heroList_pretPtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OHeroList);
-
-        private static readonly int heroList = Utils.ReadInt(heroList_pretPtr + 0x4);
-
-        private static readonly int heroList_size = Utils.ReadInt(heroList_pretPtr + 0x8);
 
         /// <summary>
         /// Static list which contains all enemys.
@@ -42,6 +34,11 @@ namespace InvictusSharp.Hacks.TargetSelector
         /// </summary>
         internal void PushHeroList()
         {
+            int heroList_pretPtr = Utils.ReadInt(Offsets.Base + Offsets.StaticLists.OHeroList);
+
+            int heroList = Utils.ReadInt(heroList_pretPtr + 0x4);
+
+            int heroList_size = Utils.ReadInt(heroList_pretPtr + 0x8);
             for (int i = 0; i < heroList_size; i++)
             {
                 int obj = Utils.ReadInt(heroList + i * 0x4);
@@ -102,7 +99,7 @@ namespace InvictusSharp.Hacks.TargetSelector
                 {
                     alliesInRange.Add(ally);
                 }
-                   
+
             }
 
             return alliesInRange;

@@ -45,12 +45,12 @@ namespace InvictusSharp.Modules.Champion_Modules.Vayne
             {
                 while (true)
                 {
-                   if(LocalChampionInfo.QInstance.GetCharges() == 0)
-                       Logger.Log("TEST",Logger.eLoggerType.Debug);
+                  // if(LocalChampionInfo.QInstance.GetCharges() == 0)
+                   //    Logger.Log("TEST",Logger.eLoggerType.Debug);
                       
                 }
             });
-           
+           //
         }
     }
 }

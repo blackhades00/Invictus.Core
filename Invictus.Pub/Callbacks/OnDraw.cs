@@ -26,11 +26,11 @@ namespace InvictusSharp.Callbacks
         // All drawings here!
         public void LoadCallback()
         {
-            Draw.DrawMenu();
-            if (Utils.IsGameInForeground())
+ 
+            if (Utils.IsGameInForeground() && Engine.GetLocalObject() != 0)
             {
                 Draw.DrawWatermark();
-
+                Draw.DrawMenu();
                 if (Properties.Settings.Default.DrawAttackRange)
                     Draw.DrawAttackRange(Engine.GetLocalObject(), Color.White);
 

@@ -254,7 +254,7 @@ namespace InvictusSharp.Hacks.Drawings
             for (int i = 0; i < HeroManager.enemyList.Count; i++)
             {
                 var w2s = Renderer.WorldToScreen(HeroManager.enemyList[i].GetObj3DPos());
-                if (!HeroManager.enemyList[i].IsVisible())
+                if (!HeroManager.enemyList[i].IsVisible() && HeroManager.enemyList[i].GetAiManger().IsMoving())
                 {
                     int obj = HeroManager.enemyList[i];
                     DrawFactory.DrawBox(w2s.X - 30f, w2s.Y - 60f, 50f, 80f, Color.Orange);

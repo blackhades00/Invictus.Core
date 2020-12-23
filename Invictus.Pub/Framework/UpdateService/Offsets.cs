@@ -20,15 +20,13 @@ namespace InvictusSharp.Framework.UpdateService
             int dwSize,
             out IntPtr lpNumberOfBytesRead);
 
-        private static Process[] TargetProcess = Process.GetProcessesByName("League of Legends");
+        internal static Process[] TargetProcess = Process.GetProcessesByName("League of Legends");
         internal static int Base { get; set; }
         internal static IntPtr ProcessHandle { get; set; }
 
         internal static int GetBase()
         {
-            var Base = TargetProcess[0].MainModule.BaseAddress.ToInt32();
-
-            return Base;
+            return TargetProcess[0].MainModule.BaseAddress.ToInt32();
         }
 
         internal static IntPtr GetLeagueHandle()
@@ -106,7 +104,7 @@ namespace InvictusSharp.Framework.UpdateService
 
         internal static class AIManager
         {
-            public static readonly int OAiManager = 0x16E220;//0x2FF8;//0x16DB60;
+            public static readonly int OAiManager = 0x2FF0;//0x2FF8;//0x16DB60;
 
             public static readonly int OVelocity = 0x2C8;
             public static readonly int NavBegin = 0x1BC;

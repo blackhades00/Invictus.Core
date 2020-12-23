@@ -10,7 +10,7 @@ namespace InvictusSharp.Hacks.Prediction.Prediction
 {
     class SkillPrediction
     {
-        internal static Vector2 GetLinePrediction(int target, float range, float missilespeed, float casttime)
+        internal Vector2 GetLinePrediction(int target, float range, float missilespeed, float casttime)
         {
             if (target == 0)
                 return Vector2.Zero;

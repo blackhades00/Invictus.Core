@@ -3,6 +3,8 @@
 // </copyright>
 
 using System;
+using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InvictusSharp.Callbacks;
@@ -37,24 +39,65 @@ namespace InvictusSharp
             }
             DebugConsole.AllocConsole();
             Application.EnableVisualStyles();
-            InitialiseCore(); // Init the core, start of main functions. Call this in Loader.
+            WaitForGame(); // Waits for game instance
+        }
+
+        public static bool init = false;
+        public static bool waiting = true;
+        public static async void WaitForGame()
+        {
+            await Task.Run(() =>
+            {
+                while (true)
+                {
+                    if (Utils.IsGameInForeground() && !init) //if not initiated and game is in forground
+                    {
+                        Offsets.TargetProcess = Process.GetProcessesByName("League of Legends");
+                        if (Offsets.GetBase() != 0)
+                        {
+                            Offsets.Base = Offsets.GetBase();
+                            Offsets.ProcessHandle = Offsets.GetLeagueHandle();
+                            if (Engine.GetLocalObject() != 0) //If I am Ingame and LocalPlayer exists
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.WriteLine("Game found!");
+                                init = true;
+                                waiting = true;
+                                InitialiseCore();
+                            }
+                        }
+
+                    }
+                    else if (Engine.GetLocalObject() == 0) // if game is not NOT in forground and localObject doesnt exist, init is false.
+                    {
+                        init = false;
+                        if (waiting)
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine("Waiting for Game...");
+                        }
+                        
+                        waiting = false;
+                    }
+                }
+            });
         }
 
         internal static async void InitialiseCore()
         {
-            Logger.Log("Initiating Vault7...", Logger.eLoggerType.Info);
-
-
             try
             {
                 HeroManager heroManager = new HeroManager();
                 MinionManager minionManager = new MinionManager();
 
-                Offsets.Base = Offsets.GetBase();
-                Offsets.ProcessHandle = Offsets.GetLeagueHandle();
                 GameObject.Me = Engine.GetLocalObject();
+
+                HeroManager.enemyList.Clear();
                 heroManager.PushHeroList();
 
+                MinionManager.InhibList.Clear();
+                MinionManager.TurretList.Clear();
                 minionManager.PushStructureLists();
 
                 GetChampionModule.LoadChampionModule();
@@ -77,8 +120,6 @@ namespace InvictusSharp
                 {
                     await Task.Run(() => AutoIgnite.Load());
                 }
-
-                Logger.Log("Welcome to the Vault", Logger.eLoggerType.Info);
                 await Task.Run(() => Overlay.Show());
             }
             catch (Exception)
