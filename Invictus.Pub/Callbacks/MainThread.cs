@@ -32,8 +32,8 @@ namespace InvictusSharp.Callbacks
             {
                 Orbwalker orbwalker = new Orbwalker();
                 ObjectManager objManager = new ObjectManager();
-             //   SkillPrediction sp = new SkillPrediction();
-              //  HeroManager hm = new HeroManager();
+                SkillPrediction sp = new SkillPrediction();
+                HeroManager hm = new HeroManager();
                 while (Engine.GetLocalObject() != 0 && EntryPoint.init)
                 {
                   //  var test = Engine.GetLocalObject().GetAiManger().IsMoving();
@@ -41,7 +41,7 @@ namespace InvictusSharp.Callbacks
                     Utils.Unload();
                     if (Utils.IsGameInForeground())
                     {
-
+                       
                         orbwalker.Orbwalk(objManager.GetTarget(), Properties.Settings.Default.Orbwalker_lasthitDelay);
 
                         /*

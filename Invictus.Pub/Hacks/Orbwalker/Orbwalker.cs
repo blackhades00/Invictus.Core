@@ -14,6 +14,8 @@ using InvictusSharp.LogService;
 using InvictusSharp.Structures.GameEngine;
 using InvictusSharp.Structures.GameObjects;
 using InputInjectorNet;
+using InvictusSharp.Hacks.Drawings;
+using Color = SharpDX.Color;
 
 namespace InvictusSharp.Hacks.Orbwalker
 {
@@ -64,6 +66,7 @@ namespace InvictusSharp.Hacks.Orbwalker
             float extraWindup = 0f)
         {
 
+           
             if (Utils.IsKeyPressed(Keys.Space) || Utils.IsKeyPressed(Keys.X) || Utils.IsKeyPressed(Keys.V))
             {
                 // if (Engine.GetGameTimeTickCount() - LastAttackCommandT < 70 + Math.Min(60, Engine.GetPing())) return; //check if it works with last aa tick
@@ -77,7 +80,7 @@ namespace InvictusSharp.Hacks.Orbwalker
 
                     var position = target.GetObj2DPos();
                     var c = Cursor.Position;
-
+                   
                     InjectedInputMouseInfo input = new InjectedInputMouseInfo
                     {
                         DeltaX = position.X - c.X,
